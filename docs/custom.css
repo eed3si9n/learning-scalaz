@@ -1,0 +1,20 @@
+/* floating image */
+
+  div.floatingimage {
+    float: left;
+    margin: 0px 20px 20px 0px;
+  }
+
+  div.floatingimage img {
+    margin: 0px;
+  }
+
+  div.credit {
+    color: #909090;
+    font-family: arial, helvetica, sans-serif;
+    font-size: 0.6em;
+    margin: 0px;
+    padding: 0px;
+    line-height: 0.6em;
+    text-align: right;
+  }
