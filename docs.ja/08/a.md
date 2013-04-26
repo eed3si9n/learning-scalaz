@@ -1,6 +1,6 @@
---
+---
 out: Some-useful-monadic-functions.html
---
+---
 
 ### 便利なモナディック関数特集
 
