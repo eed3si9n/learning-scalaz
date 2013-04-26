@@ -10,7 +10,7 @@ scala> implicitly[Enum[Char]].min
 res43: Option[Char] = Some(?)
 
 scala> implicitly[Enum[Char]].max
-res44: Option[Char] = Some(￿)
+res44: Option[Char] = Some( )
 
 scala> implicitly[Enum[Double]].max
 res45: Option[Double] = Some(1.7976931348623157E308)
