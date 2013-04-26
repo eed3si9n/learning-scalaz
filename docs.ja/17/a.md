@@ -41,7 +41,7 @@ import IO._
 scala> val action1 = for {
          _ <- putStrLn("Hello, world!")
        } yield ()
-action1: scalaz.effect.IO[Unit] = scalaz.effect.IOFunctions$$anon$4@149f6f65
+action1: scalaz.effect.IO[Unit] = scalaz.effect.IOFunctions\$\$anon\$4@149f6f65
 
 scala> action1.unsafePerformIO
 Hello, world!
@@ -79,7 +79,7 @@ scala> val action2 = IO {
          val source = scala.io.Source.fromFile("./README.md")
          source.getLines.toStream
        }
-action2: scalaz.effect.IO[scala.collection.immutable.Stream[String]] = scalaz.effect.IOFunctions$$anon$4@bab4387
+action2: scalaz.effect.IO[scala.collection.immutable.Stream[String]] = scalaz.effect.IOFunctions\$\$anon\$4@bab4387
 
 scala> action2.unsafePerformIO.toList
 res57: List[String] = List(# Scalaz, "", Scalaz is a Scala library for functional programming., "", It provides purely functional data structures to complement those from the Scala standard library., ...

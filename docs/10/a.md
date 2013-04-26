@@ -126,7 +126,7 @@ defined type alias Config
 scala> val pop = StateTReaderTOption[Config, Stack, Int] {
          case x :: xs => (xs, x)
        }
-pop: scalaz.StateT[[+X]scalaz.Kleisli[Option,Config,X],Stack,Int] = StateTReaderTOption$$anon$1@122313eb
+pop: scalaz.StateT[[+X]scalaz.Kleisli[Option,Config,X],Stack,Int] = StateTReaderTOption\$\$anon\$1@122313eb
 ```
 
 Since I wrote `get` and `put` we should be able to write it using `for` syntax as well:
@@ -140,7 +140,7 @@ scala> val pop: StateTReaderTOption[Config, Stack, Int] = {
            _ <- put(xs)
          } yield x
        }
-pop: StateTReaderTOption[Config,Stack,Int] = scalaz.StateT$$anon$7@7eb316d2
+pop: StateTReaderTOption[Config,Stack,Int] = scalaz.StateT\$\$anon\$7@7eb316d2
 ```
 
 Here's `push`:

@@ -53,10 +53,10 @@ data (m ⊠ n) a = Prod {pfst ::m a,psnd :: n a}
 これは合成に関しても言えることだ。`scalaz-seven` ブランチからブランチする:
 
 ```
-$ git co scalaz-seven
+\$ git co scalaz-seven
 Already on 'scalaz-seven'
-$ git branch topic/appcompose
-$ git co topic/appcompose
+\$ git branch topic/appcompose
+\$ git co topic/appcompose
 Switched to branch 'topic/appcompose'
 ```
 

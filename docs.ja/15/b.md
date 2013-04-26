@@ -12,7 +12,7 @@ scala> Applicative[Function1[Int, Int]]
                           ^
 
 scala> Applicative[({type l[A]=Function1[Int, A]})#l]
-res14: scalaz.Applicative[[A]Int => A] = scalaz.std.FunctionInstances$$anon$2@56ae78ac
+res14: scalaz.Applicative[[A]Int => A] = scalaz.std.FunctionInstances\$\$anon\$2@56ae78ac
 ```
 
 これは `Validation` のような `M[_,_]` で面倒になる。Scalaz が手伝ってくれる 1つの方法として [`Unapply`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Unapply.scala) というメタインスタンスがある。
@@ -34,14 +34,14 @@ trait Unapply[TC[_[_]], MA] {
 
 ```scala
 scala> implicitly[Unapply[Applicative, Function1[Int, Int]]]
-res15: scalaz.Unapply[scalaz.Applicative,Int => Int] = scalaz.Unapply_0$$anon$9@2e86566f
+res15: scalaz.Unapply[scalaz.Applicative,Int => Int] = scalaz.Unapply_0\$\$anon\$9@2e86566f
 ```
 
 僕が昨日追加したのは型 `A` に偽の型コンストラクタをつけて `M[A]` に昇進させる方法だ。これによって `Int` を `Applicative` として扱いやすくなる。だけど、`TC0: TC[({type λ[α] = A0})#λ]` を暗黙に要請するから、どの型でも `Applicative` に昇進できるというわけではない。
 
 ```scala
 scala> implicitly[Unapply[Applicative, Int]]
-res0: scalaz.Unapply[scalaz.Applicative,Int] = scalaz.Unapply_3$$anon$1@5179dc20
+res0: scalaz.Unapply[scalaz.Applicative,Int] = scalaz.Unapply_3\$\$anon\$1@5179dc20
 
 scala> implicitly[Unapply[Applicative, Any]]
 <console>:14: error: Unable to unapply type `Any` into a type constructor of kind `M[_]` that is classified by the type class `scalaz.Applicative`

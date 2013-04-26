@@ -122,7 +122,7 @@ Zipper のデータ構造は一般的に穴を表現する。現在フォーカ�
 
 ```scala
 scala> freeTree.loc
-res0: scalaz.TreeLoc[Char] = scalaz.TreeLocFunctions$$anon$2@6439ca7b
+res0: scalaz.TreeLoc[Char] = scalaz.TreeLocFunctions\$\$anon\$2@6439ca7b
 ```
 
 `TreeLoc` はフォーカスを移動するのに DOM API のような様々なメソッドを実装する:
@@ -156,7 +156,7 @@ sealed trait TreeLoc[A] {
 
 ```scala
 scala> freeTree.loc.getChild(2) >>= {_.getChild(1)}
-res8: Option[scalaz.TreeLoc[Char]] = Some(scalaz.TreeLocFunctions$$anon$2@417ef051)
+res8: Option[scalaz.TreeLoc[Char]] = Some(scalaz.TreeLocFunctions\$\$anon\$2@417ef051)
 
 scala> freeTree.loc.getChild(2) >>= {_.getChild(1)} >>= {_.getLabel.some}
 res9: Option[Char] = Some(W)
@@ -177,7 +177,7 @@ res9: Option[Char] = Some(W)
 
 ```scala
 scala> val newFocus = freeTree.loc.getChild(2) >>= {_.getChild(1)} >>= {_.modifyLabel({_ => 'P'}).some}
-newFocus: Option[scalaz.TreeLoc[Char]] = Some(scalaz.TreeLocFunctions$$anon$2@107a26d0)
+newFocus: Option[scalaz.TreeLoc[Char]] = Some(scalaz.TreeLocFunctions\$\$anon\$2@107a26d0)
 ```
 
 `newFocus` から木を再構築するには `toTree` メソッドを呼ぶだけでいい:

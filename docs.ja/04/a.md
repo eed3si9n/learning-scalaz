@@ -69,7 +69,7 @@ initialCommands in console in Test := "import scalaz._, Scalaz._, scalacheck.Sca
 通常の `sbt console` のかわりに、`sbt test:console` を実行する:
 
 ```scala
-$ sbt test:console
+\$ sbt test:console
 [info] Starting scala interpreter...
 [info] 
 import scalaz._
@@ -118,7 +118,7 @@ defined trait COption
 defined class CSome
 defined module CNone
 coptionEqual: [A]=> scalaz.Equal[COption[A]]
-coptionFunctor: scalaz.Functor[COption] = $anon$1@42538425
+coptionFunctor: scalaz.Functor[COption] = \$anon\$1@42538425
 
 scala> (CSome(0, "ho"): COption[String]) map {(_: String) + "ha"}
 res4: COption[String] = CSome(1,hoha)

@@ -121,7 +121,7 @@ A zipper data structure represents a hole. We have the current focus represented
 
 ```scala
 scala> freeTree.loc
-res0: scalaz.TreeLoc[Char] = scalaz.TreeLocFunctions$$anon$2@6439ca7b
+res0: scalaz.TreeLoc[Char] = scalaz.TreeLocFunctions\$\$anon\$2@6439ca7b
 ```
 
 `TreeLoc` implements various methods to move the focus around, similar to DOM API:
@@ -155,7 +155,7 @@ To move focus to `W` of `freeTree`, we can write something like:
 
 ```scala
 scala> freeTree.loc.getChild(2) >>= {_.getChild(1)}
-res8: Option[scalaz.TreeLoc[Char]] = Some(scalaz.TreeLocFunctions$$anon$2@417ef051)
+res8: Option[scalaz.TreeLoc[Char]] = Some(scalaz.TreeLocFunctions\$\$anon\$2@417ef051)
 
 scala> freeTree.loc.getChild(2) >>= {_.getChild(1)} >>= {_.getLabel.some}
 res9: Option[Char] = Some(W)
@@ -176,7 +176,7 @@ So let's modify the label to `'P'`:
 
 ```scala
 scala> val newFocus = freeTree.loc.getChild(2) >>= {_.getChild(1)} >>= {_.modifyLabel({_ => 'P'}).some}
-newFocus: Option[scalaz.TreeLoc[Char]] = Some(scalaz.TreeLocFunctions$$anon$2@107a26d0)
+newFocus: Option[scalaz.TreeLoc[Char]] = Some(scalaz.TreeLocFunctions\$\$anon\$2@107a26d0)
 ```
 
 To reconstruct a new tree from `newFocus` we just call `toTree` method:

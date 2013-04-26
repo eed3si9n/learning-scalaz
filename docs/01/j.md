@@ -50,7 +50,7 @@ scala> implicit val intCanTruthy: CanTruthy[Int] = CanTruthy.truthys({
          case 0 => false
          case _ => true
        })
-intCanTruthy: CanTruthy[Int] = CanTruthy$$anon$1@71780051
+intCanTruthy: CanTruthy[Int] = CanTruthy\$\$anon\$1@71780051
 
 scala> 10.truthy
 res6: Boolean = true
@@ -77,7 +77,7 @@ It looks like we need to treat `Nil` specially because of the nonvariance.
 
 ```scala
 scala> implicit val nilCanTruthy: CanTruthy[scala.collection.immutable.Nil.type] = CanTruthy.truthys(_ => false)
-nilCanTruthy: CanTruthy[collection.immutable.Nil.type] = CanTruthy$$anon$1@1e5f0fd7
+nilCanTruthy: CanTruthy[collection.immutable.Nil.type] = CanTruthy\$\$anon\$1@1e5f0fd7
 
 scala> Nil.truthy
 res8: Boolean = false
@@ -87,7 +87,7 @@ And for `Boolean` using `identity`:
 
 ```scala
 scala> implicit val booleanCanTruthy: CanTruthy[Boolean] = CanTruthy.truthys(identity)
-booleanCanTruthy: CanTruthy[Boolean] = CanTruthy$$anon$1@334b4cb
+booleanCanTruthy: CanTruthy[Boolean] = CanTruthy\$\$anon\$1@334b4cb
 
 scala> false.truthy
 res11: Boolean = false
@@ -109,7 +109,7 @@ def truthyIf[A: CanTruthy, B, C](cond: A)(ifyes: => B)(ifno: => C) =
 
 // Exiting paste mode, now interpreting.
 
-truthyIf: [A, B, C](cond: A)(ifyes: => B)(ifno: => C)(implicit evidence$1: CanTruthy[A])Any
+truthyIf: [A, B, C](cond: A)(ifyes: => B)(ifno: => C)(implicit evidence\$1: CanTruthy[A])Any
 ```
 
 Here's how we can use it:

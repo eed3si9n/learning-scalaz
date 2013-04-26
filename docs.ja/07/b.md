@@ -76,7 +76,7 @@ trait StateT[F[+_], S, +A] { self =>
 
 ```scala
 scala> State[List[Int], Int] { case x :: xs => (xs, x) }
-res1: scalaz.State[List[Int],Int] = scalaz.package$State$$anon$1@19f58949
+res1: scalaz.State[List[Int],Int] = scalaz.package\$State\$\$anon\$1@19f58949
 ```
 
 スタックを `State` を使って実装してみよう:
@@ -176,7 +176,7 @@ scala> val pop: State[Stack, Int] = for {
          val (x :: xs) = s
          _ <- put(xs)
        } yield x
-pop: scalaz.State[Stack,Int] = scalaz.StateT$$anon$7@40014da3
+pop: scalaz.State[Stack,Int] = scalaz.StateT\$\$anon\$7@40014da3
 
 scala> def push(x: Int): State[Stack, Unit] = for {
          xs <- get[Stack]

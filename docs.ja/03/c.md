@@ -145,7 +145,7 @@ LYAHFGG:
 
 > さて、数をモノイドにする2つの方法は、どちらも素晴らしく優劣つけがたいように思えます。一体どちらを選べまよいのでしょう？実は、1つだけ選ぶ必要はないのです。
 
-これが Scalaz 7 での Tagged type の出番だ。最初から定義済みのタグは [Tags](http://halcat0x15a.github.com/scalaz/core/target/scala-2.9.2/api/#scalaz.Tags$) にある。8つのタグが Monoid 用で、1つ `Zip` という名前のタグが `Applicative` 用にある。(もしかしてこれが昨日見つけられなかった Zip List?)
+これが Scalaz 7 での Tagged type の出番だ。最初から定義済みのタグは [Tags](http://halcat0x15a.github.com/scalaz/core/target/scala-2.9.2/api/#scalaz.Tags\$) にある。8つのタグが Monoid 用で、1つ `Zip` という名前のタグが `Applicative` 用にある。(もしかしてこれが昨日見つけられなかった Zip List?)
 
 ```scala
 scala> Tags.Multiplication(10) |+| Monoid[Int @@ Tags.Multiplication].zero

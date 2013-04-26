@@ -76,7 +76,7 @@ type Enumerator[E] = EnumeratorT[E, Id]
 Let's try implementing the counter example from EBIOI. For that we switch to `iteratee` project using sbt:
 
 ```scala
-$ sbt
+\$ sbt
 scalaz> project iteratee
 scalaz-iteratee> console
 [info] Starting scala interpreter...
@@ -179,7 +179,7 @@ scala> import java.io._
 import java.io._
 
 scala> enumReader[IO](new BufferedReader(new FileReader("./README.md")))
-res0: scalaz.iteratee.EnumeratorT[scalaz.effect.IoExceptionOr[Char],scalaz.effect.IO] = scalaz.iteratee.EnumeratorTFunctions$$anon$14@548ace66
+res0: scalaz.iteratee.EnumeratorT[scalaz.effect.IoExceptionOr[Char],scalaz.effect.IO] = scalaz.iteratee.EnumeratorTFunctions\$\$anon\$14@548ace66
 ```
 
 To get the first character, we can run `head[Char, IO]` as follows:
@@ -210,7 +210,7 @@ There are some more interesting examples in [`IterateeUsage.scala`](https://gith
 
 ```scala
 scala> val readLn = takeWhile[Char, List](_ != '\n') flatMap (ln => drop[Char, Id](1).map(_ => ln))
-readLn: scalaz.iteratee.IterateeT[Char,scalaz.Id.Id,List[Char]] = scalaz.iteratee.IterateeTFunctions$$anon$9@560ff23d
+readLn: scalaz.iteratee.IterateeT[Char,scalaz.Id.Id,List[Char]] = scalaz.iteratee.IterateeTFunctions\$\$anon\$9@560ff23d
 
 scala> (readLn &= enumStream("Iteratees\nare\ncomposable".toStream)).run
 res67: scalaz.Id.Id[List[Char]] = List(I, t, e, r, a, t, e, e, s)

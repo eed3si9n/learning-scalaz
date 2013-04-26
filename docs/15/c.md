@@ -50,10 +50,10 @@ data (m ⊠ n) a = Prod {pfst ::m a,psnd :: n a}
 This could also be true for composition too. Let's branch from `scalaz-seven` branch:
 
 ```
-$ git co scalaz-seven
+\$ git co scalaz-seven
 Already on 'scalaz-seven'
-$ git branch topic/appcompose
-$ git co topic/appcompose
+\$ git branch topic/appcompose
+\$ git co topic/appcompose
 Switched to branch 'topic/appcompose'
 ```
 

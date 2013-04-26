@@ -68,7 +68,7 @@ Oh man, LYAHFGG came to the same conclusion as I did about the function composit
 ```haskell
 ghci> fmap (*3) (+100) 1
 303
-ghci> (*3) . (+100) $ 1  
+ghci> (*3) . (+100) \$ 1  
 303 
 ```
 

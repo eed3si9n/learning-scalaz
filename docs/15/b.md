@@ -12,7 +12,7 @@ scala> Applicative[Function1[Int, Int]]
                           ^
 
 scala> Applicative[({type l[A]=Function1[Int, A]})#l]
-res14: scalaz.Applicative[[A]Int => A] = scalaz.std.FunctionInstances$$anon$2@56ae78ac
+res14: scalaz.Applicative[[A]Int => A] = scalaz.std.FunctionInstances\$\$anon\$2@56ae78ac
 ```
 
 This becomes annoying for `M[_,_]` like `Validation`. One of the way Scalaz helps you out is to provide meta-instances of typeclass instance called [`Unapply`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Unapply.scala).
@@ -34,14 +34,14 @@ When Scalaz method like `traverse` requires you to pass in `Applicative[M[_]]`, 
 
 ```scala
 scala> implicitly[Unapply[Applicative, Function1[Int, Int]]]
-res15: scalaz.Unapply[scalaz.Applicative,Int => Int] = scalaz.Unapply_0$$anon$9@2e86566f
+res15: scalaz.Unapply[scalaz.Applicative,Int => Int] = scalaz.Unapply_0\$\$anon\$9@2e86566f
 ```
 
 The feature I added yesterday allows type `A` to be promoted as `M[A]` by adding a fake type constructor. This let us treat `Int` as `Applicative` easier. But because it still requires `TC0: TC[({type λ[α] = A0})#λ]` implicitly, it does not allow just any type to be promoted as `Applicative`.
 
 ```scala
 scala> implicitly[Unapply[Applicative, Int]]
-res0: scalaz.Unapply[scalaz.Applicative,Int] = scalaz.Unapply_3$$anon$1@5179dc20
+res0: scalaz.Unapply[scalaz.Applicative,Int] = scalaz.Unapply_3\$\$anon\$1@5179dc20
 
 scala> implicitly[Unapply[Applicative, Any]]
 <console>:14: error: Unable to unapply type `Any` into a type constructor of kind `M[_]` that is classified by the type class `scalaz.Applicative`

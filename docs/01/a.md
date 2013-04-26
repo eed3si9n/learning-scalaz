@@ -26,7 +26,7 @@ initialCommands in console := "import scalaz._, Scalaz._"
 All you have to do now is open the REPL using sbt 0.12.3:
 
 ```scala
-$ sbt console
+\$ sbt console
 ...
 [info] downloading http://repo1.maven.org/maven2/org/scalaz/scalaz-core_2.10/7.0.0/scalaz-core_2.10-7.0.0.jar ...
 import scalaz._

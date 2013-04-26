@@ -133,7 +133,7 @@ scala> ^(3.some, none: Option[Int]) {_ + _}
 res60: Option[Int] = None
 ```
 
-This is actually useful because for one-function case, we no longer need to put it into the container. I am guessing that this is why Scalaz 7 does not introduce any operator from `Applicative` itself. Whatever the case, it seems like we no longer need `Pointed` or `<$>`.
+This is actually useful because for one-function case, we no longer need to put it into the container. I am guessing that this is why Scalaz 7 does not introduce any operator from `Applicative` itself. Whatever the case, it seems like we no longer need `Pointed` or `<\$>`.
 
 The new `^(f1, f2) {...}` style is not without the problem though. It doesn't seem to handle Applicatives that takes two type parameters like `Function1`, `Writer`, and `Validation`. There's another way called Applicative Builder, which apparently was the way it worked in Scalaz 6, got deprecated in M3, but will be vindicated again because of `^(f1, f2) {...}`'s issues.
 
@@ -210,7 +210,7 @@ LYAHFGG:
 ```haskell
 sequenceA :: (Applicative f) => [f a] -> f [a]  
 sequenceA [] = pure []  
-sequenceA (x:xs) = (:) <$> x <*> sequenceA xs  
+sequenceA (x:xs) = (:) <\$> x <*> sequenceA xs  
 ```
 
 Let's try implementing this in Scalaz!
@@ -220,7 +220,7 @@ scala> def sequenceA[F[_]: Applicative, A](list: List[F[A]]): F[List[A]] = list 
          case Nil     => (Nil: List[A]).point[F]
          case x :: xs => (x |@| sequenceA(xs)) {_ :: _} 
        }
-sequenceA: [F[_], A](list: List[F[A]])(implicit evidence$1: scalaz.Applicative[F])F[List[A]]
+sequenceA: [F[_], A](list: List[F[A]])(implicit evidence\$1: scalaz.Applicative[F])F[List[A]]
 ```
 
 Let's test it:

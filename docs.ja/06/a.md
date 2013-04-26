@@ -77,7 +77,7 @@ Writer が実際にどうやって作られるのかは直ぐには分からな�
 
 ```scala
 scala> 3.set("Smallish gang.")
-res46: scalaz.Writer[String,Int] = scalaz.WriterTFunctions$$anon$26@477a0c05
+res46: scalaz.Writer[String,Int] = scalaz.WriterTFunctions\$\$anon\$26@477a0c05
 ```
 
 `import Scalaz._` によって全てのデータ型に対して以下の演算子が導入される:
@@ -100,17 +100,17 @@ trait WriterV[A] extends Ops[A] {
 
 ```scala
 scala> 3.set("something")
-res57: scalaz.Writer[String,Int] = scalaz.WriterTFunctions$$anon$26@159663c3
+res57: scalaz.Writer[String,Int] = scalaz.WriterTFunctions\$\$anon\$26@159663c3
 
 scala> "something".tell
-res58: scalaz.Writer[String,Unit] = scalaz.WriterTFunctions$$anon$26@374de9cf
+res58: scalaz.Writer[String,Unit] = scalaz.WriterTFunctions\$\$anon\$26@374de9cf
 ```
 
 `return 3 :: Writer String Int` のように単位元が欲しい場合はどうすればいいだろう? `Monad[F[_]]` は型パラメータが 1つの型コンストラクタを期待するけど、`Writer[+W, +A]` は 2つある。Scalaz にある `MonadWriter` というヘルパー型を使うと簡単にモナドが得られる:
 
 ```scala
 scala> MonadWriter[Writer, String]
-res62: scalaz.MonadWriter[scalaz.Writer,String] = scalaz.WriterTInstances$$anon$1@6b8501fa
+res62: scalaz.MonadWriter[scalaz.Writer,String] = scalaz.WriterTInstances\$\$anon\$1@6b8501fa
 
 scala> MonadWriter[Writer, String].point(3).run
 res64: (String, Int) = ("",3)
@@ -179,7 +179,7 @@ scala> import std.vector._
 import std.vector._
 
 scala> Monoid[Vector[String]]
-res73: scalaz.Monoid[Vector[String]] = scalaz.std.IndexedSeqSubInstances$$anon$4@6f82f06f
+res73: scalaz.Monoid[Vector[String]] = scalaz.std.IndexedSeqSubInstances\$\$anon\$4@6f82f06f
 ```
 
 Vector を使った `gcd`:

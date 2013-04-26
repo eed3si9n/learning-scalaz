@@ -27,7 +27,7 @@ initialCommands in console := "import scalaz._, Scalaz._"
 あとは sbt 0.12.3 から REPL を開くだけだ:
 
 ```scala
-$ sbt console
+\$ sbt console
 ...
 [info] downloading http://repo1.maven.org/maven2/org/scalaz/scalaz-core_2.10/7.0.0/scalaz-core_2.10-7.0.0.jar ...
 import scalaz._

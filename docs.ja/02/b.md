@@ -133,7 +133,7 @@ scala> ^(3.some, none: Option[Int]) {_ + _}
 res60: Option[Int] = None
 ```
 
-これは 1関数の場合はいちいちコンテナに入れなくてもいいから便利そうだ。これは推測だけど、これのお陰で Scalaz 7 は `Applicative` そのものでは何も演算子を導入していないんだと思う。実際どうなのかはともかく、`Pointed` も `<$>` もいらないみたいだ。
+これは 1関数の場合はいちいちコンテナに入れなくてもいいから便利そうだ。これは推測だけど、これのお陰で Scalaz 7 は `Applicative` そのものでは何も演算子を導入していないんだと思う。実際どうなのかはともかく、`Pointed` も `<\$>` もいらないみたいだ。
 
 だけど、`^(f1, f2) {...}` スタイルに問題が無いわけではない。どうやら `Function1`、`Writer`、`Validation` のような 2つの型パラメータを取る Applicative を処理できないようだ。もう 1つ Applicative Builder という Scalaz 6 から使われていたらしい方法がある。 M3 で deprecated になったけど、`^(f1, f2) {...}` の問題のため、近い将来名誉挽回となるらしい。
 
@@ -210,7 +210,7 @@ LYAHFGG:
 ```haskell
 sequenceA :: (Applicative f) => [f a] -> f [a]  
 sequenceA [] = pure []  
-sequenceA (x:xs) = (:) <$> x <*> sequenceA xs  
+sequenceA (x:xs) = (:) <\$> x <*> sequenceA xs  
 ```
 
 これを Scalaz でも実装できるか試してみよう!
@@ -220,7 +220,7 @@ scala> def sequenceA[F[_]: Applicative, A](list: List[F[A]]): F[List[A]] = list 
          case Nil     => (Nil: List[A]).point[F]
          case x :: xs => (x |@| sequenceA(xs)) {_ :: _} 
        }
-sequenceA: [F[_], A](list: List[F[A]])(implicit evidence$1: scalaz.Applicative[F])F[List[A]]
+sequenceA: [F[_], A](list: List[F[A]])(implicit evidence\$1: scalaz.Applicative[F])F[List[A]]
 ```
 
 テストしてみよう:

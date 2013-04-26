@@ -80,7 +80,7 @@ scala> def catchy[F[_]: Functor, E1, E2](ex: => FixE[F, E1])(f: E1 => FixE[F, E2
          case Fix(x)   => Fix[F, E2](Functor[F].map(x) {catchy(_)(f)})
          case Throw(e) => f(e)
        }
-catchy: [F[_], E1, E2](ex: => FixE[F,E1])(f: E1 => FixE[F,E2])(implicit evidence$1: scalaz.Functor[F])FixE[F,E2]
+catchy: [F[_], E1, E2](ex: => FixE[F,E1])(f: E1 => FixE[F,E2])(implicit evidence\$1: scalaz.Functor[F])FixE[F,E2]
 
 scala> implicit def ToyFunctor[A1]: Functor[({type λ[α] = Toy[A1]})#λ] = new Functor[({type λ[α] = Toy[A1]})#λ] {
          def map[A, B](fa: Toy[A1])(f: A => B): Toy[A1] = fa match {
@@ -171,7 +171,7 @@ output: [A](a: A)scalaz.Free[[+α]Toy[A],Unit]
 
 scala> def liftF[F[+_]: Functor, R](command: F[R]): Free[F, R] =
          Free.Suspend[F, R](Functor[F].map(command) {Free.Return[F, R](_)})
-liftF: [F[+_], R](command: F[R])(implicit evidence$1: scalaz.Functor[F])scalaz.Free[F,R]
+liftF: [F[+_], R](command: F[R])(implicit evidence\$1: scalaz.Functor[F])scalaz.Free[F,R]
 
 scala> def output[A](a: A) = liftF[({type λ[+α] = Toy[A]})#λ, Unit](Output(a, ()))
 output: [A](a: A)scalaz.Free[[+α]Toy[A],Unit]
@@ -219,7 +219,7 @@ scala> def showProgram[A: Show, R: Show](p: Free[({type λ[+α] = Toy[A]})#λ, R
              "done\n"
          },
          { r: R => "return " + Show[R].shows(r) + "\n" }) 
-showProgram: [A, R](p: scalaz.Free[[+α]Toy[A],R])(implicit evidence$1: scalaz.Show[A], implicit evidence$2: scalaz.Show[R])String
+showProgram: [A, R](p: scalaz.Free[[+α]Toy[A],R])(implicit evidence\$1: scalaz.Show[A], implicit evidence\$2: scalaz.Show[R])String
 
 scala> showProgram(program)
 res101: String = 
@@ -233,7 +233,7 @@ pretty printer はこうなる:
 
 ```scala
 scala> def pretty[A: Show, R: Show](p: Free[({type λ[+α] = Toy[A]})#λ, R]) = print(showProgram(p))
-pretty: [A, R](p: scalaz.Free[[+α]Toy[A],R])(implicit evidence$1: scalaz.Show[A], implicit evidence$2: scalaz.Show[R])Unit
+pretty: [A, R](p: scalaz.Free[[+α]Toy[A],R])(implicit evidence\$1: scalaz.Show[A], implicit evidence\$2: scalaz.Show[R])Unit
 
 scala> pretty(output('A'))
 output A

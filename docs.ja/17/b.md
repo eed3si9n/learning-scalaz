@@ -76,7 +76,7 @@ type Enumerator[E] = EnumeratorT[E, Id]
 EBIOI のカウンターの例題を実装してみよう。sbt から `iteratee` プロジェクトに切り替える:
 
 ```scala
-$ sbt
+\$ sbt
 scalaz> project iteratee
 scalaz-iteratee> console
 [info] Starting scala interpreter...
@@ -179,7 +179,7 @@ scala> import java.io._
 import java.io._
 
 scala> enumReader[IO](new BufferedReader(new FileReader("./README.md")))
-res0: scalaz.iteratee.EnumeratorT[scalaz.effect.IoExceptionOr[Char],scalaz.effect.IO] = scalaz.iteratee.EnumeratorTFunctions$$anon$14@548ace66
+res0: scalaz.iteratee.EnumeratorT[scalaz.effect.IoExceptionOr[Char],scalaz.effect.IO] = scalaz.iteratee.EnumeratorTFunctions\$\$anon\$14@548ace66
 ```
 
 最初の文字を得るには、以下のように `head[IoExceptionOr[Char], IO]` を実行する:
@@ -210,7 +210,7 @@ res65: Int = 12731
 
 ```scala
 scala> val readLn = takeWhile[Char, List](_ != '\n') flatMap (ln => drop[Char, Id](1).map(_ => ln))
-readLn: scalaz.iteratee.IterateeT[Char,scalaz.Id.Id,List[Char]] = scalaz.iteratee.IterateeTFunctions$$anon$9@560ff23d
+readLn: scalaz.iteratee.IterateeT[Char,scalaz.Id.Id,List[Char]] = scalaz.iteratee.IterateeTFunctions\$\$anon\$9@560ff23d
 
 scala> (readLn &= enumStream("Iteratees\nare\ncomposable".toStream)).run
 res67: scalaz.Id.Id[List[Char]] = List(I, t, e, r, a, t, e, e, s)

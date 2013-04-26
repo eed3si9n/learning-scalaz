@@ -29,7 +29,7 @@ Prelude Data.List> unfoldr (\b -> if b == 0 then Nothing else Just (b, b-1)) 10
 
 ```scala
 scala> DList.unfoldr(10, { (x: Int) => if (x == 0) none else (x, x - 1).some })
-res50: scalaz.DList[Int] = scalaz.DListFunctions$$anon$3@70627153
+res50: scalaz.DList[Int] = scalaz.DListFunctions\$\$anon\$3@70627153
 
 scala> res50.toList
 res51: List[Int] = List(10, 9, 8, 7, 6, 5, 4, 3, 2, 1)
@@ -53,7 +53,7 @@ res37: List[Int] = List(10, 9, 8, 7, 6, 5, 4, 3, 2, 1)
 scala> def minimumS[A: Order](stream: Stream[A]) = stream match {
          case x #:: xs => xs.foldLeft(x) {_ min _}
        }
-minimumS: [A](stream: Stream[A])(implicit evidence$1: scalaz.Order[A])A
+minimumS: [A](stream: Stream[A])(implicit evidence\$1: scalaz.Order[A])A
 
 scala> def deleteS[A: Equal](y: A, stream: Stream[A]): Stream[A] = (y, stream) match {
          case (_, Stream()) => Stream()
@@ -61,7 +61,7 @@ scala> def deleteS[A: Equal](y: A, stream: Stream[A]): Stream[A] = (y, stream) m
            if (y === x) xs
            else x #:: deleteS(y, xs) 
        }
-deleteS: [A](y: A, stream: Stream[A])(implicit evidence$1: scalaz.Equal[A])Stream[A]
+deleteS: [A](y: A, stream: Stream[A])(implicit evidence\$1: scalaz.Equal[A])Stream[A]
 
 scala> def delmin[A: Order](stream: Stream[A]): Option[(A, Stream[A])] = stream match {
          case Stream() => none
@@ -69,10 +69,10 @@ scala> def delmin[A: Order](stream: Stream[A]): Option[(A, Stream[A])] = stream 
            val y = minimumS(xs)
            (y, deleteS(y, xs)).some
        }
-delmin: [A](stream: Stream[A])(implicit evidence$1: scalaz.Order[A])Option[(A, Stream[A])]
+delmin: [A](stream: Stream[A])(implicit evidence\$1: scalaz.Order[A])Option[(A, Stream[A])]
 
 scala> def ssort[A: Order](stream: Stream[A]): Stream[A] = unfold(stream){delmin[A]}
-ssort: [A](stream: Stream[A])(implicit evidence$1: scalaz.Order[A])Stream[A]
+ssort: [A](stream: Stream[A])(implicit evidence\$1: scalaz.Order[A])Stream[A]
 
 scala> ssort(Stream(1, 3, 4, 2)).toList
 res55: List[Int] = List(1, 2, 3, 4)

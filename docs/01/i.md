@@ -30,7 +30,7 @@ Now let's define an instance for `Equal`.
 
 ```scala
 scala> implicit val TrafficLightEqual: Equal[TrafficLight] = Equal.equal(_ == _)
-TrafficLightEqual: scalaz.Equal[TrafficLight] = scalaz.Equal$$anon$7@2457733b
+TrafficLightEqual: scalaz.Equal[TrafficLight] = scalaz.Equal\$\$anon\$7@2457733b
 ```
 
 Can I use it?
@@ -60,6 +60,6 @@ defined class TrafficLight
 red: TrafficLight = TrafficLight(red)
 yellow: TrafficLight = TrafficLight(yellow)
 green: TrafficLight = TrafficLight(green)
-TrafficLightEqual: scalaz.Equal[TrafficLight] = scalaz.Equal$$anon$7@42988fee
+TrafficLightEqual: scalaz.Equal[TrafficLight] = scalaz.Equal\$\$anon\$7@42988fee
 res3: Boolean = false
 ```

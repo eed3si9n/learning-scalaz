@@ -15,7 +15,7 @@ scala> 'a' |-> 'e'
 res31: List[Char] = List(a, b, c, d, e)
 
 scala> 3 |=> 5
-res32: scalaz.EphemeralStream[Int] = scalaz.EphemeralStreamFunctions$$anon$4@6a61c7b6
+res32: scalaz.EphemeralStream[Int] = scalaz.EphemeralStreamFunctions\$\$anon\$4@6a61c7b6
 
 scala> 'B'.succ
 res33: Char = C

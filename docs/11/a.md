@@ -138,20 +138,20 @@ scala> val turtlePosition = Lens.lensu[Turtle, Point] (
          (a, value) => a.copy(position = value),
          _.position
        )
-turtlePosition: scalaz.Lens[Turtle,Point] = scalaz.LensTFunctions$$anon$5@421dc8c8
+turtlePosition: scalaz.Lens[Turtle,Point] = scalaz.LensTFunctions\$\$anon\$5@421dc8c8
 
 scala> val pointX = Lens.lensu[Point, Double] (
          (a, value) => a.copy(x = value),
          _.x
        )
-pointX: scalaz.Lens[Point,Double] = scalaz.LensTFunctions$$anon$5@30d31cf9
+pointX: scalaz.Lens[Point,Double] = scalaz.LensTFunctions\$\$anon\$5@30d31cf9
 ```
 
 Next we can take advantage of a bunch of operators introduced in `Lens`. Similar to monadic function composition we saw in `Kleisli`, `LensT` implements `compose` (symbolic alias `<=<`), and `andThen` (symbolic alias `>=>`). I personally think `>=>` looks cool, so let's use that to define `turtleX`:
 
 ```scala
 scala> val turtleX = turtlePosition >=> pointX
-turtleX: scalaz.LensT[scalaz.Id.Id,Turtle,Double] = scalaz.LensTFunctions$$anon$5@11b35365
+turtleX: scalaz.LensT[scalaz.Id.Id,Turtle,Double] = scalaz.LensTFunctions\$\$anon\$5@11b35365
 ```
 
 The type makes sense since it's going form `Turtle` to `Double`. Using `get` method we can get the value:
@@ -199,7 +199,7 @@ That sounds like a state transition to me. In fact `Lens` and `State` I think ar
 scala> val incX = for {
          x <- turtleX %= {_ + 1.0}
        } yield x
-incX: scalaz.StateT[scalaz.Id.Id,Turtle,Double] = scalaz.StateT$$anon$7@38e61ffa
+incX: scalaz.StateT[scalaz.Id.Id,Turtle,Double] = scalaz.StateT\$\$anon\$7@38e61ffa
 
 scala> incX(t0)
 res28: (Turtle, Double) = (Turtle(Point(3.0,3.0),0.0,Color(-1,-1,-1)),3.0)
@@ -214,13 +214,13 @@ scala> val turtleHeading = Lens.lensu[Turtle, Double] (
          (a, value) => a.copy(heading = value),
          _.heading
        )
-turtleHeading: scalaz.Lens[Turtle,Double] = scalaz.LensTFunctions$$anon$5@44fdec57
+turtleHeading: scalaz.Lens[Turtle,Double] = scalaz.LensTFunctions\$\$anon\$5@44fdec57
 
 scala> val pointY = Lens.lensu[Point, Double] (
          (a, value) => a.copy(y = value),
          _.y
        )
-pointY: scalaz.Lens[Point,Double] = scalaz.LensTFunctions$$anon$5@ddede8c
+pointY: scalaz.Lens[Point,Double] = scalaz.LensTFunctions\$\$anon\$5@ddede8c
 
 scala> val turtleY = turtlePosition >=> pointY
 ```

@@ -77,7 +77,7 @@ It wasn't immediately obvious to me how a writer is actually created at first, b
 
 ```scala
 scala> 3.set("Smallish gang.")
-res46: scalaz.Writer[String,Int] = scalaz.WriterTFunctions$$anon$26@477a0c05
+res46: scalaz.Writer[String,Int] = scalaz.WriterTFunctions\$\$anon\$26@477a0c05
 ```
 
 The following operators are supported by all data types enabled by `import Scalaz._`:
@@ -100,17 +100,17 @@ The above methods are injected to all types so we can use them to create Writers
 
 ```scala
 scala> 3.set("something")
-res57: scalaz.Writer[String,Int] = scalaz.WriterTFunctions$$anon$26@159663c3
+res57: scalaz.Writer[String,Int] = scalaz.WriterTFunctions\$\$anon\$26@159663c3
 
 scala> "something".tell
-res58: scalaz.Writer[String,Unit] = scalaz.WriterTFunctions$$anon$26@374de9cf
+res58: scalaz.Writer[String,Unit] = scalaz.WriterTFunctions\$\$anon\$26@374de9cf
 ```
 
 What if we want to get the identity value like `return 3 :: Writer String Int`? `Monad[F[_]]` expects a type constructor with one parameter, but `Writer[+W, +A]` takes two. There's a helper type in Scalaz called `MonadWriter` to help us out:
 
 ```scala
 scala> MonadWriter[Writer, String]
-res62: scalaz.MonadWriter[scalaz.Writer,String] = scalaz.WriterTInstances$$anon$1@6b8501fa
+res62: scalaz.MonadWriter[scalaz.Writer,String] = scalaz.WriterTInstances\$\$anon\$1@6b8501fa
 
 scala> MonadWriter[Writer, String].point(3).run
 res64: (String, Int) = ("",3)
@@ -180,7 +180,7 @@ scala> import std.vector._
 import std.vector._
 
 scala> Monoid[Vector[String]]
-res73: scalaz.Monoid[Vector[String]] = scalaz.std.IndexedSeqSubInstances$$anon$4@6f82f06f
+res73: scalaz.Monoid[Vector[String]] = scalaz.std.IndexedSeqSubInstances\$\$anon\$4@6f82f06f
 ```
 
 Here's the vector version of `gcd`:

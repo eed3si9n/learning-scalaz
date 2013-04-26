@@ -145,7 +145,7 @@ res27: Option[Int] = None
 
 ```scala
 scala> Monad[Option].point(Pole(0, 0)) >>= {_.landLeft(1)} >> (none: Option[Pole]) >>= {_.landRight(1)}
-<console>:26: error: missing parameter type for expanded function ((x$1) => x$1.landLeft(1))
+<console>:26: error: missing parameter type for expanded function ((x\$1) => x\$1.landLeft(1))
               Monad[Option].point(Pole(0, 0)) >>= {_.landLeft(1)} >> (none: Option[Pole]) >>= {_.landRight(1)}
                                                    ^
 ```

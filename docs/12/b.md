@@ -47,7 +47,7 @@ Let's make a product of `List` and `Option`.
 
 ```scala
 scala> Applicative[List].product[Option]
-res0: scalaz.Applicative[[α](List[α], Option[α])] = scalaz.Applicative$$anon$2@211b3c6a
+res0: scalaz.Applicative[[α](List[α], Option[α])] = scalaz.Applicative\$\$anon\$2@211b3c6a
 
 scala> Applicative[List].product[Option].point(1)
 res1: (List[Int], Option[Int]) = (List(1),Some(1))
@@ -86,7 +86,7 @@ Let's compose `List` and `Option`.
 
 ```scala
 scala> Applicative[List].compose[Option]
-res7: scalaz.Applicative[[α]List[Option[α]]] = scalaz.Applicative$$anon$1@461800f1
+res7: scalaz.Applicative[[α]List[Option[α]]] = scalaz.Applicative\$\$anon\$1@461800f1
 
 scala> Applicative[List].compose[Option].point(1)
 res8: List[Option[Int]] = List(Some(1))
@@ -160,7 +160,7 @@ EIP:
 ```scala
 scala> def contents[F[_]: Traverse, A](f: F[A]): List[A] =
          Monoid[List[A]].applicative.traverse(f) {List(_)}
-contents: [F[_], A](f: F[A])(implicit evidence$1: scalaz.Traverse[F])List[A]
+contents: [F[_], A](f: F[A])(implicit evidence\$1: scalaz.Traverse[F])List[A]
 
 scala> contents(List(1, 2, 3))
 res87: List[Int] = List(1, 2, 3)
@@ -180,7 +180,7 @@ Now we can take any data structure that supports `Traverse` and turn it into a `
 ```scala
 scala> def contents[F[_]: Traverse, A](f: F[A]): List[A] =
          f.traverse[({type l[X]=List[A]})#l, A] {List(_)}
-contents: [F[_], A](f: F[A])(implicit evidence$1: scalaz.Traverse[F])List[A]
+contents: [F[_], A](f: F[A])(implicit evidence\$1: scalaz.Traverse[F])List[A]
 ```
 
 > The other half of the decomposition is obtained simply by a map, which is to say, a traversal interpreted in the identity idiom.
@@ -190,7 +190,7 @@ The "identity idiom" is the `Id` monad in Scalaz.
 ```scala
 scala> def shape[F[_]: Traverse, A](f: F[A]): F[Unit] =
   f traverse {_ => ((): Id[Unit])}
-shape: [F[_], A](f: F[A])(implicit evidence$1: scalaz.Traverse[F])F[Unit]
+shape: [F[_], A](f: F[A])(implicit evidence\$1: scalaz.Traverse[F])F[Unit]
 
 scala> shape(List(1, 2, 3))
 res95: List[Unit] = List((), (), ())
@@ -213,7 +213,7 @@ Let's also implement `decompose` function:
 
 ```scala
 scala> def decompose[F[_]: Traverse, A](f: F[A]) = (shape(f), contents(f))
-decompose: [F[_], A](f: F[A])(implicit evidence$1: scalaz.Traverse[F])(F[Unit], List[A])
+decompose: [F[_], A](f: F[A])(implicit evidence\$1: scalaz.Traverse[F])(F[Unit], List[A])
 
 scala> decompose(tree)
 res110: (scalaz.Tree[Unit], List[Char]) = (<tree>,List(P, O, L))
@@ -224,7 +224,7 @@ This works, but it's looping the tree structure twice. Remember a product of two
 ```scala
 scala> def decompose[F[_]: Traverse, A](f: F[A]) =
          Applicative[Id].product[({type l[X]=List[A]})#l].traverse(f) { x => (((): Id[Unit]), List(x)) }
-decompose: [F[_], A](f: F[A])(implicit evidence$1: scalaz.Traverse[F])(scalaz.Scalaz.Id[F[Unit]], List[A])
+decompose: [F[_], A](f: F[A])(implicit evidence\$1: scalaz.Traverse[F])(scalaz.Scalaz.Id[F[Unit]], List[A])
 
 scala> decompose(List(1, 2, 3, 4))
 res135: (scalaz.Scalaz.Id[List[Unit]], List[Int]) = (List((), (), (), ()),List(1, 2, 3, 4))
@@ -295,10 +295,10 @@ This is mimicking the use of `for` loop with mutable variable accumulating the v
 ```scala
 scala> def collect[F[_]: Traverse, A, S, B](t: F[A])(f: A => B)(g: S => S) =
          t.traverseS[S, B] { a => State { (s: S) => (g(s), f(a)) } }
-collect: [F[_], A, S, B](t: F[A])(f: A => B)(g: S => S)(implicit evidence$1: scalaz.Traverse[F])scalaz.State[S,scalaz.Unapply[scalaz.Traverse,F[A]]{type M[X] = F[X]; type A = A}#M[B]]
+collect: [F[_], A, S, B](t: F[A])(f: A => B)(g: S => S)(implicit evidence\$1: scalaz.Traverse[F])scalaz.State[S,scalaz.Unapply[scalaz.Traverse,F[A]]{type M[X] = F[X]; type A = A}#M[B]]
 
 scala> val loop = collect(List(1, 2, 3, 4)) {(_: Int) * 2} {(_: Int) + 1}
-loop: scalaz.State[Int,scalaz.Unapply[scalaz.Traverse,List[Int]]{type M[X] = List[X]; type A = Int}#M[Int]] = scalaz.package$State$$anon$1@3926008a
+loop: scalaz.State[Int,scalaz.Unapply[scalaz.Traverse,List[Int]]{type M[X] = List[X]; type A = Int}#M[Int]] = scalaz.package\$State\$\$anon\$1@3926008a
 
 scala> loop(0)
 res165: (Int, scalaz.Unapply[scalaz.Traverse,List[Int]]{type M[X] = List[X]; type A = Int}#M[Int]) = (4,List(2, 4, 6, 8))
@@ -316,7 +316,7 @@ scala> def label[F[_]: Traverse, A](f: F[A]): F[Int] =
            n <- get[Int]
            x <- put(n + 1)
          } yield n}) eval 0
-label: [F[_], A](f: F[A])(implicit evidence$1: scalaz.Traverse[F])F[Int]
+label: [F[_], A](f: F[A])(implicit evidence\$1: scalaz.Traverse[F])F[Int]
 ```
 
 It's ignoring the content of the data structure, and replacing it with a number starting with 0. Very effecty. Here's how it looks with `List` and `Tree`:

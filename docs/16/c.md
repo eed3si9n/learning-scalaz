@@ -47,7 +47,7 @@ sealed trait STRef[S, A] {
 I'm going to use my local version of Scalaz 7:
 
 ```scala
-$ sbt
+\$ sbt
 scalaz> project effect
 scalaz-effect> console
 [info] Compiling 2 Scala sources to /Users/eed3si9n/work/scalaz-seven/effect/target/scala-2.9.2/classes...
@@ -120,10 +120,10 @@ This is created using `ST.newArr(size: Int, z: A)`. Let's calculate all the prim
 I actually found a bug in `STArray` implementation. Let me fix this up quickly.
 
 ```
-$ git pull --rebase
+\$ git pull --rebase
 Current branch scalaz-seven is up to date.
-$ git branch topic/starrayfix
-$ git co topic/starrayfix
+\$ git branch topic/starrayfix
+\$ git co topic/starrayfix
 Switched to branch 'topic/starrayfix'
 ```
 
@@ -171,10 +171,10 @@ Here's the result:
 [info] + STRef
 [error] ! STArray
 [error]   NullPointerException: null (ArrayBuilder.scala:37)
-[error] scala.collection.mutable.ArrayBuilder$.make(ArrayBuilder.scala:37)
-[error] scala.Array$.newBuilder(Array.scala:52)
-[error] scala.Array$.fill(Array.scala:235)
-[error] scalaz.effect.STArray$class.$init$(ST.scala:71)
+[error] scala.collection.mutable.ArrayBuilder\$.make(ArrayBuilder.scala:37)
+[error] scala.Array\$.newBuilder(Array.scala:52)
+[error] scala.Array\$.fill(Array.scala:235)
+[error] scalaz.effect.STArray\$class.\$init\$(ST.scala:71)
 ...
 ```
 

@@ -33,10 +33,10 @@ We can use `Kleisli` object to construct it:
 
 ```scala
 scala> val f = Kleisli { (x: Int) => (x + 1).some }
-f: scalaz.Kleisli[Option,Int,Int] = scalaz.KleisliFunctions$$anon$18@7da2734e
+f: scalaz.Kleisli[Option,Int,Int] = scalaz.KleisliFunctions\$\$anon\$18@7da2734e
 
 scala> val g = Kleisli { (x: Int) => (x * 100).some }
-g: scalaz.Kleisli[Option,Int,Int] = scalaz.KleisliFunctions$$anon$18@49e07991
+g: scalaz.Kleisli[Option,Int,Int] = scalaz.KleisliFunctions\$\$anon\$18@49e07991
 ```
 
 We can then compose the functions using `<=<`, which runs rhs first like `f compose g`:
@@ -72,7 +72,7 @@ scala> val addStuff: Reader[Int, Int] = for {
          a <- Reader { (_: Int) * 2 }
          b <- Reader { (_: Int) + 10 }
        } yield a + b
-addStuff: scalaz.Reader[Int,Int] = scalaz.KleisliFunctions$$anon$18@343bd3ae
+addStuff: scalaz.Reader[Int,Int] = scalaz.KleisliFunctions\$\$anon\$18@343bd3ae
 
 scala> addStuff(3)
 res76: scalaz.Id.Id[Int] = 19
