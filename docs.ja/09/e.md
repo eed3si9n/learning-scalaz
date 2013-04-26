@@ -1,3 +1,6 @@
+---
+out: IndexOps.html
+---
 
 ### Index
 
