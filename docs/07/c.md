@@ -1,5 +1,5 @@
 ---
-out: Either.scala
+out: Either.html
 ---
 
 ### \/
