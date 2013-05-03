@@ -14,10 +14,10 @@ One section I should've covered yesterday from [Making Our Own Types and Typecla
 > ...
 > What are kinds and what are they good for? Well, let's examine the kind of a type by using the :k command in GHCI.
 
-I did not find `:k` command for Scala REPL so I wrote one for Scala 2.10.0-M7. <s>Unlike Haskell's version, it only accepts proper type as input but it's better than nothing!</s> For type constructors, pass in the companion type. (Thanks paulp for the suggestion)
+I did not find `:k` command for Scala REPL so I wrote one for Scala 2.10.0-M7. For type constructors, pass in the companion type. (Thanks paulp for the suggestion)
 
 ```scala
-// requires Scala 2.10.0-M7
+// requires Scala 2.10.0
 def kind[A: scala.reflect.TypeTag]: String = {
   import scala.reflect.runtime.universe._
   def typeKind(sig: Type): String = sig match {
