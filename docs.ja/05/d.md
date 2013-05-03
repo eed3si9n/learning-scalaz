@@ -1,67 +1,72 @@
 ---
-out: A-knights-quest.html
+out: MonadPlus.html
 ---
 
-### 騎士の旅
+### MonadPlus と guard 関数
+
+Scala の `for` 構文はフィルタリングができる:
+
+```scala
+scala> for {
+         x <- 1 |-> 50 if x.shows contains '7'
+       } yield x
+res40: List[Int] = List(7, 17, 27, 37, 47)
+```
 
 LYAHFGG:
 
-> ここで、非決定性計算を使って解くのにうってつけの問題をご紹介しましょう。チェス盤の上にナイトの駒が1つだけ乗っています。ナイトを3回動かして特定のマスまで移動させられるか、というのが問題です。
+> `MonadPlus` は、モノイドの性質をあわせ持つモナドを表す型クラスです。
 
-ペアに型エイリアスと付けるかわりにまた case class にしよう:
+以下が [`MonadPlus` の型クラスのコントラクト](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/MonadPlus.scala)だ:
 
 ```scala
-scala> case class KnightPos(c: Int, r: Int)
-defined class KnightPos
+trait MonadPlus[F[_]] extends Monad[F] with ApplicativePlus[F] { self =>
+  ...
+}
 ```
 
-以下がナイトの次に取りうる位置を全て計算する関数だ:
+### Plus、PlusEmpty、と ApplicativePlus
+
+これは [`ApplicativePlus`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/ApplicativePlus.scala) を継承している:
 
 ```scala
-scala> case class KnightPos(c: Int, r: Int) {
-         def move: List[KnightPos] =
-           for {
-             KnightPos(c2, r2) <- List(KnightPos(c + 2, r - 1), KnightPos(c + 2, r + 1),
-               KnightPos(c - 2, r - 1), KnightPos(c - 2, r + 1),
-               KnightPos(c + 1, r - 2), KnightPos(c + 1, r + 2),
-               KnightPos(c - 1, r - 2), KnightPos(c - 1, r + 2)) if (
-               ((1 |-> 8) contains c2) && ((1 |-> 8) contains r2))
-           } yield KnightPos(c2, r2)
-       }
-defined class KnightPos
-
-scala> KnightPos(6, 2).move
-res50: List[KnightPos] = List(KnightPos(8,1), KnightPos(8,3), KnightPos(4,1), KnightPos(4,3), KnightPos(7,4), KnightPos(5,4))
-
-scala> KnightPos(8, 1).move
-res51: List[KnightPos] = List(KnightPos(6,2), KnightPos(7,3))
+trait ApplicativePlus[F[_]] extends Applicative[F] with PlusEmpty[F] { self =>
+  ...
+}
 ```
 
-答は合ってるみたいだ。次に、3回のチェインを実装する:
+そして、それは [`PlusEmpty`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/PlusEmpty.scala) を継承している:
 
 ```scala
-scala> case class KnightPos(c: Int, r: Int) {
-         def move: List[KnightPos] =
-           for {
-             KnightPos(c2, r2) <- List(KnightPos(c + 2, r - 1), KnightPos(c + 2, r + 1),
-             KnightPos(c - 2, r - 1), KnightPos(c - 2, r + 1),
-             KnightPos(c + 1, r - 2), KnightPos(c + 1, r + 2),
-             KnightPos(c - 1, r - 2), KnightPos(c - 1, r + 2)) if (
-             ((1 |-> 8) element c2) && ((1 |-> 8) contains r2))
-           } yield KnightPos(c2, r2)
-         def in3: List[KnightPos] =
-           for {
-             first <- move
-             second <- first.move
-             third <- second.move
-           } yield third
-         def canReachIn3(end: KnightPos): Boolean = in3 contains end
-       }
-defined class KnightPos
+trait PlusEmpty[F[_]] extends Plus[F] { self =>
+  ////
+  def empty[A]: F[A]
+}
+```
 
-scala> KnightPos(6, 2) canReachIn3 KnightPos(6, 1)
-res56: Boolean = true
+そして、それは [`Plus`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/PlusEmpty.scala) を継承している:
 
-scala> KnightPos(6, 2) canReachIn3 KnightPos(7, 3)
-res57: Boolean = false
+```scala
+trait Plus[F[_]]  { self =>
+  def plus[A](a: F[A], b: => F[A]): F[A]
+}
+```
+
+
+`Semigroup[A]` と `Monoid[A]` 同様に、`Plus[F[_]]` と `PlusEmpty[F[_]]` はそれらのインスタンスが `plus` と `empty` を実装することを要請する。違いはこれが型コンストラクタ (`F[_]`) レベルであることだ。
+
+`Plus` は 2つのコンテナを連結する `<+>` 演算子を導入する:
+
+```scala
+scala> List(1, 2, 3) <+> List(4, 5, 6)
+res43: List[Int] = List(1, 2, 3, 4, 5, 6)
+```
+
+### MonadPlus 再び
+
+`MonadPlus` は `filter` 演算を導入する。
+
+```scala
+scala> (1 |-> 50) filter { x => x.shows contains '7' }
+res46: List[Int] = List(7, 17, 27, 37, 47)
 ```
