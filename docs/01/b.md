@@ -31,9 +31,10 @@ java.lang.RuntimeException: 1 ≠ 2
 
 Instead of the standard `==`, `Equal` enables `===`, `=/=`, and `assert_===` syntax by declaring `equal` method. The main difference is that `===` would fail compilation if you tried to compare `Int` and `String`.
 
-Note: I originally had `/==` instead of `=/=`, but [Eiríkr Åsheim (@d6)](http://twitter.com/d6/status/243557748091011074) pointed out to me:
+Note: I originally had `/==` instead of `=/=`, but Eiríkr Åsheim pointed out to me:
 
-> you should encourage people to use =/= and not /== since the latter has bad precedence.
+<blockquote class="twitter-tweet"><p>@<a href="https://twitter.com/eed3si9n">eed3si9n</a> hey, was reading your scalaz tutorials. you should encourage people to use =/= and not /== since the latter has bad precedence.</p>&mdash; Eiríkr Åsheim (@d6) <a href="https://twitter.com/d6/status/243557748091011074">September 6, 2012</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Normally comparison operators like `!=` have lower higher precedence than `&&`, all letters, etc. Due to special precedence rule `/==` is recognized as an assignment operator because it ends with `=` and does not start with `=`, which drops to the bottom of the precedence:
 
