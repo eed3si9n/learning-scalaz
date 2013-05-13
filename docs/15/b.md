@@ -61,7 +61,7 @@ failedTree: scalaz.Tree[scalaz.Validation[String,Int]] = <tree>
 
 scala> failedTree.sequence[({type l[X]=Validation[String, X]})#l, Int]
 res2: scalaz.Validation[java.lang.String,scalaz.Tree[Int]] = Failure(boom)
-```scala
+```
 
 Here's `sequenceU`:
 
