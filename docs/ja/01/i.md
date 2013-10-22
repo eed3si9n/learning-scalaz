@@ -4,9 +4,6 @@ out: typeclass102.html
 
   [tt]: http://learnyouahaskell.com/types-and-typeclasses
   [moott]: http://learnyouahaskell.com/making-our-own-types-and-typeclasses
-  [z7]: https://github.com/scalaz/scalaz/tree/scalaz-seven
-  [start]: http://halcat0x15a.github.com/slide/start_scalaz/out/#4
-  [z7docs]: http://halcat0x15a.github.com/scalaz/core/target/scala-2.9.2/api/
 
 ### 型クラス中級講座
 

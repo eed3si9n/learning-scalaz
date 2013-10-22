@@ -2,6 +2,8 @@
 out: Monoid.html
 ---
 
+  [tags]: http://scalaz.github.io/scalaz/scalaz-2.10-7.0.4/doc/index.html#scalaz.Tags\$
+
 ### About those Monoids
 
 LYAHFGG:
@@ -144,7 +146,7 @@ LYAHFGG:
 
 > So now that there are two equally valid ways for numbers (addition and multiplication) to be monoids, which way do choose? Well, we don't have to.
 
-This is where Scalaz 7 uses tagged type. The built-in tags are [Tags](http://halcat0x15a.github.com/scalaz/core/target/scala-2.9.2/api/#scalaz.Tags\$). There are 8 tags for Monoids and 1 named `Zip` for `Applicative`. (Is this the Zip List I couldn't find yesterday?)
+This is where Scalaz 7 uses tagged type. The built-in tags are [Tags][tags]. There are 8 tags for Monoids and 1 named `Zip` for `Applicative`. (Is this the Zip List I couldn't find yesterday?)
 
 ```scala
 scala> Tags.Multiplication(10) |+| Monoid[Int @@ Tags.Multiplication].zero
