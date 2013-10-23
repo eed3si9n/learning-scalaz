@@ -2,7 +2,7 @@
   [tt]: http://learnyouahaskell.com/types-and-typeclasses
   [moott]: http://learnyouahaskell.com/making-our-own-types-and-typeclasses
   [z7]: https://github.com/scalaz/scalaz/tree/scalaz-seven
-  [z7docs]: http://scalaz.github.io/scalaz/scalaz-2.10-7.0.4/doc/index.html
+  [z7docs]: http://docs.typelevel.org/api/scalaz/stable/7.0.4/doc
 
 ### sbt
 

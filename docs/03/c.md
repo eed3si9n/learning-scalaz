@@ -2,7 +2,7 @@
 out: Monoid.html
 ---
 
-  [tags]: http://scalaz.github.io/scalaz/scalaz-2.10-7.0.4/doc/index.html#scalaz.Tags\$
+  [tags]: http://docs.typelevel.org/api/scalaz/stable/7.0.4/doc/#scalaz.Tags\$
 
 ### About those Monoids
 
