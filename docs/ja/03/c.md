@@ -169,7 +169,7 @@ LYAHFGG:
 > ...
 > `Bool` を `Monoid` のインスタンスにするもう1つの方法は、`Any` のいわば真逆です。`&&` をモノイド演算とし、`True` を単位元とする方法です。
 
-Scalaz 7 でこれらはそれぞれ `Boolean @@ Tags.Disjunction`、`Boolean @@ Tags.Disjunction` と呼ばれている。
+Scalaz 7 でこれらはそれぞれ `Boolean @@ Tags.Disjunction`、`Boolean @@ Tags.Conjunction` と呼ばれている。
 
 ```scala
 scala> Tags.Disjunction(true) |+| Tags.Disjunction(false)
