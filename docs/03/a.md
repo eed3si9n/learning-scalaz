@@ -14,11 +14,12 @@ One section I should've covered yesterday from [Making Our Own Types and Typecla
 > ...
 > What are kinds and what are they good for? Well, let's examine the kind of a type by using the :k command in GHCI.
 
-I did not find `:k` command for Scala REPL so I wrote one for Scala 2.10.0-M7. For type constructors, pass in the companion type. (Thanks paulp for the suggestion)
+I did not find `:k` command for Scala REPL so I wrote one for Scala 2.10. For type constructors, pass in the companion type. (Thanks paulp for the suggestion)
+
 
 ```scala
 // requires Scala 2.10.0
-def kind[A: scala.reflect.TypeTag]: String = {
+def kind[A: scala.reflect.runtime.universe.TypeTag]: String = {
   import scala.reflect.runtime.universe._
   def typeKind(sig: Type): String = sig match {
     case PolyType(params, resultType) =>
@@ -52,19 +53,24 @@ Run `sbt console` using `build.sbt` that I posted on day 1, and copy paste the a
 
 ```
 scala> kind[Int]
-res0: String = Int's kind is *. This is a proper type.
+res0: String = Int's kind is *.
+This is a proper type.
 
 scala> kind[Option.type]
-res1: String = Option's kind is * -> *. This is a type constructor: a 1st-order-kinded type.
+res1: String = Option's kind is * -> *. 
+This is a type constructor: a 1st-order-kinded type.
 
 scala> kind[Either.type]
-res2: String = Either's kind is * -> * -> *. This is a type constructor: a 1st-order-kinded type.
+res2: String = Either's kind is * -> * -> *.
+This is a type constructor: a 1st-order-kinded type.
 
 scala> kind[Equal.type]
-res3: String = Equal's kind is * -> *. This is a type constructor: a 1st-order-kinded type.
+res3: String = Equal's kind is * -> *.
+This is a type constructor: a 1st-order-kinded type.
 
 scala> kind[Functor.type]
-res4: String = Functor's kind is (* -> *) -> *. This is a type constructor that takes type constructor(s): a higher-kinded type.
+res4: String = Functor's kind is (* -> *) -> *.
+This is a type constructor that takes type constructor(s): a higher-kinded type.
 ```
 
 From the top. `Int` and every other types that you can make a value out of is called a proper type and denoted with a symbol `*` (read "type"). This is analogous to value `1` at value-level.
@@ -98,3 +104,5 @@ In [the cheat sheet](http://eed3si9n.com/scalaz-cheat-sheet) I started I origina
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Now it makes sense why!
+
+By the way, `:kind` command that I implemented will be part of Scala REPL from Scala 2.11 ([scala/scala#2340](https://github.com/scala/scala/pull/2340)).

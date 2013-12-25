@@ -14,10 +14,11 @@ out: Kinds.html
 > ...
 > 種類とはそもそも何者で、何の役に立つのでしょう？さっそく GHCi の `:k` コマンドを使って、型の種類を調べてみましょう。
 
-Scala REPL に `:k` コマンドが見つからなかったので Scala 2.10.0-M7 向けにひとつ書いてみた。 型コンストラクタに対してはコンパニオンの型を渡す。(アイディアは paulp さんから頂いた)
+Scala REPL に `:k` コマンドが見つからなかったので Scala 2.10 向けにひとつ書いてみた。 型コンストラクタに対してはコンパニオンの型を渡す。(アイディアは paulp さんから頂いた)
+
 
 ```scala
-def kind[A: scala.reflect.TypeTag]: String = {
+def kind[A: scala.reflect.runtime.universe.TypeTag]: String = {
   import scala.reflect.runtime.universe._
   def typeKind(sig: Type): String = sig match {
     case PolyType(params, resultType) =>
@@ -97,3 +98,5 @@ res13: List[Int] => List[Int] = <function1>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 これで理由がよく分かった!
+
+ちなみに、僕が実装した `:kind` コマンドは Scala 2.11 より Scala REPL の標準機能として取り込まれることになった ([scala/scala#2340](https://github.com/scala/scala/pull/2340))。
