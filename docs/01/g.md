@@ -1,4 +1,3 @@
-
 ### Bounded
 
 > `Bounded` members have an upper and a lower bound.
@@ -24,4 +23,4 @@ scala> implicitly[Enum[(Boolean, Int, Char)]].max
                         ^
 ```
 
-`Enum` typeclass instance returns `Opton[T]` for max values.
+`Enum` typeclass instance returns `Option[T]` for max values.
