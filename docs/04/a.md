@@ -45,13 +45,15 @@ trait FunctorLaw {
 Not only that, it ships with ScalaCheck bindings to test these properties using arbiterary values. Here's the `build.sbt` to check from REPL:
 
 ```scala
-scalaVersion := "2.10.1"
+scalaVersion := "$scalaVersion$"
+
+val scalazVersion = "$scalazVersion$"
 
 libraryDependencies ++= Seq(
-  "org.scalaz" %% "scalaz-core" % "7.0.0",
-  "org.scalaz" %% "scalaz-effect" % "7.0.0",
-  "org.scalaz" %% "scalaz-typelevel" % "7.0.0",
-  "org.scalaz" %% "scalaz-scalacheck-binding" % "7.0.0" % "test"
+  "org.scalaz" %% "scalaz-core" % scalazVersion,
+  "org.scalaz" %% "scalaz-effect" % scalazVersion,
+  "org.scalaz" %% "scalaz-typelevel" % scalazVersion,
+  "org.scalaz" %% "scalaz-scalacheck-binding" % scalazVersion % "test"
 )
 
 scalacOptions += "-feature"
@@ -72,7 +74,7 @@ import Scalaz._
 import scalacheck.ScalazProperties._
 import scalacheck.ScalazArbitrary._
 import scalacheck.ScalaCheckBinding._
-Welcome to Scala version 2.10.1 (Java HotSpot(TM) 64-Bit Server VM, Java 1.6.0_45).
+Welcome to Scala version 2.10.3 (Java HotSpot(TM) 64-Bit Server VM, Java 1.6.0_45).
 Type in expressions to have them evaluated.
 Type :help for more information.
 
