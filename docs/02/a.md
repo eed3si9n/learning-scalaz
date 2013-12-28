@@ -56,7 +56,8 @@ scala> res30(3)
 res31: Int = 28
 ```
 
-This is interesting. Basically `map` gives us a way to compose functions, except the order is in reverse from `f compose g`! No wonder Scalaz provides `∘` as an alias of `map`. Another way of looking at `Function1` is that it's an infinite map from the domain to the range. Now let's skip the input and output stuff and go to [Functors, Applicative Functors and Monoids](http://learnyouahaskell.com/functors-applicative-functors-and-monoids).
+This is interesting. Basically `map` gives us a way to compose functions, except the order is in reverse from `f compose g`.
+No wonder Scalaz provides `∘` as an alias of `map`. Another way of looking at `Function1` is that it's an infinite map from the domain to the range. Now let's skip the input and output stuff and go to [Functors, Applicative Functors and Monoids](http://learnyouahaskell.com/functors-applicative-functors-and-monoids).
 
 > How are functions functors?
 > ...

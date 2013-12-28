@@ -56,7 +56,7 @@ scala> res30(3)
 res31: Int = 28
 ```
 
-これは興味深い。つまり、`map` は関数を合成する方法を与えてくれるが、順番が `f compose g` とは逆順だ! 通りで Scalaz は `map` のエイリアスとして ` ∘` を提供するわけだ。`Function1` のもう1つのとらえ方は、定義域 (domain) から値域 (range) への無限の写像だと考えることができる。入出力に関しては飛ばして [Functors, Applicative Functors and Monoids](http://learnyouahaskell.com/functors-applicative-functors-and-monoids) へ行こう (本だと、「ファンクターからアプリカティブファンクターへ」)。
+これは興味深い。つまり、`map` は関数を合成する方法を与えてくれるが、順番が `f compose g` とは逆順だ。通りで Scalaz は `map` のエイリアスとして ` ∘` を提供するわけだ。`Function1` のもう1つのとらえ方は、定義域 (domain) から値域 (range) への無限の写像だと考えることができる。入出力に関しては飛ばして [Functors, Applicative Functors and Monoids](http://learnyouahaskell.com/functors-applicative-functors-and-monoids) へ行こう (本だと、「ファンクターからアプリカティブファンクターへ」)。
 
 > ファンクターとしての関数
 > ...
