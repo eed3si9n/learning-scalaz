@@ -8,9 +8,9 @@
 Here's build.sbt to test Scalaz 7:
 
 ```scala
-scalaVersion := "2.10.3"
+scalaVersion := "$scalaVersion$"
 
-val scalazVersion = "7.0.4"
+val scalazVersion = "$scalazVersion$"
 
 libraryDependencies ++= Seq(
   "org.scalaz" %% "scalaz-core" % scalazVersion,
@@ -29,7 +29,7 @@ All you have to do now is open the REPL using sbt 0.13.0:
 ```scala
 \$ sbt console
 ...
-[info] downloading http://repo1.maven.org/maven2/org/scalaz/scalaz-core_2.10/7.0.0/scalaz-core_2.10-7.0.4.jar ...
+[info] downloading http://repo1.maven.org/maven2/org/scalaz/scalaz-core_2.10/7.0.5/scalaz-core_2.10-7.0.5.jar ...
 import scalaz._
 import Scalaz._
 Welcome to Scala version 2.10.3 (Java HotSpot(TM) 64-Bit Server VM, Java 1.6.0_51).
