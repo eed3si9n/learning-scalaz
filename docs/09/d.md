@@ -84,4 +84,9 @@ There actually was another set of typeclasses that was axed earlier: `Pointed` a
 
 This actually is an interesting line of argument that I can understand. In other words, if any container can qualify as `Pointed`, the code using it either is not very useful or it's likely making specific assumption about the instance.
 
-We'll pick it up from here later.
+### Tweets to the editor
+
+<blockquote class="twitter-tweet" data-conversation="none" lang="en"><p><a href="https://twitter.com/eed3si9n">@eed3si9n</a> &quot;axiomatic&quot; would be better.</p>&mdash; Miles Sabin (@milessabin) <a href="https://twitter.com/milessabin/statuses/417228497040732160">December 29, 2013</a></blockquote>
+
+<blockquote class="twitter-tweet" data-conversation="none" lang="en"><p><a href="https://twitter.com/eed3si9n">@eed3si9n</a> Foldable too (unless it also has a Functor but then nothing past parametricity): <a href="https://t.co/Lp0YkUTRD9">https://t.co/Lp0YkUTRD9</a> - but Reducer has laws!</p>&mdash; Brian McKenna (@puffnfresh) <a href="https://twitter.com/puffnfresh/statuses/417332352260374528">December 29, 2013</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>

@@ -84,4 +84,9 @@ sealed abstract class EachOps[F[_],A] extends Ops[F[A]] {
 
 これは興味深い指摘で、僕にも理解できるものだ。別の言い方をすると、もしどんなコンテナでも `Pointed` になることができるなら、それを使っているコードはあまり役に立たないものか、もしくはそれが何らかの特定のインスタンスであると暗に仮定したものではないかということだ。
 
-続きはまた後で。
+### 読者の声
+
+<blockquote class="twitter-tweet" data-conversation="none" lang="en"><p><a href="https://twitter.com/eed3si9n">@eed3si9n</a> &quot;axiomatic&quot; would be better.</p>&mdash; Miles Sabin (@milessabin) <a href="https://twitter.com/milessabin/statuses/417228497040732160">December 29, 2013</a></blockquote>
+
+<blockquote class="twitter-tweet" data-conversation="none" lang="en"><p><a href="https://twitter.com/eed3si9n">@eed3si9n</a> Foldable too (unless it also has a Functor but then nothing past parametricity): <a href="https://t.co/Lp0YkUTRD9">https://t.co/Lp0YkUTRD9</a> - but Reducer has laws!</p>&mdash; Brian McKenna (@puffnfresh) <a href="https://twitter.com/puffnfresh/statuses/417332352260374528">December 29, 2013</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
