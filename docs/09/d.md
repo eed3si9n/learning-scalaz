@@ -72,7 +72,7 @@ sealed abstract class EachOps[F[_],A] extends Ops[F[A]] {
 
 ### Foldable or rolling your own?
 
-Some of the functionality above can be emulated using `Foldable`, but as [@nuttycom](https://github.com/scalaz/scalaz/issues/278#issuecomment-16748242) suggested, that would force *O(n)* time even when the underlying data structure implements contact time for `length` and `index`. At that point, we'd be better off rolling our own `Length` if it's actually useful to abstract over `length`.
+Some of the functionality above can be emulated using `Foldable`, but as [@nuttycom](https://github.com/scalaz/scalaz/issues/278#issuecomment-16748242) suggested, that would force *O(n)* time even when the underlying data structure implements constant time for `length` and `index`. At that point, we'd be better off rolling our own `Length` if it's actually useful to abstract over `length`.
 
 If inconsistent implementations of these typeclasses were somehow compromising the typesafety I'd understand removing them from the library, but `Length` and `Index` sound like a legitimate abstraction of randomly accessible containers like `Vector`.
 
