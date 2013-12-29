@@ -78,7 +78,7 @@ If inconsistent implementations of these typeclasses were somehow compromising t
 
 ### Pointed and Copointed
 
-Another set of typeclasses that was axed earlier was `Pointed` and `Copointed`. There were more interesting arguments on them that can be found in [Pointed/Copointed][pc] and [Why not Pointed?][why]:
+There actually was another set of typeclasses that was axed earlier: `Pointed` and `Copointed`. There were more interesting arguments on them that can be found in [Pointed/Copointed][pc] and [Why not Pointed?][why]:
 
 > `Pointed` has no useful laws and almost all applications people point to for it are actually abuses of ad hoc relationships it happens to have for the instances it does offer.
 
