@@ -3,7 +3,7 @@
 
 CM:
 
-> One very useful sort of set is a 'singleton' set, a set with exactly one element. Fix one of these say `{me}`, and call this set '*1*'.
+> One very useful sort of set is a 'singleton' set, a set with exactly one element. Fix one of these, say `{me}`, and call this set '*1*'.
 
 > **Definition**: A *point* of a set X is an arrows *1 => X*.
 > ...
@@ -107,7 +107,7 @@ scala> res2.check
 + OK, passed 100 tests.
 ```
 
-We can generalize `arrowEuqualsProp` a bit:
+We can generalize `arrowEqualsProp` a bit:
 
 ```scala
 scala> def arrowEqualsProp[A, B](f: A => B, g: A => B)
