@@ -110,7 +110,7 @@ scala> res2.check
 + OK, passed 100 tests.
 ```
 
-`arrowEuqualsProp` をもう少し一般化してみる:
+`arrowEqualsProp` をもう少し一般化してみる:
 
 ```scala
 scala> def arrowEqualsProp[A, B](f: A => B, g: A => B)
