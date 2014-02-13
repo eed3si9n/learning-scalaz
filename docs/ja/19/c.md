@@ -1,3 +1,6 @@
+---
+out: Isomorphisms.html
+---
 
 ### 同型射
 
