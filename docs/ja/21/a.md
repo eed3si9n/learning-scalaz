@@ -51,21 +51,15 @@ Scala には `A with B` 経由で論理積があるため、Miles は否定さ�
 
 ```scala
 trait UnionTypes {
-
   type ![A] = A => Nothing
-  type !### \/
+  type !![A] = ![![A]]
 
-
-  Scalaz also has \/, which could be thought of as a form of sum type.
-  ![A] = ![![A]]
   trait Disj { self =>
-    type D The symbolic name `\/`
-  type t[S] = Disj  kind of makes sense since *∨* means the logical disjunction.
-  {
+    type D
+    type t[S] = Disj {
       type D = self.D with ![S]
     }
   }
-
 
   type t[T] = {
     type t[S] = (Disj { type D = ![T] })#t[S]
