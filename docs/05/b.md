@@ -89,7 +89,7 @@ scala> Monad[Option].point(Pole(0, 0)) >>= {_.landRight(2)} >>= {_.landLeft(2)} 
 res22: Option[Pole] = Some(Pole(2,4))
 ```
 
-Let's see if monadic chaining simlulates the pole balancing better:
+Let's see if monadic chaining simulates the pole balancing better:
 
 ```scala
 scala> Monad[Option].point(Pole(0, 0)) >>= {_.landLeft(1)} >>= {_.landRight(4)} >>= {_.landLeft(-1)} >>= {_.landRight(-2)}
