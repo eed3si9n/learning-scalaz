@@ -80,18 +80,11 @@ trait Apply[F[_]] extends Functor[F] { self =>
 `ap` を使って `Apply` は `<*>`、`*>`、`<*` 演算子を可能とする。
 
 ```scala
-scala> 9.some <*> {(_: Int) + 3}.some
-res20: Option[(Int, Int => Int)] = Some((9,<function1>))
-```
-
-`Some(12)` という結果を期待していたんだけど。Scalaz 7.0.0-M3 はタプルを `Some` に入れて返すみたいだ。これに関して作者らに問い合わせた所、Haskell、Scalaz 6、Scalaz 7.0.0-M2 同様の振る舞いに戻るらしい。これを 7.0.0-M2 で実行してみよう:
-
-```scala
 scala>  9.some <*> {(_: Int) + 3}.some
 res20: Option[Int] = Some(12)
 ```
 
-これはうまくいった。
+期待通りだ。
 
 `*>` と `<*` は左辺項か右辺項のみ返すバリエーションだ。
 
@@ -111,7 +104,7 @@ res39: Option[Int] = None
 
 ### Apply としての Option
 
-<s>それはありがたいんだけど、コンテナから関数を抽出して、別に抽出した値を適用する `<*>` はどうなったのかな?</s> 7.0.0-M2 の `<*>` を使えばいい。
+`<*>` を使えばいい。
 
 ```scala
 scala> 9.some <*> {(_: Int) + 3}.some
@@ -129,7 +122,7 @@ res58: Option[Int] = Some(12)
 scala> ^(3.some, 5.some) {_ + _}
 res59: Option[Int] = Some(8)
 
-scala> ^(3.some, none: Option[Int]) {_ + _}
+scala> ^(3.some, none[Int]) {_ + _}
 res60: Option[Int] = None
 ```
 

@@ -47,7 +47,7 @@ LYAHFGG:
 
 > `pure` should take a value of any type and return an applicative value with that value inside it. ... A better way of thinking about `pure` would be to say that it takes a value and puts it in some sort of default (or pure) context—a minimal context that still yields that value.
 
-Scalaz likes the name `point` instead of `pure`, and it seems like it's basically a constructor that takes value `A` and returns `F[A]`. It doesn't introduce an operator, but it intoduces `point` method and its symbolic alias `η` to all data types.
+Scalaz likes the name `point` instead of `pure`, and it seems like it's basically a constructor that takes value `A` and returns `F[A]`. It doesn't introduce an operator, but it introduces `point` method and its symbolic alias `η` to all data types.
 
 ```scala
 scala> 1.point[List]
@@ -80,18 +80,11 @@ trait Apply[F[_]] extends Functor[F] { self =>
 Using `ap`, `Apply` enables `<*>`, `*>`, and `<*` operator.
 
 ```scala
-scala> 9.some <*> {(_: Int) + 3}.some
-res20: Option[(Int, Int => Int)] = Some((9,<function1>))
-```
-
-I was hoping for `Some(12)` here. Scalaz 7.0.0-M3 creates a tuple in `Some`. I've asked the authors and it looks like it will be changed back to the same behavior as Haskell, Scalaz 6 and Scalaz 7.0.0-M2. Let's run it again using 7.0.0-M2:
-
-```scala
 scala>  9.some <*> {(_: Int) + 3}.some
 res20: Option[Int] = Some(12)
 ```
 
-This is much better.
+As expected.
 
 `*>` and `<*` are variations that returns only the rhs or lhs.
 
@@ -111,7 +104,7 @@ res39: Option[Int] = None
 
 ### Option as Apply
 
-<s>Thanks, but what happened to the `<*>` that can extract functions out of containers, and apply the extracted values to it?</s> We can use `<*>` in 7.0.0-M2:
+We can use `<*>`:
 
 ```scala
 scala> 9.some <*> {(_: Int) + 3}.some
@@ -129,7 +122,7 @@ Another thing I found in 7.0.0-M3 is a new notation that extracts values from co
 scala> ^(3.some, 5.some) {_ + _}
 res59: Option[Int] = Some(8)
 
-scala> ^(3.some, none: Option[Int]) {_ + _}
+scala> ^(3.some, none[Int]) {_ + _}
 res60: Option[Int] = None
 ```
 
