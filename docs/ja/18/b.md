@@ -1,111 +1,171 @@
+  [1]: http://www.haskellforall.com/2012/06/you-could-have-invented-free-monads.html
+  [2]: https://github.com/eed3si9n/learning-scalaz/blob/master/docs/ja/18/b.md
+
+この記事は Rúnar の助言に基づいて大幅に手を加えた。古い版は github の[ソース][2]を参照してほしい。
 
 ### Free Monad
 
-今日は、Gabriel Gonzalez の [Why free monads matter](http://www.haskellforall.com/2012/06/you-could-have-invented-free-monads.html) を読みながら Free モナドをみていきたい:
+今日は、Gabriel Gonzalez の [Why free monads matter][1] を読みながら Free モナドをみていく:
 
 > 構文木の本質を表す抽象体を考えてみよう。[中略] 僕らの toy 言語には 3つのコマンドしかない:
 
-```haskell
+```
 output b -- prints a "b" to the console
 bell     -- rings the computer's bell
 done     -- end of execution
 ```
 
-`Toy` を Scala に翻訳してみる:
+> 次のコマンドが前のコマンドの子ノードであるような構文木としてあらわしてみる:
+
+```haskell
+data Toy b next =
+    Output b next
+  | Bell next
+  | Done
+```
+
+とりあえずこれを素直に Scala に翻訳するとこうなる:
 
 ```scala
 scala> :paste
 // Entering paste mode (ctrl-D to finish)
 
-sealed trait Toy[A]
-case class Output[A, B](a: A, next: B) extends Toy[A]
-case class Bell[A, B](next: B) extends Toy[A]
-case class Done[A]() extends Toy[A]
+sealed trait Toy[+A, +Next]
+case class Output[A, Next](a: A, next: Next) extends Toy[A, Next]
+case class Bell[Next](next: Next) extends Toy[Nothing, Next]
+case class Done() extends Toy[Nothing, Nothing]
 
 // Exiting paste mode, now interpreting.
 
-defined trait Toy
-defined class Output
-defined class Bell
-defined class Done
-
 scala> Output('A', Done())
-res0: Output[Char,Done[Nothing]] = Output(A,Done())
+res0: Output[Char,Done] = Output(A,Done())
 
 scala> Bell(Output('A', Done()))
-res1: Bell[Nothing,Output[Char,Done[Nothing]]] = Bell(Output(A,Done()))
+res1: Bell[Output[Char,Done]] = Bell(Output(A,Done()))
 ```
+
+### CharToy
+
+WFMM の DSL はアウトプット用のデータ型を型パラメータとして受け取るので、任意のアウトプット型を扱うことができる。上に `Toy` として示したように Scala も同じことができる。だけども、Scala の部分適用型の処理がヘボいため `Free` の説明としては不必要に複雑となってしまう。そのため、本稿では、以下のようにデータ型を `Char` に決め打ちしたものを使う:
+
+```scala
+scala> :paste
+// Entering paste mode (ctrl-D to finish)
+
+sealed trait CharToy[+Next]
+object CharToy {
+  case class CharOutput[Next](a: Char, next: Next) extends CharToy[Next]
+  case class CharBell[Next](next: Next) extends CharToy[Next]
+  case class CharDone() extends CharToy[Nothing]
+
+  def output[Next](a: Char, next: Next): CharToy[Next] = CharOutput(a, next)
+  def bell[Next](next: Next): CharToy[Next] = CharBell(next)
+  def done: CharToy[Nothing] = CharDone()
+}
+
+// Exiting paste mode, now interpreting.
+
+scala> import CharToy._
+import CharToy._
+
+scala> output('A', done)
+res0: CharToy[CharToy[Nothing]] = CharOutput(A,CharDone())
+
+scala> bell(output('A', done))
+res1: CharToy[CharToy[CharToy[Nothing]]] = CharBell(CharOutput(A,CharDone()))
+```
+
+型を `CharToy` に統一するため、小文字の `output`、`bell`、`done` を加えた。
+
+### Fix
 
 WFMM:
 
 > しかし残念なことに、コマンドを追加するたびに型が変わってしまうのでこれはうまくいかない。
 
-Scala の場合は全てが `Toy` を継承しているので、これが問題になるかは分からないけど、とりあえず流れで `Fix` を定義してみる:
+`Fix` を定義しよう:
 
 ```scala
-scala> case class Fix[F[_]](f: F[Fix[F]])
-defined class Fix
+scala> :paste
+// Entering paste mode (ctrl-D to finish)
 
-scala> Fix[({type λ[α] = Toy[Char]})#λ](Output('A', Fix[({type λ[α] = Toy[Char]})#λ](Done())))
-res4: Fix[[α]Toy[Char]] = Fix(Output(A,Fix(Done())))
+case class Fix[F[_]](f: F[Fix[F]])
+object Fix {
+  def fix(toy: CharToy[Fix[CharToy]]) = Fix[CharToy](toy)
+}
 
-scala> Fix[({type λ[α] = Toy[Char]})#λ](Bell(Fix[({type λ[α] = Toy[Char]})#λ](Output('A', Fix[({type λ[α] = Toy[Char]})#λ](Done())))))
-res11: Fix[[α]Toy[Char]] = Fix(Bell(Fix(Output(A,Fix(Done())))))
+// Exiting paste mode, now interpreting.
+
+scala> import Fix._
+import Fix._
+
+scala> fix(output('A', fix(done)))
+res4: Fix[CharToy] = Fix(CharOutput(A,Fix(CharDone())))
+
+scala> fix(bell(fix(output('A', fix(done)))))
+res5: Fix[CharToy] = Fix(CharBell(Fix(CharOutput(A,Fix(CharDone())))))
 ```
 
-これに例外を加えた `FixE` も折角だから実装してみる。
+ここでも `fix` を提供して型推論が動作するようにした。
+
+### FixE
+
+これに例外処理を加えた `FixE` も実装してみる。`throw` と `catch` は予約語なので、`throwy`、`catchy` という名前に変える:
 
 ```scala
 scala> :paste
 // Entering paste mode (ctrl-D to finish)
 
 sealed trait FixE[F[_], E]
-case class Fix[F[_], E](f: F[FixE[F, E]]) extends FixE[F, E]
-case class Throw[F[_], E](e: E) extends FixE[F, E] 
+object FixE {
+  case class Fix[F[_], E](f: F[FixE[F, E]]) extends FixE[F, E]
+  case class Throwy[F[_], E](e: E) extends FixE[F, E]   
+
+  def fix[E](toy: CharToy[FixE[CharToy, E]]): FixE[CharToy, E] =
+  　Fix[CharToy, E](toy)
+  def throwy[F[_], E](e: E): FixE[F, E] = Throwy(e)
+  def catchy[F[_]: Functor, E1, E2](ex: => FixE[F, E1])
+  　　(f: E1 => FixE[F, E2]): FixE[F, E2] = ex match {
+    case Fix(x)    => Fix[F, E2](Functor[F].map(x) {catchy(_)(f)})
+    case Throwy(e) => f(e)
+  }
+}
 
 // Exiting paste mode, now interpreting.
-
-defined trait FixE
-defined class Fix
-defined class Throw
 ```
 
-`catch` は予約語なので `catchy` という名前にする:
+> これを実際に使うには Toy b が functor である必要があるので、型検査が通るまで色々試してみる (Functor則を満たす必要もある)。
+
+`CharToy` の `Functor` はこんな感じになった:
 
 ```scala
-scala> import scalaz._
-import scalaz._
-
-scala> def catchy[F[_]: Functor, E1, E2](ex: => FixE[F, E1])(f: E1 => FixE[F, E2]): FixE[F, E2] = ex match {
-         case Fix(x)   => Fix[F, E2](Functor[F].map(x) {catchy(_)(f)})
-         case Throw(e) => f(e)
-       }
-catchy: [F[_], E1, E2](ex: => FixE[F,E1])(f: E1 => FixE[F,E2])(implicit evidence\$1: scalaz.Functor[F])FixE[F,E2]
-
-scala> implicit def ToyFunctor[A1]: Functor[({type λ[α] = Toy[A1]})#λ] = new Functor[({type λ[α] = Toy[A1]})#λ] {
-         def map[A, B](fa: Toy[A1])(f: A => B): Toy[A1] = fa match {
-           case o: Output[A1, A] => Output(o.a, f(o.next))
-           case b: Bell[A1, A]   => Bell(f(b.next))
-           case Done()           => Done()
+scala> implicit val charToyFunctor: Functor[CharToy] = new Functor[CharToy] {
+         def map[A, B](fa: CharToy[A])(f: A => B): CharToy[B] = fa match {
+           case o: CharOutput[A] => CharOutput(o.a, f(o.next))
+           case b: CharBell[A]   => CharBell(f(b.next))
+           case CharDone()       => CharDone()
          }
        }
-ToyFunctor: [A1]=> scalaz.Functor[[α]Toy[A1,α]]
+charToyFunctor: scalaz.Functor[CharToy] = \$anon\$1@7bc135fe
 ```
 
 これがサンプルの使用例だ:
 
 ```scala
-scala> case class IncompleteException()
-defined class IncompleteException
+scala> :paste
+// Entering paste mode (ctrl-D to finish)
 
-scala> def subroutine = Fix[({type λ[α] = Toy[Char]})#λ, IncompleteException](Output('A', Throw[({type λ[α] = Toy[Char]})#λ, IncompleteException](IncompleteException())))
-subroutine: Fix[[α]Toy[Char],IncompleteException]
-
-scala> def program = catchy[({type λ[α] = Toy[Char]})#λ, IncompleteException, Nothing](subroutine) { _ =>
-         Fix[({type λ[α] = Toy[Char]})#λ, Nothing](Bell(Fix[({type λ[α] = Toy[Char]})#λ, Nothing](Done())))
-       }
-program: FixE[[α]Toy[Char],Nothing]
+import FixE._
+case class IncompleteException()
+def subroutine = fix[IncompleteException](
+  output('A', 
+    throwy[CharToy, IncompleteException](IncompleteException())))
+def program = catchy[CharToy, IncompleteException, Nothing](subroutine) { _ =>
+  fix[Nothing](bell(fix[Nothing](done)))
+}
 ```
+
+型パラメータでゴテゴテになってるのはちょっと残念な感じだ。
 
 ### Free monads part 1
 
@@ -162,42 +222,92 @@ trait FreeInstances {
 }
 ```
 
-Scalaz 版では、`Free` コンストラクタは `Free.Suspend` と呼ばれ、`Pure` は `Free.Return` と呼ばれる。`liftF` を実装して、`Toy` コマンドを移植してみよう:
+Scalaz 版では、`Free` コンストラクタは `Free.Suspend` と呼ばれ、`Pure` は `Free.Return` と呼ばれる。 `CharToy` コマンドを `Free` を使って再実装する:
 
 ```scala
-scala> def output[A](a: A): Free[({type λ[+α] = Toy[A]})#λ, Unit] =
-         Free.Suspend[({type λ[+α] = Toy[A]})#λ, Unit](Output(a, Free.Return[({type λ[+α] = Toy[A]})#λ, Unit](())))
-output: [A](a: A)scalaz.Free[[+α]Toy[A],Unit]
+scala> :paste
+// Entering paste mode (ctrl-D to finish)
 
-scala> def liftF[F[+_]: Functor, R](command: F[R]): Free[F, R] =
-         Free.Suspend[F, R](Functor[F].map(command) {Free.Return[F, R](_)})
-liftF: [F[+_], R](command: F[R])(implicit evidence\$1: scalaz.Functor[F])scalaz.Free[F,R]
+sealed trait CharToy[+Next]
+object CharToy {
+  case class CharOutput[Next](a: Char, next: Next) extends CharToy[Next]
+  case class CharBell[Next](next: Next) extends CharToy[Next]
+  case class CharDone() extends CharToy[Nothing]
 
-scala> def output[A](a: A) = liftF[({type λ[+α] = Toy[A]})#λ, Unit](Output(a, ()))
-output: [A](a: A)scalaz.Free[[+α]Toy[A],Unit]
+  implicit val charToyFunctor: Functor[CharToy] = new Functor[CharToy] {
+    def map[A, B](fa: CharToy[A])(f: A => B): CharToy[B] = fa match {
+        case o: CharOutput[A] => CharOutput(o.a, f(o.next))
+        case b: CharBell[A]   => CharBell(f(b.next))
+        case CharDone()       => CharDone()
+      }
+    }
 
-scala> def bell[A] = liftF[({type λ[+α] = Toy[A]})#λ, Unit](Bell(()))
-bell: [A]=> scalaz.Free[[+α]Toy[A],Unit]
+  def output(a: Char): Free[CharToy, Unit] =
+    Free.Suspend(CharOutput(a, Free.Return[CharToy, Unit](())))
+  def bell: Free[CharToy, Unit] =
+    Free.Suspend(CharBell(Free.Return[CharToy, Unit](())))
+  def done: Free[CharToy, Unit] = Free.Suspend(CharDone())
+}
 
-scala> def done[A] = liftF[({type λ[+α] = Toy[A]})#λ, Unit](Done())
-done: [A]=> scalaz.Free[[+α]Toy[A],Unit]
+// Exiting paste mode, now interpreting.
+
+defined trait CharToy
+defined module CharToy
 ```
 
-コマンドのシーケンスを作ってみる:
+> これは、さすがに共通パターンを抽出できるはず。
+
+`liftF` をつかったリファクタリングも行う。あと、`return` に相当するものが必要なので、`pointed` も定義する:
 
 ```scala
+scala> :paste
+// Entering paste mode (ctrl-D to finish)
+
+sealed trait CharToy[+Next]
+object CharToy {
+  case class CharOutput[Next](a: Char, next: Next) extends CharToy[Next]
+  case class CharBell[Next](next: Next) extends CharToy[Next]
+  case class CharDone() extends CharToy[Nothing]
+
+  implicit val charToyFunctor: Functor[CharToy] = new Functor[CharToy] {
+    def map[A, B](fa: CharToy[A])(f: A => B): CharToy[B] = fa match {
+        case o: CharOutput[A] => CharOutput(o.a, f(o.next))
+        case b: CharBell[A]   => CharBell(f(b.next))
+        case CharDone()       => CharDone()
+      }
+    }
+  private def liftF[F[+_]: Functor, R](command: F[R]): Free[F, R] =
+    Free.Suspend[F, R](Functor[F].map(command) { Free.Return[F, R](_) })
+  def output(a: Char): Free[CharToy, Unit] =
+    liftF[CharToy, Unit](CharOutput(a, ()))
+  def bell: Free[CharToy, Unit] = liftF[CharToy, Unit](CharBell(()))
+  def done: Free[CharToy, Unit] = liftF[CharToy, Unit](CharDone())
+  def pointed[A](a: A) = Free.Return[CharToy, A](a)
+}
+
+// Exiting paste mode, now interpreting.
+```
+
+コマンドのシーケンスはこんな感じになる:
+
+```scala
+scala> import CharToy._
+import CharToy._
+
 scala> val subroutine = output('A')
-subroutine: scalaz.Free[[+α]Toy[Char],Unit] = Suspend(Output(A,Return(())))
+subroutine: scalaz.Free[CharToy,Unit] = Suspend(CharOutput(A,Return(())))
 
 scala> val program = for {
          _ <- subroutine
-         _ <- bell[Char]
-         _ <- done[Char]
+         _ <- bell
+         _ <- done
        } yield ()
-program: scalaz.Free[[+α]Toy[Char],Unit] = Gosub(Suspend(Output(A,Return(()))),<function1>)
+program: scalaz.Free[CharToy,Unit] = Gosub(<function0>,<function1>)
 ```
 
-`showProgram` はこの `Free` ではそのままだとうまくいかない。`flatMap` の定義をみてほしい:
+> 面白くなってきた。「まだ評価されていないもの」に対する `do` 記法を得られることができた。これは純粋なデータだ。
+
+次に、これが本当に純粋なデータであることを証明するために `showProgram` を定義する。WFMM は単純なパターンマッチングを使って `showProgram` を定義するけども、この `Free` はちょっとそのままでうまくいかない。`flatMap` の定義をみてほしい:
 
 ```scala
   final def flatMap[B](f: A => Free[S, B]): Free[S, B] = this match {
@@ -209,20 +319,20 @@ program: scalaz.Free[[+α]Toy[Char],Unit] = Gosub(Suspend(Output(A,Return(()))),
 新しい `Return` や `Suspend` を計算する代わりに `Gosub` というデータ構造を作っている。この `Gosub` を評価して `\/` を返す `resume` メソッドがあるので、`showProgram` は以下のように実装できる:
 
 ```scala
-scala> def showProgram[A: Show, R: Show](p: Free[({type λ[+α] = Toy[A]})#λ, R]): String =
+scala> def showProgram[R: Show](p: Free[CharToy, R]): String =
          p.resume.fold({
-           case Output(a: A, next: Free[({type λ[+α] = Toy[A]})#λ, R]) =>
-             "output " + Show[A].shows(a) + "\n" + showProgram(next)
-           case Bell(next: Free[({type λ[+α] = Toy[A]})#λ, R]) =>
+           case CharOutput(a, next) =>
+             "output " + Show[Char].shows(a) + "\n" + showProgram(next)
+           case CharBell(next) =>
              "bell " + "\n" + showProgram(next)
-           case d: Done[A] =>
+           case CharDone() =>
              "done\n"
          },
          { r: R => "return " + Show[R].shows(r) + "\n" }) 
-showProgram: [A, R](p: scalaz.Free[[+α]Toy[A],R])(implicit evidence\$1: scalaz.Show[A], implicit evidence\$2: scalaz.Show[R])String
+showProgram: [R](p: scalaz.Free[CharToy,R])(implicit evidence\$1: scalaz.Show[R])String
 
 scala> showProgram(program)
-res101: String = 
+res12: String = 
 "output A
 bell 
 done
@@ -232,19 +342,39 @@ done
 pretty printer はこうなる:
 
 ```scala
-scala> def pretty[A: Show, R: Show](p: Free[({type λ[+α] = Toy[A]})#λ, R]) = print(showProgram(p))
-pretty: [A, R](p: scalaz.Free[[+α]Toy[A],R])(implicit evidence\$1: scalaz.Show[A], implicit evidence\$2: scalaz.Show[R])Unit
+scala> def pretty[R: Show](p: Free[CharToy, R]) = print(showProgram(p))
+pretty: [R](p: scalaz.Free[CharToy,R])(implicit evidence\$1: scalaz.Show[R])Unit
 
 scala> pretty(output('A'))
 output A
 return ()
+```
 
-scala> pretty(output('A') >>= { _ => done[Char]})
+さて、真実の時だ。`Free` を使って生成したモナドはモナド則を満たしているだろうか?
+
+```scala
+scala> pretty(output('A'))
+output A
+return ()
+
+scala> pretty(pointed('A') >>= output)
+output A
+return ()
+
+scala> pretty(output('A') >>= pointed)
+output A
+return ()
+
+scala> pretty((output('A') >> done) >> output('C'))
+output A
+done
+
+scala> pretty(output('A') >> (done >> output('C')))
 output A
 done
 ```
 
-第二部へと飛ばす。
+うまくいった。`done` が abort的な意味論になっていることにも注目してほしい。
 
 ### Free monads part 2
 
@@ -268,150 +398,3 @@ WFMM:
 逆に、プログラムを書いている側から見ると、Free モナドそのものは逐次化以外の何も提供しない。インタプリタが何らかの `run` 関数を提供して役に立つ機能が得られる。ポイントは、`Functor` を満たすデータ構造さえあれば `Free` が最小のモナドを自動的に提供してくれることだと思う。
 
 もう一つの見方としては、`Free` は与えられたコンテナを使って構文木を作る方法を提供する。
-
-### Stackless Scala with Free Monads
-
-Free モナドに関する一般的な理解が得られた所で、Scala Days 2012 での Rúnar の講演を観よう: [Stackless Scala With Free Monads](http://skillsmatter.com/podcast/scala/stackless-scala-free-monads)。ペーパーを読む前にトークを観ておくことをお勧めするけど、ペーパーの方が引用しやすいので [Stackless Scala With Free Monads](http://days2012.scala-lang.org/sites/days2012/files/bjarnason_trampolines.pdf) もリンクしておく。
-
-Rúnar さんはまず State モナドを使ってリストに添字を zip するコードから始める。これはリストがスタックの限界よりも大きいと、スタックを吹っ飛ばす。続いてプログラム全体を一つのループで回すトランポリンというものを紹介している。
-
-```scala
-sealed trait Trampoline [+ A] {
-  final def runT : A =
-    this match {
-      case More (k) => k().runT
-      case Done (v) => v
-    }
-}
-case class More[+A](k: () => Trampoline[A])
-  extends Trampoline[A]
-case class Done [+A](result: A)
-  extends Trampoline [A]
-```
-
-上記のコードでは `Function0` の `k` は次のステップのための thunk となっている。
-
-これを State モナドを使った使用例に拡張するため、`flatMap` を `FlatMap` というデータ構造に具現化している:
-
-```scala
-case class FlatMap [A,+B](
-  sub: Trampoline [A],
-  k: A => Trampoline[B]) extends Trampoline[B]
-```
-
-続いて、`Trampoline` は実は `Function0` の Free モナドであることが明かされる。Scalaz 7 では以下のように定義されている:
-
-```scala
-  type Trampoline[+A] = Free[Function0, A]
-```
-
-### Free monads
-
-さらに Rúnar さんは便利な Free モナドを作れるいくつかのデータ構造を紹介する:
-
-```scala
-type Pair[+A] = (A, A)
-type BinTree[+A] = Free[Pair, A]
-
-type Tree[+A] = Free[List, A]
-
-type FreeMonoid[+A] = Free[({type λ[+α] = (A,α)})#λ, Unit]
-
-type Trivial[+A] = Unit
-type Option[+A] = Free[Trivial, A]
-```
-
-Free モナドを使った Iteratee まであるみたいだ。最後に Free モナドを以下のようにまとめている:
-
-> - データが末端に来る全ての再帰データ型に使えるモデル
-> - Free モナドは変数が末端にある式木で、flatMap は変数の置換にあたる。
-
-### トランポリン
-
-トランポリンを使えば、どんなプログラムでもスタックを使わないものに変換することができる。トークに出てきた `even` と `odd` を Scalaz 7 の `Trampoline` を使って実装してみよう。`Free` object はトランポリン化に役立つ関数を定義する `FreeFunction` を継承する:
-
-```scala
-trait FreeFunctions {
-  /** Collapse a trampoline to a single step. */
-  def reset[A](r: Trampoline[A]): Trampoline[A] = { val a = r.run; return_(a) }
-
-  /** Suspend the given computation in a single step. */
-  def return_[S[+_], A](value: => A)(implicit S: Pointed[S]): Free[S, A] =
-    Suspend[S, A](S.point(Return[S, A](value)))
-
-  def suspend[S[+_], A](value: => Free[S, A])(implicit S: Pointed[S]): Free[S, A] =
-    Suspend[S, A](S.point(value))
-
-  /** A trampoline step that doesn't do anything. */
-  def pause: Trampoline[Unit] =
-    return_(())
-
-  ...
-}
-```
-
-これらを使うには `import Free._` を呼ぶ。
-
-```scala
-scala> import Free._
-import Free._
-
-scala> :paste
-// Entering paste mode (ctrl-D to finish)
-
-def even[A](ns: List[A]): Trampoline[Boolean] =
-  ns match {
-    case Nil => return_(true)
-    case x :: xs => suspend(odd(xs))
-  }
-def odd[A](ns: List[A]): Trampoline[Boolean] =
-  ns match {
-    case Nil => return_(false)
-    case x :: xs => suspend(even(xs))
-  }
-
-// Exiting paste mode, now interpreting.
-
-even: [A](ns: List[A])scalaz.Free.Trampoline[Boolean]
-odd: [A](ns: List[A])scalaz.Free.Trampoline[Boolean]
-
-scala> even(List(1, 2, 3)).run
-res118: Boolean = false
-
-scala> even(0 |-> 3000).run
-res119: Boolean = false
-```
-
-これは意外と簡単にできた。
-
-### Free を用いたリスト
-
-Free を使って「リスト」を定義してみよう。
-
-```scala
-scala> type FreeMonoid[A] = Free[({type λ[+α] = (A,α)})#λ, Unit]
-defined type alias FreeMonoid
-
-scala> def cons[A](a: A): FreeMonoid[A] = Free.Suspend[({type λ[+α] = (A,α)})#λ, Unit]((a, Free.Return[({type λ[+α] = (A,α)})#λ, Unit](())))
-cons: [A](a: A)FreeMonoid[A]
-
-scala> cons(1)
-res0: FreeMonoid[Int] = Suspend((1,Return(())))
-
-scala> cons(1) >>= {_ => cons(2)}
-res1: scalaz.Free[[+α](Int, α),Unit] = Gosub(Suspend((1,Return(()))),<function1>)
-```
-
-この結果を処理する一例として標準の `List` に変換してみる:
-
-```scala
-scala> def toList[A](list: FreeMonoid[A]): List[A] =
-         list.resume.fold(
-           { case (x: A, xs: FreeMonoid[A]) => x :: toList(xs) },
-           { _ => Nil })
-
-scala> toList(res1)
-res4: List[Int] = List(1, 2)
-```
-
-今日はここまで。
