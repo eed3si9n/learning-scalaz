@@ -1,8 +1,8 @@
 name := "learning-scalaz"
 
-scalaVersion := "2.10.3"
+scalaVersion := "2.11.0"
 
-val scalazVersion = "7.0.5"
+val scalazVersion = "7.0.6"
 
 libraryDependencies ++= Seq(
   "org.scalaz" %% "scalaz-core" % scalazVersion,
