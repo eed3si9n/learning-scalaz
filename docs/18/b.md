@@ -111,7 +111,7 @@ Again, `fix` is provided so that the type inference works.
 
 ### FixE
 
-We are also going to try to implement `FixE`, which adds exception to this. Since `throw` and `catch` are reserverd, I am rename them to `throwy` and `catchy`:
+We are also going to try to implement `FixE`, which adds exception to this. Since `throw` and `catch` are reserverd, I am renaming them to `throwy` and `catchy`:
 
 ```scala
 scala> :paste
