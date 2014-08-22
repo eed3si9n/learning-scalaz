@@ -19,7 +19,7 @@ trait Foldable[F[_]] { self =>
 }
 ```
 
-Here are [the operators](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/syntax/FoldableSyntax.scala):
+Here are [the operators](https://github.com/scalaz/scalaz/blob/series/7.1.x/core/src/main/scala/scalaz/syntax/FoldableSyntax.scala):
 
 ```scala
 /** Wraps a value `self` and provides methods related to `Foldable` */
@@ -81,7 +81,7 @@ These are already in the standard library. Let's try the `foldMap` operator. `Mo
 scala> List(1, 2, 3) foldMap {identity}
 res53: Int = 6
 
-scala> List(true, false, true, true) foldMap {Tags.Disjunction}
+scala> List(true, false, true, true) foldMap {Tags.Disjunction.apply}
 res56: scalaz.@@[Boolean,scalaz.Tags.Disjunction] = true
 ```
 

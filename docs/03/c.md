@@ -2,7 +2,7 @@
 out: Monoid.html
 ---
 
-  [tags]: http://docs.typelevel.org/api/scalaz/stable/7.0.4/doc/#scalaz.Tags\$
+  [tags]: https://github.com/scalaz/scalaz/blob/series/7.1.x/core/src/main/scala/scalaz/Tags.scala
 
 ### About those Monoids
 
@@ -51,7 +51,7 @@ No error means, they are equal. Apparently this is what monoid is.
 
 LYAHFGG:
 
-> A *monoid* is when you have an associative binary function and a value which acts as an identity with respect to that function. 
+> A *monoid* is when you have an associative binary function and a value which acts as an identity with respect to that function.
 
 Let's see [the typeclass contract for `Monoid` in Scalaz](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Monoid.scala):
 
@@ -60,7 +60,7 @@ trait Monoid[A] extends Semigroup[A] { self =>
   ////
   /** The identity element for `append`. */
   def zero: A
-  
+
   ...
 }
 ```
@@ -121,7 +121,7 @@ trait Monoid[A] extends Semigroup[A] { self =>
   ////
   /** The identity element for `append`. */
   def zero: A
-  
+
   ...
 }
 ```
@@ -146,7 +146,7 @@ LYAHFGG:
 
 > So now that there are two equally valid ways for numbers (addition and multiplication) to be monoids, which way do choose? Well, we don't have to.
 
-This is where Scalaz 7 uses tagged type. The built-in tags are [Tags][tags]. There are 8 tags for Monoids and 1 named `Zip` for `Applicative`. (Is this the Zip List I couldn't find yesterday?)
+This is where Scalaz 7.1 uses tagged type. The built-in tags are [Tags][tags]. There are 8 tags for Monoids and 1 named `Zip` for `Applicative`. (Is this the Zip List I couldn't find yesterday?)
 
 ```scala
 scala> Tags.Multiplication(10) |+| Monoid[Int @@ Tags.Multiplication].zero
@@ -164,9 +164,9 @@ res22: Int = 10
 
 LYAHFGG:
 
-> Another type which can act like a monoid in two distinct but equally valid ways is `Bool`. The first way is to have the or function `||` act as the binary function along with `False` as the identity value. 
+> Another type which can act like a monoid in two distinct but equally valid ways is `Bool`. The first way is to have the or function `||` act as the binary function along with `False` as the identity value.
 > ...
-> The other way for `Bool` to be an instance of `Monoid` is to kind of do the opposite: have `&&` be the binary function and then make `True` the identity value. 
+> The other way for `Bool` to be an instance of `Monoid` is to kind of do the opposite: have `&&` be the binary function and then make `True` the identity value.
 
 In Scalaz 7 these are called `Boolean @@ Tags.Disjunction` and `Boolean @@ Tags.Conjunction` respectively.
 
@@ -216,7 +216,7 @@ res45: scalaz.Ordering = GT
 
 LYAHFGG:
 
-> OK, so how is this monoid useful? Let's say you were writing a function that takes two strings, compares their lengths, and returns an `Ordering`. But if the strings are of the same length, then instead of returning `EQ` right away, we want to compare them alphabetically. 
+> OK, so how is this monoid useful? Let's say you were writing a function that takes two strings, compares their lengths, and returns an `Ordering`. But if the strings are of the same length, then instead of returning `EQ` right away, we want to compare them alphabetically.
 
 Because the left comparison is kept unless it's `Ordering.EQ` we can use this to compose two levels of comparisons. Let's try implementing `lengthCompare` using Scalaz:
 
