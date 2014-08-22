@@ -2,7 +2,7 @@
 out: Monoid.html
 ---
 
-  [tags]: https://github.com/scalaz/scalaz/blob/series/7.1.x/core/src/main/scala/scalaz/Tags.scala
+  [tags]: $scalazBaseUrl$/core/src/main/scala/scalaz/Tags.scala
 
 ### About those Monoids
 
@@ -53,7 +53,7 @@ LYAHFGG:
 
 > A *monoid* is when you have an associative binary function and a value which acts as an identity with respect to that function.
 
-Let's see [the typeclass contract for `Monoid` in Scalaz](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Monoid.scala):
+Let's see [the typeclass contract for `Monoid` in Scalaz]($scalazBaseUrl$/core/src/main/scala/scalaz/Monoid.scala):
 
 ```scala
 trait Monoid[A] extends Semigroup[A] { self =>
@@ -67,7 +67,7 @@ trait Monoid[A] extends Semigroup[A] { self =>
 
 ### Semigroup
 
-Looks like `Monoid` extends `Semigroup` so let's [look at its typeclass](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Semigroup.scala).
+Looks like `Monoid` extends `Semigroup` so let's [look at its typeclass]($scalazBaseUrl$/core/src/main/scala/scalaz/Semigroup.scala).
 
 ```scala
 trait Semigroup[A]  { self =>
@@ -76,7 +76,7 @@ trait Semigroup[A]  { self =>
 }
 ```
 
-Here are [the operators](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/syntax/SemigroupSyntax.scala):
+Here are [the operators]($scalazBaseUrl$/core/src/main/scala/scalaz/syntax/SemigroupSyntax.scala):
 
 ```scala
 trait SemigroupOps[A] extends Ops[A] {

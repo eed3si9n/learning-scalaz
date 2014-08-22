@@ -1,11 +1,11 @@
   [tt]: http://learnyouahaskell.com/types-and-typeclasses
   [moott]: http://learnyouahaskell.com/making-our-own-types-and-typeclasses
-  [z7]: https://github.com/scalaz/scalaz/tree/scalaz-seven
+  [z7]: $scalazTree$
   [z7docs]: http://docs.typelevel.org/api/scalaz/
 
 ### sbt
 
-Here's build.sbt to test Scalaz 7.1:
+Here's build.sbt to test Scalaz $scalazVersion$:
 
 ```scala
 scalaVersion := "$scalaVersion$"
@@ -39,4 +39,4 @@ Type :help for more information.
 scala>
 ```
 
-There's also [API docs][z7docs] generated for Scalaz 7.1.
+There's also [API docs][z7docs] generated for Scalaz $scalazVersion$.

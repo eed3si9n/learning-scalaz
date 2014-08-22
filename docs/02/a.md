@@ -5,7 +5,7 @@ LYAHFGG:
 
 > And now, we're going to take a look at the `Functor` typeclass, which is basically for things that can be mapped over.
 
-Like the book let's look [how it's implemented](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Functor.scala):
+Like the book let's look [how it's implemented]($scalazBaseUrl$/core/src/main/scala/scalaz/Functor.scala):
 
 ```scala
 trait Functor[F[_]]  { self =>
@@ -16,7 +16,7 @@ trait Functor[F[_]]  { self =>
 }
 ```
 
-Here are the [injected operators](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/syntax/FunctorSyntax.scala) it enables:
+Here are the [injected operators]($scalazBaseUrl$/core/src/main/scala/scalaz/syntax/FunctorSyntax.scala) it enables:
 
 ```scala
 trait FunctorOps[F[_],A] extends Ops[F[A]] {

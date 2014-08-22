@@ -1,7 +1,7 @@
 
 ### Validation
 
-Another data structure that's compared to `Either` in Scalaz is [`Validation`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Validation.scala):
+Another data structure that's compared to `Either` in Scalaz is [`Validation`]($scalazBaseUrl$/core/src/main/scala/scalaz/Validation.scala):
 
 ```scala
 sealed trait Validation[+E, +A] {
@@ -22,7 +22,7 @@ final case class Failure[E, A](e: E) extends Validation[E, A]
 
 At the first glance `Validation` looks similar to `\/`. They can even be converted back and forth using `validation` method and `disjunction` method.
 
-[`ValidationV`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/syntax/ValidationV.scala) introduces `success[X]`, `successNel[X]`, `failure[X]`, and `failureNel[X]` methods to all data types (don't worry about the `Nel` thing for now):
+[`ValidationOps`]($scalazBaseUrl$/core/src/main/scala/scalaz/syntax/ValidationOps.scala) introduces `success[X]`, `successNel[X]`, `failure[X]`, and `failureNel[X]` methods to all data types (don't worry about the `Nel` thing for now):
 
 ```scala
 scala> "event 1 ok".success[String]
@@ -45,7 +45,7 @@ The problem, however, is that the error messages are mushed together into one st
 
 ### NonEmptyList
 
-This is where [`NonEmptyList`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/NonEmptyList.scala) (or `Nel` for short) comes in:
+This is where [`NonEmptyList`]($scalazBaseUrl$/core/src/main/scala/scalaz/NonEmptyList.scala) (or `Nel` for short) comes in:
 
 ```scala
 /** A singly-linked list that is guaranteed to be non-empty. */

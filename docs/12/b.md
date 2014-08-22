@@ -43,7 +43,7 @@ trait Applicative[F[_]] extends Apply[F] with Pointed[F] { self =>
 }
 ```
 
-Let's make a product of `List` and `Option`. 
+Let's make a product of `List` and `Option`.
 
 ```scala
 scala> Applicative[List].product[Option]
@@ -104,7 +104,7 @@ EIP:
 
 > *Traversal* involves iterating over the elements of a data structure, in the style of a `map`, but interpreting certain function applications idiomatically.
 
-The corresponding typeclass in Scalaz 7 is called [`Traverse`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Traverse.scala):
+The corresponding typeclass in Scalaz 7 is called [`Traverse`]($scalazBaseUrl$/core/src/main/scala/scalaz/Traverse.scala):
 
 ```scala
 trait Traverse[F[_]] extends Functor[F] with Foldable[F] { self =>
@@ -196,12 +196,12 @@ scala> shape(List(1, 2, 3))
 res95: List[Unit] = List((), (), ())
 
 scala> shape(tree).drawTree
-res98: String = 
+res98: String =
 "()
 |
-()+- 
+()+-
 |
-()`- 
+()`-
 "
 ```
 
@@ -326,12 +326,12 @@ scala> label(List(10, 2, 8))
 res176: List[Int] = List(0, 1, 2)
 
 scala> label(tree).drawTree
-res177: String = 
+res177: String =
 "0
 |
-1+- 
+1+-
 |
-2`- 
+2`-
 "
 ```
 

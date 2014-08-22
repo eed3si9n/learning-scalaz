@@ -8,7 +8,7 @@ LYAHFGG:
 
 > The `Either e a` type on the other hand, allows us to incorporate a context of possible failure to our values while also being able to attach values to the failure, so that they can describe what went wrong or provide some other useful info regarding the failure.
 
-We know `Either[A, B]` from the standard library, but Scalaz 7 implements its own `Either` equivalent named [`\/`](https://github.com/eed3si9n/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Either.scala):
+We know `Either[A, B]` from the standard library, but Scalaz 7 implements its own `Either` equivalent named [`\/`]($scalazBaseUrl$/core/src/main/scala/scalaz/Either.scala):
 
 ```scala
 sealed trait \/[+A, +B] {
@@ -41,7 +41,7 @@ sealed trait \/[+A, +B] {
     toOption getOrElse x
   /** Return the right value of this disjunction or the given default if left. Alias for `getOrElse` */
   def |[BB >: B](x: => BB): BB = getOrElse(x)
-  
+
   /** Return this if it is a right, otherwise, return the given value. Alias for `|||` */
   def orElse[AA >: A, BB >: B](x: => AA \/ BB): AA \/ BB =
     this match {
@@ -135,6 +135,6 @@ res31: scalaz.\/[Nothing,String] = \/-(event 1 ok!)
 To chain on the left side, there's `orElse`, which accepts `=> AA \/ BB` where `[AA >: A, BB >: B]`. The symbolic alias for `orElse` is `|||`:
 
 ```scala
-scala> "event 1 failed!".left ||| "retry event 1 ok".right 
+scala> "event 1 failed!".left ||| "retry event 1 ok".right
 res32: scalaz.\/[String,String] = \/-(retry event 1 ok)
 ```

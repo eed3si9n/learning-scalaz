@@ -27,7 +27,7 @@ In other words,
 scala> (List(1, 2, 3) map {{(_: Int) * 3} map {(_: Int) + 1}}) assert_=== (List(1, 2, 3) map {(_: Int) * 3} map {(_: Int) + 1})
 ```
 
-These are laws the implementer of the functors must abide, and not something the compiler can check for you. Scalaz 7 ships with `FunctorLaw` traits that describes this in [code](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Functor.scala#L68-77):
+These are laws the implementer of the functors must abide, and not something the compiler can check for you. Scalaz 7+ ships with `FunctorLaw` traits that describes this in [code]($scalazBaseUrl$/core/src/main/scala/scalaz/Functor.scala#L68-77):
 
 ```scala
 trait FunctorLaw {
@@ -42,7 +42,7 @@ trait FunctorLaw {
 }
 ```
 
-Not only that, it ships with ScalaCheck bindings to test these properties using arbiterary values. Here's the `build.sbt` to check from REPL:
+Not only that, it ships with ScalaCheck bindings to test these properties using arbitrary values. Here's the `build.sbt` to check from REPL:
 
 ```scala
 scalaVersion := "$scalaVersion$"
@@ -68,7 +68,7 @@ Instead of the usual `sbt console`, run `sbt test:console`:
 ```scala
 \$ sbt test:console
 [info] Starting scala interpreter...
-[info] 
+[info]
 import scalaz._
 import Scalaz._
 import scalacheck.ScalazProperties._
@@ -78,7 +78,7 @@ Welcome to Scala version 2.10.3 (Java HotSpot(TM) 64-Bit Server VM, Java 1.6.0_4
 Type in expressions to have them evaluated.
 Type :help for more information.
 
-scala> 
+scala>
 ```
 
 Here's how you test if `List` meets the functor laws:
@@ -160,7 +160,7 @@ And the test fails as expected.
 
 ### Applicative Laws
 
-Here are the laws for [Applicative](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Applicative.scala#L60-72):
+Here are the laws for [Applicative]($scalazBaseUrl$/core/src/main/scala/scalaz/Applicative.scala#L60-72):
 
 ```scala
   trait ApplicativeLaw extends FunctorLaw {
@@ -182,7 +182,7 @@ LYAHFGG is skipping the details on this, so I am skipping too.
 
 ### Semigroup Laws
 
-Here are the [Semigroup Laws](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Semigroup.scala#L38-47):
+Here are the [Semigroup Laws]($scalazBaseUrl$/core/src/main/scala/scalaz/Semigroup.scala#L38-47):
 
 ```scala
   /**
@@ -206,7 +206,7 @@ scala> semigroup.laws[Int @@ Tags.Multiplication].check
 
 ### Monoid Laws
 
-Here are the [Monoid Laws](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Monoid.scala#L50-59):
+Here are the [Monoid Laws]($scalazBaseUrl$/core/src/main/scala/scalaz/Monoid.scala#L50-59):
 
 ```scala
   /**

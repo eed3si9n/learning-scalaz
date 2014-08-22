@@ -20,7 +20,7 @@ I don't think it's common to alias `Int` like this in Scala, but we'll go with t
 ```scala
 scala> case class Pole(left: Birds, right: Birds) {
          def landLeft(n: Birds): Pole = copy(left = left + n)
-         def landRight(n: Birds): Pole = copy(right = right + n) 
+         def landRight(n: Birds): Pole = copy(right = right + n)
        }
 defined class Pole
 ```
@@ -52,7 +52,7 @@ As the book says, an intermediate value have failed but the calculation kept goi
 
 ```scala
 scala> case class Pole(left: Birds, right: Birds) {
-         def landLeft(n: Birds): Option[Pole] = 
+         def landLeft(n: Birds): Option[Pole] =
            if (math.abs((left + n) - right) < 4) copy(left = left + n).some
            else none
          def landRight(n: Birds): Option[Pole] =
@@ -108,7 +108,7 @@ Here's the `banana` that always fails:
 
 ```scala
 scala> case class Pole(left: Birds, right: Birds) {
-         def landLeft(n: Birds): Option[Pole] = 
+         def landLeft(n: Birds): Option[Pole] =
            if (math.abs((left + n) - right) < 4) copy(left = left + n).some
            else none
          def landRight(n: Birds): Option[Pole] =
@@ -208,7 +208,7 @@ res19: Option[String] = Some(3!)
 
 LYAHFGG:
 
-> In a `do` expression, every line that isn't a `let` line is a monadic value. 
+> In a `do` expression, every line that isn't a `let` line is a monadic value.
 
 I think this applies true for Scala's `for` syntax too.
 
@@ -270,7 +270,7 @@ scala> justH
 res25: Option[Char] = Some(h)
 ```
 
-> When pattern matching fails in a do expression, the `fail` function is called. It's part of the `Monad` type class and it enables failed pattern matching to result in a failure in the context of the current monad instead of making our program crash. 
+> When pattern matching fails in a do expression, the `fail` function is called. It's part of the `Monad` type class and it enables failed pattern matching to result in a failure in the context of the current monad instead of making our program crash.
 
 ```scala
 scala> def wopwop: Option[Char] =

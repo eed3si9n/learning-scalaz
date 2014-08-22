@@ -17,7 +17,7 @@ LYAHFGG:
 
 > The `MonadPlus` type class is for monads that can also act as monoids.
 
-Here's [the typeclass contract for `MonadPlus`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/MonadPlus.scala):
+Here's [the typeclass contract for `MonadPlus`]($scalazBaseUrl$/core/src/main/scala/scalaz/MonadPlus.scala):
 
 ```scala
 trait MonadPlus[F[_]] extends Monad[F] with ApplicativePlus[F] { self =>
@@ -27,7 +27,7 @@ trait MonadPlus[F[_]] extends Monad[F] with ApplicativePlus[F] { self =>
 
 ### Plus, PlusEmpty, and ApplicativePlus
 
-It extends [`ApplicativePlus`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/ApplicativePlus.scala):
+It extends [`ApplicativePlus`]($scalazBaseUrl$/core/src/main/scala/scalaz/ApplicativePlus.scala):
 
 ```scala
 trait ApplicativePlus[F[_]] extends Applicative[F] with PlusEmpty[F] { self =>
@@ -35,7 +35,7 @@ trait ApplicativePlus[F[_]] extends Applicative[F] with PlusEmpty[F] { self =>
 }
 ```
 
-And that extends [`PlusEmpty`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/PlusEmpty.scala):
+And that extends [`PlusEmpty`]($scalazBaseUrl$/core/src/main/scala/scalaz/PlusEmpty.scala):
 
 ```scala
 trait PlusEmpty[F[_]] extends Plus[F] { self =>
@@ -44,7 +44,7 @@ trait PlusEmpty[F[_]] extends Plus[F] { self =>
 }
 ```
 
-And that extends [`Plus`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/PlusEmpty.scala):
+And that extends [`Plus`]($scalazBaseUrl$/core/src/main/scala/scalaz/PlusEmpty.scala):
 
 ```scala
 trait Plus[F[_]]  { self =>
@@ -52,7 +52,7 @@ trait Plus[F[_]]  { self =>
 }
 ```
 
-Similar to `Semigroup[A]` and `Monoid[A]`, `Plus[F[_]]` and `PlusEmpty[F[_]]` requires theier instances to implement `plus` and `empty`, but at the type constructor ( `F[_]`) level. 
+Similar to `Semigroup[A]` and `Monoid[A]`, `Plus[F[_]]` and `PlusEmpty[F[_]]` requires their instances to implement `plus` and `empty`, but at the type constructor ( `F[_]`) level. 
 
 `Plus` introduces `<+>` operator to append two containers:
 

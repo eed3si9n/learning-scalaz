@@ -50,7 +50,7 @@ LYAHFGG:
 
 > To attach a monoid to a value, we just need to put them together in a tuple. The `Writer w a` type is just a `newtype` wrapper for this.
 
-In Scalaz, the equivalent is called [`Writer`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/package.scala):
+In Scalaz, the equivalent is called [`Writer`]($scalazBaseUrl$/core/src/main/scala/scalaz/package.scala):
 
 ```scala
 type Writer[+W, +A] = WriterT[Id, W, A]
@@ -60,7 +60,7 @@ type Writer[+W, +A] = WriterT[Id, W, A]
 
 ### WriterT
 
-Here's the simplified version of [`WriterT`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/WriterT.scala):
+Here's the simplified version of [`WriterT`]($scalazBaseUrl$/core/src/main/scala/scalaz/WriterT.scala):
 
 ```scala
 sealed trait WriterT[F[+_], +W, +A] { self =>
@@ -86,7 +86,7 @@ The following operators are supported by all data types enabled by `import Scala
 trait ToDataOps extends ToIdOps with ToTreeOps with ToWriterOps with ToValidationOps with ToReducerOps with ToKleisliOps
 ```
 
-The operator in question is part of [`WriterV`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/syntax/ToWriterOps.scala):
+The operator in question is part of [`WriterV`]($scalazBaseUrl$/core/src/main/scala/scalaz/syntax/WriterOps.scala):
 
 ```scala
 trait WriterV[A] extends Ops[A] {

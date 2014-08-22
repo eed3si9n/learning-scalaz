@@ -5,7 +5,7 @@ LYAHFGG:
 
 > Zippers can be used with pretty much any data structure, so it's no surprise that they can be used to focus on sub-lists of lists.
 
-Instead of a list zipper, Scalaz provides a zipper for `Stream`. Due to Haskell's laziness, it might actually make sense to think of Scala's `Stream` as Haskell's list. Here's [`Zipper`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Zipper.scala):
+Instead of a list zipper, Scalaz provides a zipper for `Stream`. Due to Haskell's laziness, it might actually make sense to think of Scala's `Stream` as Haskell's list. Here's [`Zipper`]($scalazBaseUrl$/core/src/main/scala/scalaz/Zipper.scala):
 
 ```scala
 sealed trait Zipper[+A] {
@@ -53,7 +53,7 @@ sealed trait Zipper[+A] {
   def move(n: Int): Option[Zipper[A]] = ...
   def findNext(p: A => Boolean): Option[Zipper[A]] = ...
   def findPrevious(p: A => Boolean): Option[Zipper[A]] = ...
-  
+
   def modify[AA >: A](f: A => AA) = ...
   def toStream: Stream[A] = ...
   ...
@@ -96,5 +96,5 @@ res33: Option[scalaz.Zipper[Int]] = Some(Zipper(<lefts>, 7, <rights>))
 
 More readable, I guess, but it does take up lines so it's case by case.
 
-This is pretty much the end of Learn You a Haskell for Great Good. It did not cover everything Scalaz has to offer, but I think it was an exellent way of gently getting introduced to the fundamentals. After looking up the corresponding Scalaz types for Haskell 
+This is pretty much the end of Learn You a Haskell for Great Good. It did not cover everything Scalaz has to offer, but I think it was an exellent way of gently getting introduced to the fundamentals. After looking up the corresponding Scalaz types for Haskell
 types, I am now comfortable enough to find my way around the source code and look things up as I go.

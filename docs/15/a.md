@@ -21,16 +21,16 @@ Looks like `Arrow[=>:[_, _]]` extends `Category[=>:]`.
 
 ### Category and Compose
 
-Here's <a href="https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Category.scala"><code>Category[=>:[_, _]]</code></a>:
+Here's <a href="$scalazBaseUrl$/core/src/main/scala/scalaz/Category.scala"><code>Category[=>:[_, _]]</code></a>:
 
 ```scala
 trait Category[=>:[_, _]] extends Compose[=>:] { self =>
   /** The left and right identity over `compose`. */
   def id[A]: A =>: A
-} 
+}
 ```
 
-This extends <a href="https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Compose.scala"><code>Compose[=>:]</code></a>:
+This extends <a href="$scalazBaseUrl$/core/src/main/scala/scalaz/Compose.scala"><code>Compose[=>:]</code></a>:
 
 ```scala
 trait Compose[=>:[_, _]]  { self =>
@@ -38,7 +38,7 @@ trait Compose[=>:[_, _]]  { self =>
 }
 ```
 
-`compose` function composes two arrows into one. Using `compose`, `Compose` introduces the following [operators](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/syntax/ComposeSyntax.scala):
+`compose` function composes two arrows into one. Using `compose`, `Compose` introduces the following [operators]($scalazBaseUrl$/core/src/main/scala/scalaz/syntax/ComposeSyntax.scala):
 
 ```scala
 trait ComposeOps[F[_, _],A, B] extends Ops[F[A, B]] {
@@ -61,15 +61,15 @@ res0: Int = 300
 
 scala> (f <<< g)(2)
 res1: Int = 201
-``` 
+```
 
 ### Arrow, again
 
 The type signature of `Arrow[=>:[_, _]]` looks a bit odd, but this is no different than saying `Arrow[M[_, _]]`. The neat things about type constructor that takes two type parameters is that we can write `=>:[A, B]` as `A =>: B`.
 
-`arr` function creates an arrow from a normal function, `id` returns an identity arrow, and `first` creates a new arrow from an existing arrow by expanding the input and output as pairs. 
+`arr` function creates an arrow from a normal function, `id` returns an identity arrow, and `first` creates a new arrow from an existing arrow by expanding the input and output as pairs.
 
-Using the above functions, arrows introduces the following [operators](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/syntax/ArrowSyntax.scala):
+Using the above functions, arrows introduces the following [operators]($scalazBaseUrl$/core/src/main/scala/scalaz/syntax/ArrowSyntax.scala):
 
 ```scala
 trait ArrowOps[F[_, _],A, B] extends Ops[F[A, B]] {

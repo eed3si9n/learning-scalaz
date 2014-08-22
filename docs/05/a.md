@@ -8,7 +8,7 @@ We get to start a new chapter today on [Learn You a Haskell for Great Good](http
 
 > Monads are a natural extension applicative functors, and they provide a solution to the following problem: If we have a value with context, `m a`, how do we apply it to a function that takes a normal `a` and returns a value with a context.
 
-The equivalent is called `Monad` in Scalaz. Here's [the typeclass contract](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Monad.scala):
+The equivalent is called `Monad` in Scalaz. Here's [the typeclass contract]($scalazBaseUrl$/core/src/main/scala/scalaz/Monad.scala):
 
 ```scala
 trait Monad[F[_]] extends Applicative[F] with Bind[F] { self =>
@@ -20,7 +20,7 @@ It extends `Applicative` and `Bind`. So let's look at `Bind`.
 
 ### Bind
 
-Here's [`Bind`'s contract](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Bind.scala):
+Here's [`Bind`'s contract]($scalazBaseUrl$/core/src/main/scala/scalaz/Bind.scala):
 
 ```scala
 trait Bind[F[_]] extends Apply[F] { self =>
@@ -29,7 +29,7 @@ trait Bind[F[_]] extends Apply[F] { self =>
 }
 ```
 
-And here are [the operators](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/syntax/BindSyntax.scala):
+And here are [the operators]($scalazBaseUrl$/core/src/main/scala/scalaz/syntax/BindSyntax.scala):
 
 ```scala
 /** Wraps a value `self` and provides methods related to `Bind` */

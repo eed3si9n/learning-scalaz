@@ -7,7 +7,7 @@ Let's start the final chapter of Learn You a Haskell for Great Good: [Zippers](h
 
 I can see how this could be useful in Scala since equality of case classes are based on its content and not the heap location. This means that even if you just want to identify different nodes under a tree structure if they happen to have the same type and content Scala would treat the same.
 
-Instead of implementing our own tree, let's use Scalaz's [`Tree`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Tree.scala):
+Instead of implementing our own tree, let's use Scalaz's [`Tree`]($scalazBaseUrl$/core/src/main/scala/scalaz/Tree.scala):
 
 ```scala
 sealed trait Tree[A] {
@@ -65,7 +65,7 @@ freeTree: scalaz.Tree[Char]
 
 LYAHFGG:
 
-> Notice that `W` in the tree there? Say we want to change it into a `P`. 
+> Notice that `W` in the tree there? Say we want to change it into a `P`.
 
 Using `Tree.Node` extractor, we could implement `changeToP` as follows:
 
@@ -85,9 +85,9 @@ This was a pain to implement. Let's look at the zipper.
 
 LYAHFGG:
 
-> With a pair of `Tree a` and `Breadcrumbs a`, we have all the information to rebuild the whole tree and we also have a focus on a sub-tree. This scheme also enables us to easily move up, left and right. Such a pair that contains a focused part of a data structure and its surroundings is called a *zipper*, because moving our focus up and down the data structure resembles the operation of a zipper on a regular pair of pants. 
+> With a pair of `Tree a` and `Breadcrumbs a`, we have all the information to rebuild the whole tree and we also have a focus on a sub-tree. This scheme also enables us to easily move up, left and right. Such a pair that contains a focused part of a data structure and its surroundings is called a *zipper*, because moving our focus up and down the data structure resembles the operation of a zipper on a regular pair of pants.
 
-The zipper for `Tree` in Scalaz is called [`TreeLoc`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/TreeLoc.scala):
+The zipper for `Tree` in Scalaz is called [`TreeLoc`]($scalazBaseUrl$/core/src/main/scala/scalaz/TreeLoc.scala):
 
 ```scala
 sealed trait TreeLoc[A] {
@@ -186,7 +186,7 @@ scala> newFocus.get.toTree
 res19: scalaz.Tree[Char] = <tree>
 
 scala> newFocus.get.toTree.draw foreach {_.print}
-P|O+- ||  L+- |  ||  |  N+- |  |  ||  |  T`- |  |  ||  Y`- |  |   |  S+-    |  |   |  A`-    |  |L`- |   P+-    ||     C+- |     ||     R`- |     |   A`-    |      A+-       |      C`- 
+P|O+- ||  L+- |  ||  |  N+- |  |  ||  |  T`- |  |  ||  Y`- |  |   |  S+-    |  |   |  A`-    |  |L`- |   P+-    ||     C+- |     ||     R`- |     |   A`-    |      A+-       |      C`-
 ```
 
 To see check what's inside the tree there's `draw` method on `Tree`, but it looks odd printed with or without newline.

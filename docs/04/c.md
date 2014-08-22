@@ -5,7 +5,7 @@ LYAHFGG:
 
 > Because there are so many data structures that work nicely with folds, the `Foldable` type class was introduced. Much like `Functor` is for things that can be mapped over, Foldable is for things that can be folded up!
 
-The equivalent in Scalaz is also called `Foldable`. Let's see [the typeclass contract](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Foldable.scala#L10-14):
+The equivalent in Scalaz is also called `Foldable`. Let's see [the typeclass contract]($scalazBaseUrl$/core/src/main/scala/scalaz/Foldable.scala#L10-14):
 
 ```scala
 trait Foldable[F[_]] { self =>
@@ -19,7 +19,7 @@ trait Foldable[F[_]] { self =>
 }
 ```
 
-Here are [the operators](https://github.com/scalaz/scalaz/blob/series/7.1.x/core/src/main/scala/scalaz/syntax/FoldableSyntax.scala):
+Here are [the operators]($scalazBaseUrl$/core/src/main/scala/scalaz/syntax/FoldableSyntax.scala):
 
 ```scala
 /** Wraps a value `self` and provides methods related to `Foldable` */

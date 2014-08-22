@@ -9,7 +9,7 @@ Because Scala has `var` at first it seems like we might not need this, but the c
 
 ### ST
 
-In Scalaz there's `ST` monad that corresponds to `ST` described in the paper. Also see [Towards an Effect System in Scala, Part 1: ST Monad](http://apocalisp.wordpress.com/2011/03/20/towards-an-effect-system-in-scala-part-1/) by Rúnar for details. Here's the typeclass contract for [`ST`](https://github.com/scalaz/scalaz/blob/scalaz-seven/effect/src/main/scala/scalaz/effect/ST.scala):
+In Scalaz there's `ST` monad that corresponds to `ST` described in the paper. Also see [Towards an Effect System in Scala, Part 1: ST Monad](http://apocalisp.wordpress.com/2011/03/20/towards-an-effect-system-in-scala-part-1/) by Rúnar for details. Here's the typeclass contract for [`ST`]($scalazBaseUrl$/effect/src/main/scala/scalaz/effect/ST.scala):
 
 ```scala
 sealed trait ST[S, A] {
@@ -75,7 +75,7 @@ e1: [S]=> scalaz.effect.ST[S,scalaz.effect.STRef[S,Int]]
 scala> def e2[S]: ST[S, Int] = for {
          x <- e1[S]
          r <- x.read
-       } yield r 
+       } yield r
 e2: [S]=> scalaz.effect.ST[S,Int]
 
 scala> type ForallST[A] = Forall[({type λ[S] = ST[S, A]})#λ]
@@ -167,7 +167,7 @@ Here's the result:
 
 ```
 [info] STTest
-[info] 
+[info]
 [info] + STRef
 [error] ! STArray
 [error]   NullPointerException: null (ArrayBuilder.scala:37)
