@@ -56,7 +56,7 @@ The important thing to note is that unlike the general monads we've seen, `State
   }
 ```
 
-As with `Writer`, `State[S, +A]` is a type alias of `StateT[Id, S, A]`. Here's the simplified version of [`StateT`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/StateT.scala):
+As with `Writer`, `State[S, +A]` is a type alias of `StateT[Id, S, A]`. Here's the simplified version of [`StateT`]($scalazBaseUrl$/core/src/main/scala/scalaz/StateT.scala):
 
 ```scala
 trait StateT[F[+_], S, +A] { self =>

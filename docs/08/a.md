@@ -47,11 +47,11 @@ res16: scalaz.Unapply[scalaz.Bind,scalaz.\/[String,scalaz.\/[String,Int]]]{type 
 
 LYAHFGG:
 
-> The `filterM` function from `Control.Monad` does just what we want! 
+> The `filterM` function from `Control.Monad` does just what we want!
 > ...
-> The predicate returns a monadic value whose result is a `Bool`. 
+> The predicate returns a monadic value whose result is a `Bool`.
 
-In Scalaz `filterM` is implemented in several places. For `List` it seems to be there by `import Scalaz._`.
+In Scalaz `filterM` is implemented in several places.
 
 ```scala
 trait ListOps[A] extends Ops[List[A]] {
@@ -61,14 +61,9 @@ trait ListOps[A] extends Ops[List[A]] {
 }
 ```
 
-For some reason `Vector` support needs a nudge:
-
 ```scala
 scala> List(1, 2, 3) filterM { x => List(true, false) }
 res19: List[List[Int]] = List(List(1, 2, 3), List(1, 2), List(1, 3), List(1), List(2, 3), List(2), List(3), List())
-
-scala> import syntax.std.vector._
-import syntax.std.vector._
 
 scala> Vector(1, 2, 3) filterM { x => Vector(true, false) }
 res20: scala.collection.immutable.Vector[Vector[Int]] = Vector(Vector(1, 2, 3), Vector(1, 2), Vector(1, 3), Vector(1), Vector(2, 3), Vector(2), Vector(3), Vector())

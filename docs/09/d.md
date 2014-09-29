@@ -8,11 +8,11 @@ Lawless typeclasses
   [pc]: https://groups.google.com/d/msg/scalaz/7OE_Nsreqq0/vUs7-tyf1nsJ
   [why]: http://www.haskell.org/haskellwiki/Why_not_Pointed%3F
 
-Scalaz 7.0 contains several typeclasses that are now deemed lawless by Scalaz project: `Length`, `Index`, and `Each`. Some discussions can be found in [#278 What to do about lawless classes?](https://github.com/scalaz/scalaz/issues/278) and [(presumably) Bug in IndexedSeq Index typeclass](https://groups.google.com/d/msg/scalaz/aJx69eWMK6M/gAtne2v6RJYJ). The three will be deprecated in 7.1, and removed in 7.2.
+Scalaz 7.0 contains several typeclasses that are now deemed lawless by Scalaz project: `Length`, `Index`, and `Each`. Some discussions can be found in [#278 What to do about lawless classes?](https://github.com/scalaz/scalaz/issues/278) and [(presumably) Bug in IndexedSeq Index typeclass](https://groups.google.com/d/msg/scalaz/aJx69eWMK6M/gAtne2v6RJYJ). __The three will be deprecated in 7.1, and removed in 7.2__.
 
 ### Length
 
-There's a typeclass that expresses length. Here's [the typeclass contract of `Length`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Length.scala):
+There's a typeclass that expresses length. Here's [the typeclass contract of `Length`]($scalazBaseUrl$/core/src/main/scala/scalaz/Length.scala):
 
 ```scala
 trait Length[F[_]]  { self =>
@@ -24,7 +24,7 @@ This introduces `length` method. In Scala standard library it's introduced by `S
 
 ### Index
 
-For random access into a container, there's [`Index`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Index.scala):
+For random access into a container, there's [`Index`]($scalazBaseUrl$/core/src/main/scala/scalaz/Index.scala):
 
 ```scala
 trait Index[F[_]]  { self =>
@@ -54,7 +54,7 @@ res62: Option[Int] = None
 
 ### Each
 
-For running side effects along a data structure, there's [`Each`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Each.scala):
+For running side effects along a data structure, there's [`Each`]($scalazBaseUrl$/core/src/main/scala/scalaz/Each.scala):
 
 ```scala
 trait Each[F[_]]  { self =>

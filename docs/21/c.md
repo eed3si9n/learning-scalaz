@@ -2,9 +2,9 @@
 out: Natural-Transformation.html
 ---
 
-  [nt]: https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/NaturalTransformation.scala
+  [nt]: $scalazBaseUrl$/core/src/main/scala/scalaz/NaturalTransformation.scala
   [@harrah]: https://github.com/harrah
-  [@runarorama]: https://twitter.com/runarorama 
+  [@runarorama]: https://twitter.com/runarorama
   [higherrank]: http://apocalisp.wordpress.com/2010/07/02/higher-rank-polymorphism-in-scala/
   [TLPiS7]: http://apocalisp.wordpress.com/2010/10/26/type-level-programming-in-scala-part-7-natural-transformation%C2%A0literals/
   [polyfunc2]: http://www.chuusai.com/2012/05/10/shapeless-polymorphic-function-values-2/
@@ -28,15 +28,15 @@ Mark presents a simple example of why we might want a natural transformation:
 
 ```scala
 val toList = ...
- 
+
 val a: List[Int] = toList(Some(3))
 assert(List(3) == a)
- 
+
 val b: List[Boolean] = toList(Some(true))
 assert(List(true) == b)
 ```
 
-> In order to define a natural transformation `M ~> N` (here, M=Option, N=List), we have to create an anonymous class because Scala doesn’t have literals for quantified functions. 
+> In order to define a natural transformation `M ~> N` (here, M=Option, N=List), we have to create an anonymous class because Scala doesn’t have literals for quantified functions.
 
 Scalaz ports this. Let's see [NaturalTransformation][nt]:
 

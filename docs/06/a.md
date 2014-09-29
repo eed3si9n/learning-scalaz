@@ -50,7 +50,7 @@ LYAHFGG:
 
 > To attach a monoid to a value, we just need to put them together in a tuple. The `Writer w a` type is just a `newtype` wrapper for this.
 
-In Scalaz, the equivalent is called [`Writer`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/package.scala):
+In Scalaz, the equivalent is called [`Writer`]($scalazBaseUrl$/core/src/main/scala/scalaz/package.scala):
 
 ```scala
 type Writer[+W, +A] = WriterT[Id, W, A]
@@ -60,7 +60,7 @@ type Writer[+W, +A] = WriterT[Id, W, A]
 
 ### WriterT
 
-Here's the simplified version of [`WriterT`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/WriterT.scala):
+Here's the simplified version of [`WriterT`]($scalazBaseUrl$/core/src/main/scala/scalaz/WriterT.scala):
 
 ```scala
 sealed trait WriterT[F[+_], +W, +A] { self =>
@@ -86,7 +86,7 @@ The following operators are supported by all data types enabled by `import Scala
 trait ToDataOps extends ToIdOps with ToTreeOps with ToWriterOps with ToValidationOps with ToReducerOps with ToKleisliOps
 ```
 
-The operator in question is part of [`WriterV`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/syntax/ToWriterOps.scala):
+The operator in question is part of [`WriterV`]($scalazBaseUrl$/core/src/main/scala/scalaz/syntax/WriterOps.scala):
 
 ```scala
 trait WriterV[A] extends Ops[A] {
@@ -106,13 +106,13 @@ scala> "something".tell
 res58: scalaz.Writer[String,Unit] = scalaz.WriterTFunctions\$\$anon\$26@374de9cf
 ```
 
-What if we want to get the identity value like `return 3 :: Writer String Int`? `Monad[F[_]]` expects a type constructor with one parameter, but `Writer[+W, +A]` takes two. There's a helper type in Scalaz called `MonadWriter` to help us out:
+What if we want to get the identity value like `return 3 :: Writer String Int`? `Monad[F[_]]` expects a type constructor with one parameter, but `Writer[+W, +A]` takes two. There's a helper type in Scalaz called `MonadTell` (in scalaz 7.0 it was MonadWriter) to help us out:
 
 ```scala
-scala> MonadWriter[Writer, String]
-res62: scalaz.MonadWriter[scalaz.Writer,String] = scalaz.WriterTInstances\$\$anon\$1@6b8501fa
+scala> MonadTell[Writer, String]
+res62: scalaz.MonadTell[scalaz.Writer,String] = scalaz.WriterTInstances\$\$anon\$1@6b8501fa
 
-scala> MonadWriter[Writer, String].point(3).run
+scala> MonadTell[Writer, String].point(3).run
 res64: (String, Int) = ("",3)
 ```
 
@@ -136,7 +136,7 @@ scala> def multWithLog: Writer[List[String], Int] = for {
        } yield a * b
 multWithLog: scalaz.Writer[List[String],Int]
 
-scala> multWithLog.run
+scala> multWithLog run
 res67: (List[String], Int) = (List(Got number: 3, Got number: 5),15)
 ```
 
@@ -173,12 +173,7 @@ LYAHFGG:
 
 Here's [the table of performance characteristics for major collections](http://docs.scala-lang.org/overviews/collections/performance-characteristics.html). What stands out for immutable collection is `Vector` since it has effective constant for all operations. `Vector` is a tree structure with the branching factor of 32, and it's able to achieve fast updates by structure sharing.
 
-For whatever reason, Scalaz 7 does not enable typeclasses for `Vector`s using `import Scalaz._`. So let's import it manually:
-
 ```scala
-scala> import std.vector._
-import std.vector._
-
 scala> Monoid[Vector[String]]
 res73: scalaz.Monoid[Vector[String]] = scalaz.std.IndexedSeqSubInstances\$\$anon\$4@6f82f06f
 ```
@@ -211,8 +206,6 @@ res74: (Vector[String], Int) = (Vector(Finished with 1, 2 mod 1 = 0, 3 mod 2 = 1
 Like the book let's write a microbenchmark to compare the performance:
 
 ```scala
-import std.vector._
-
 def vectorFinalCountDown(x: Int): Writer[Vector[String], Unit] = {
   import annotation.tailrec
   @tailrec def doFinalCountDown(x: Int, w: Writer[Vector[String], Unit]): Writer[Vector[String], Unit] = x match {

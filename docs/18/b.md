@@ -120,7 +120,7 @@ scala> :paste
 sealed trait FixE[F[_], E]
 object FixE {
   case class Fix[F[_], E](f: F[FixE[F, E]]) extends FixE[F, E]
-  case class Throwy[F[_], E](e: E) extends FixE[F, E]   
+  case class Throwy[F[_], E](e: E) extends FixE[F, E]
 
   def fix[E](toy: CharToy[FixE[CharToy, E]]): FixE[CharToy, E] =
   　　Fix[CharToy, E](toy)
@@ -159,7 +159,7 @@ scala> :paste
 import FixE._
 case class IncompleteException()
 def subroutine = fix[IncompleteException](
-  output('A', 
+  output('A',
     throwy[CharToy, IncompleteException](IncompleteException())))
 def program = catchy[CharToy, IncompleteException, Nothing](subroutine) { _ =>
   fix[Nothing](bell(fix[Nothing](done)))
@@ -187,7 +187,7 @@ instance (Functor f) => Monad (Free f) where
     (Pure r) >>= f = f r
 ```
 
-> The `return` was our `Throw`, and `(>>=)` was our `catch`. 
+> The `return` was our `Throw`, and `(>>=)` was our `catch`.
 
 The corresponding structure in Scalaz is called `Free`:
 
@@ -308,7 +308,7 @@ scala> val program = for {
 program: scalaz.Free[CharToy,Unit] = Gosub(<function0>,<function1>)
 ```
 
-> This is where things get magical. We now have `do` notation for something that hasn't even been interpreted yet: it's pure data. 
+> This is where things get magical. We now have `do` notation for something that hasn't even been interpreted yet: it's pure data.
 
 Next we'd like to define `showProgram` to prove that what we have is just data. WFMM defines `showProgram` using simple pattern matching, but it doesn't quite work that way for our Free. See the definition of `flatMap`:
 
@@ -331,13 +331,13 @@ scala> def showProgram[R: Show](p: Free[CharToy, R]): String =
            case CharDone() =>
              "done\n"
          },
-         { r: R => "return " + Show[R].shows(r) + "\n" }) 
+         { r: R => "return " + Show[R].shows(r) + "\n" })
 showProgram: [R](p: scalaz.Free[CharToy,R])(implicit evidence\$1: scalaz.Show[R])String
 
 scala> showProgram(program)
-res12: String = 
+res12: String =
 "output A
-bell 
+bell
 done
 "
 ```

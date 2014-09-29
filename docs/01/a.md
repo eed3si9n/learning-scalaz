@@ -1,11 +1,11 @@
   [tt]: http://learnyouahaskell.com/types-and-typeclasses
   [moott]: http://learnyouahaskell.com/making-our-own-types-and-typeclasses
-  [z7]: https://github.com/scalaz/scalaz/tree/scalaz-seven
-  [z7docs]: http://docs.typelevel.org/api/scalaz/stable/7.0.4/doc
+  [z7]: $scalazTree$
+  [z7docs]: http://docs.typelevel.org/api/scalaz/
 
 ### sbt
 
-Here's build.sbt to test Scalaz 7:
+Here's build.sbt to test Scalaz $scalazVersion$:
 
 ```scala
 scalaVersion := "$scalaVersion$"
@@ -36,7 +36,7 @@ Welcome to Scala version 2.10.3 (Java HotSpot(TM) 64-Bit Server VM, Java 1.6.0_5
 Type in expressions to have them evaluated.
 Type :help for more information.
 
-scala> 
+scala>
 ```
 
-There's also [API docs][z7docs] generated for Scalaz 7.
+There's also [API docs][z7docs] generated for Scalaz $scalazVersion$.

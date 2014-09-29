@@ -3,13 +3,13 @@
 
 LYAHFGG:
 
-> When we were learning about the monad laws, we said that the `<=<` function is just like composition, only instead of working for normal functions like `a -> b`, it works for monadic functions like `a -> m b`. 
+> When we were learning about the monad laws, we said that the `<=<` function is just like composition, only instead of working for normal functions like `a -> b`, it works for monadic functions like `a -> m b`.
 
 Looks like I missed this one too.
 
 ### Kleisli
 
-In Scalaz there's a special wrapper for function of type `A => M[B]` called [Kleisli](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Kleisli.scala):
+In Scalaz there's a special wrapper for function of type `A => M[B]` called [Kleisli]($scalazBaseUrl$/core/src/main/scala/scalaz/Kleisli.scala):
 
 ```scala
 sealed trait Kleisli[M[+_], -A, +B] { self =>
@@ -18,7 +18,7 @@ sealed trait Kleisli[M[+_], -A, +B] { self =>
   /** alias for `andThen` */
   def >=>[C](k: Kleisli[M, B, C])(implicit b: Bind[M]): Kleisli[M, A, C] =  kleisli((a: A) => b.bind(this(a))(k(_)))
   def andThen[C](k: Kleisli[M, B, C])(implicit b: Bind[M]): Kleisli[M, A, C] = this >=> k
-  /** alias for `compose` */ 
+  /** alias for `compose` */
   def <=<[C](k: Kleisli[M, C, A])(implicit b: Bind[M]): Kleisli[M, C, B] = k >=> this
   def compose[C](k: Kleisli[M, C, A])(implicit b: Bind[M]): Kleisli[M, C, B] = k >=> this
   ...
@@ -79,4 +79,3 @@ res76: scalaz.Id.Id[Int] = 19
 ```
 
 The fact that we are using function as a monad becomes somewhat clearer here.
-

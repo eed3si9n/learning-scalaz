@@ -5,9 +5,9 @@
 
 ### Memo
 
-Pure functions don't imply they are computationally cheap. For example, calcuate a list of SHA-1 hash for all permutations of ASCII character string up to 8 characters length. If we don't count the tab character there are 95 printable characters in ASCII, so let's round that up to 100. `100 ^ 8` is `10 ^ 16`. Even if we could handle 1000 hashing per second, it takes `10 ^ 13` secs, or 316888 years.
+Pure functions don't imply they are computationally cheap. For example, calculate a list of SHA-1 hash for all permutations of ASCII character string up to 8 characters length. If we don't count the tab character there are 95 printable characters in ASCII, so let's round that up to 100. `100 ^ 8` is `10 ^ 16`. Even if we could handle 1000 hashing per second, it takes `10 ^ 13` secs, or 316888 years.
 
-Given you have some space in RAM, we could trade some of the expensive calculations for space by caching the result. This is called memoization. Here's the contract for [`Memo`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Memo.scala):
+Given you have some space in RAM, we could trade some of the expensive calculations for space by caching the result. This is called memoization. Here's the contract for [`Memo`]($scalazBaseUrl$/core/src/main/scala/scalaz/Memo.scala):
 
 ```scala
 sealed trait Memo[@specialized(Int) K, @specialized(Int, Long, Double) V] {

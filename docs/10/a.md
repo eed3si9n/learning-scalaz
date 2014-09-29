@@ -7,7 +7,7 @@ One concept that I see many times in Scalaz 7 is the monad transformer, so let's
 
 > It would be ideal if we could somehow take the standard `State` monad and add failure handling to it, without resorting to the wholesale construction of custom monads by hand. The standard monads in the `mtl` library don't allow us to combine them. Instead, the library provides a set of *monad transformers* to achieve the same result.
 >
-> A monad transformer is similar to a regular monad, but it's not a standalone entity: instead, it modifies the behaviour of an underlying monad. 
+> A monad transformer is similar to a regular monad, but it's not a standalone entity: instead, it modifies the behaviour of an underlying monad.
 
 ### Reader, yet again
 
@@ -39,7 +39,7 @@ scala> :paste
 // Entering paste mode (ctrl-D to finish)
 
 type ReaderTOption[A, B] = ReaderT[Option, A, B]
-object ReaderTOption extends KleisliFunctions with KleisliInstances {
+object ReaderTOption extends KleisliInstances with KleisliFunctions {
   def apply[A, B](f: A => Option[B]): ReaderTOption[A, B] = kleisli(f)
 }
 
@@ -49,7 +49,7 @@ object ReaderTOption extends KleisliFunctions with KleisliInstances {
 Now using `ReaderTOption` object, we can create a `ReaderTOption`:
 
 ```scala
-scala> def configure(key: String) = ReaderTOption[Map[String, String], String] {_.get(key)} 
+scala> def configure(key: String) = ReaderTOption[Map[String, String], String] {_.get(key)}
 configure: (key: String)ReaderTOption[Map[String,String],String]
 ```
 
@@ -99,9 +99,9 @@ scala> :paste
 
 type StateTReaderTOption[C, S, A] = StateT[({type l[+X] = ReaderTOption[C, X]})#l, S, A]
 
-object StateTReaderTOption extends StateTFunctions with StateTInstances {
-  def apply[C, S, A](f: S => (S, A)) = new StateT[({type l[+X] = ReaderTOption[C, X]})#l, S, A] {
-    def apply(s: S) = f(s).point[({type l[+X] = ReaderTOption[C, X]})#l]
+object StateTReaderTOption extends StateTInstances with StateTFunctions {
+  def apply[C, S, A](f: S => (S, A)) = new StateT[({type l[X] = ReaderTOption[C, X]})#l, S, A] {
+    def apply(s: S) = f(s).point[({type l[X] = ReaderTOption[C, X]})#l]
   }
   def get[C, S]: StateTReaderTOption[C, S, S] =
     StateTReaderTOption { s => (s, s) }

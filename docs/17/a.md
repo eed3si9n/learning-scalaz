@@ -10,7 +10,7 @@ Instead of reading the second half of the paper, we can get the gist by reading 
 
 > While ST gives us guarantees that mutable memory is never shared, it says nothing about reading/writing files, throwing exceptions, opening network sockets, database connections, etc.
 
-Here's the typeclass contract for [`ST`](https://github.com/scalaz/scalaz/blob/scalaz-seven/effect/src/main/scala/scalaz/effect/ST.scala) again:
+Here's the typeclass contract for [`ST`]($scalazBaseUrl$/effect/src/main/scala/scalaz/effect/ST.scala) again:
 
 ```scala
 sealed trait ST[S, A] {

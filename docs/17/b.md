@@ -16,7 +16,7 @@ I am going to read EBIOI first:
 def foldLeft[B](b: B)(f: (B, A) => B): B
 ```
 
-Let's look at Scalaz 7's interfaces. Here's [`Input`](https://github.com/scalaz/scalaz/blob/scalaz-seven/iteratee/src/main/scala/scalaz/iteratee/Input.scala):
+Let's look at Scalaz 7's interfaces. Here's [`Input`]($scalazBaseUrl$/iteratee/src/main/scala/scalaz/iteratee/Input.scala):
 
 ```scala
 sealed trait Input[E] {
@@ -26,7 +26,7 @@ sealed trait Input[E] {
 }
 ```
 
-And here's [`IterateeT`](https://github.com/scalaz/scalaz/blob/scalaz-seven/iteratee/src/main/scala/scalaz/iteratee/IterateeT.scala):
+And here's [`IterateeT`]($scalazBaseUrl$/iteratee/src/main/scala/scalaz/iteratee/IterateeT.scala):
 
 ```scala
 sealed trait IterateeT[E, F[_], A] {
@@ -63,7 +63,7 @@ We can skip this step, because `Iteratee` object extends `EnumeratorTFunctions`,
   ...
 ```
 
-This returns <a href="https://github.com/scalaz/scalaz/blob/scalaz-seven/iteratee/src/main/scala/scalaz/iteratee/EnumeratorT.scala"><code>Enumerator[E]</code></a>, which is defined as follows:
+This returns <a href="$scalazBaseUrl$/iteratee/src/main/scala/scalaz/iteratee/EnumeratorT.scala"><code>Enumerator[E]</code></a>, which is defined as follows:
 
 ```scala
 trait EnumeratorT[E, F[_]] { self =>
@@ -108,7 +108,7 @@ scala> (length[Int, Id] &= enumerate(Stream(1, 2, 3))).run
 res1: scalaz.Scalaz.Id[Int] = 3
 ```
 
-I'll just copy the `drop` and `head` from [`IterateeTFunctions`](https://github.com/scalaz/scalaz/blob/scalaz-seven/iteratee/src/main/scala/scalaz/iteratee/IterateeT.scala):
+I'll just copy the `drop` and `head` from [`IterateeTFunctions`]($scalazBaseUrl$/iteratee/src/main/scala/scalaz/iteratee/IterateeT.scala):
 
 ```scala
   /**An iteratee that skips the first n elements of the input **/
@@ -163,7 +163,7 @@ res7: scala.collection.immutable.Stream[Int] = Stream(2, 4, 6, 8, 10, 12, 14)
 
 EBIOI:
 
-> Using the iteratees to read from file input turns out to be incredibly easy. 
+> Using the iteratees to read from file input turns out to be incredibly easy.
 
 To process `java.io.Reader` Scalaz 7 comes with `Iteratee.enumReader[F[_]](r: => java.io.Reader)` function. This is when it starts to make sense why `Iteratee` was implemented as `IterateeT` because we can just stick `IO` into it:
 
@@ -206,7 +206,7 @@ scala> lengthOfTwoFiles(new File("./README.md"), new File("./TODO.txt")).unsafeP
 res65: Int = 12731
 ```
 
-There are some more interesting examples in [`IterateeUsage.scala`](https://github.com/scalaz/scalaz/blob/scalaz-seven/example/src/main/scala/scalaz/example/IterateeUsage.scala):
+There are some more interesting examples in [`IterateeUsage.scala`]($scalazBaseUrl$/example/src/main/scala/scalaz/example/IterateeUsage.scala):
 
 ```scala
 scala> val readLn = takeWhile[Char, List](_ != '\n') flatMap (ln => drop[Char, Id](1).map(_ => ln))

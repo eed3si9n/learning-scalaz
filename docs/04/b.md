@@ -5,7 +5,7 @@ LYAHFGG:
 
 > One way is to treat `Maybe a` as a monoid only if its type parameter a is a monoid as well and then implement mappend in such a way that it uses the mappend operation of the values that are wrapped with `Just`.
 
-Let's see if this is how Scalaz does it. See [`std/Option.scala`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/std/Option.scala#L54-63):
+Let's see if this is how Scalaz does it. See [`std/Option.scala`]($scalazBaseUrl$/core/src/main/scala/scalaz/std/Option.scala#L54-63):
 
 ```scala
   implicit def optionMonoid[A: Semigroup]: Monoid[Option[A]] = new Monoid[Option[A]] {

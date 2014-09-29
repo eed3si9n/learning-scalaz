@@ -10,7 +10,7 @@ Even in the Article section, CM uses many pages to go over the basic concept com
 
 CM:
 
-> Before giving a precice definition of 'category', we should become familar with one example, the **category of finite sets and maps**.
+> Before giving a precise definition of 'category', we should become familiar with one example, the **category of finite sets and maps**.
 > An *object* in this category is a finite set or collection.
 > ...
 > You are probably familiar with some notations for finite sets:

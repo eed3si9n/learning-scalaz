@@ -35,10 +35,11 @@ KiloGram: [A](a: A)scalaz.@@[A,KiloGram]
 scala> val mass = KiloGram(20.0)
 mass: scalaz.@@[Double,KiloGram] = 20.0
 
-scala> 2 * mass
+scala> 2 * Tag.unwrap(mass)
 res2: Double = 40.0
 ```
 
+Note: As of scalaz 7.1 we need to explicitly unwrap tags. Previously we could just do ```2 * mass```.
 Just to be clear, `A @@ KiloGram` is an infix notation of `scalaz.@@[A, KiloGram]`. We can now define a function that calculates relativistic energy.
 
 ```scala
@@ -49,7 +50,7 @@ scala> def JoulePerKiloGram[A](a: A): A @@ JoulePerKiloGram = Tag[A, JoulePerKil
 JoulePerKiloGram: [A](a: A)scalaz.@@[A,JoulePerKiloGram]
 
 scala> def energyR(m: Double @@ KiloGram): Double @@ JoulePerKiloGram =
-     |   JoulePerKiloGram(299792458.0 * 299792458.0 * m)
+     |   JoulePerKiloGram(299792458.0 * 299792458.0 * Tag.unwrap(m))
 energyR: (m: scalaz.@@[Double,KiloGram])scalaz.@@[Double,JoulePerKiloGram]
 
 scala> energyR(mass)

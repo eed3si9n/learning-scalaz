@@ -5,7 +5,7 @@ LYAHFGG:
 
 > And now, we're going to take a look at the `Functor` typeclass, which is basically for things that can be mapped over.
 
-Like the book let's look [how it's implemented](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Functor.scala):
+Like the book let's look [how it's implemented]($scalazBaseUrl$/core/src/main/scala/scalaz/Functor.scala):
 
 ```scala
 trait Functor[F[_]]  { self =>
@@ -16,7 +16,7 @@ trait Functor[F[_]]  { self =>
 }
 ```
 
-Here are the [injected operators](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/syntax/FunctorSyntax.scala) it enables:
+Here are the [injected operators]($scalazBaseUrl$/core/src/main/scala/scalaz/syntax/FunctorSyntax.scala) it enables:
 
 ```scala
 trait FunctorOps[F[_],A] extends Ops[F[A]] {
@@ -25,7 +25,7 @@ trait FunctorOps[F[_],A] extends Ops[F[A]] {
   import Leibniz.===
 
   final def map[B](f: A => B): F[B] = F.map(self)(f)
-  
+
   ...
 }
 ```
@@ -43,6 +43,7 @@ Scalaz defines `Functor` instances for `Tuple`s.
 scala> (1, 2, 3) map {_ + 1}
 res28: (Int, Int, Int) = (1,2,4)
 ```
+Note that the operation is only applied to the last value in the Tuple, (see [scalaz group](https://groups.google.com/forum/#!topic/scalaz/lkrDLUV6HN4) discussion).
 
 ### Function as Functors
 
@@ -62,7 +63,7 @@ No wonder Scalaz provides `∘` as an alias of `map`. Another way of looking at 
 > How are functions functors?
 > ...
 >
-> What does the type `fmap :: (a -> b) -> (r -> a) -> (r -> b)` for this instance tell us? Well, we see that it takes a function from `a` to `b` and a function from `r` to `a` and returns a function from `r` to `b`. Does this remind you of anything? Yes! Function composition! 
+> What does the type `fmap :: (a -> b) -> (r -> a) -> (r -> b)` for this instance tell us? Well, we see that it takes a function from `a` to `b` and a function from `r` to `a` and returns a function from `r` to `b`. Does this remind you of anything? Yes! Function composition!
 
 Oh man, LYAHFGG came to the same conclusion as I did about the function composition. But wait..
 
@@ -70,7 +71,7 @@ Oh man, LYAHFGG came to the same conclusion as I did about the function composit
 ghci> fmap (*3) (+100) 1
 303
 ghci> (*3) . (+100) \$ 1  
-303 
+303
 ```
 
 In Haskell, the `fmap` seems to be working as the same order as `f compose g`. Let's check in Scala using the same numbers:

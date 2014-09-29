@@ -15,7 +15,7 @@ scala> Applicative[({type l[A]=Function1[Int, A]})#l]
 res14: scalaz.Applicative[[A]Int => A] = scalaz.std.FunctionInstances\$\$anon\$2@56ae78ac
 ```
 
-This becomes annoying for `M[_,_]` like `Validation`. One of the way Scalaz helps you out is to provide meta-instances of typeclass instance called [`Unapply`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Unapply.scala).
+This becomes annoying for `M[_,_]` like `Validation`. One of the way Scalaz helps you out is to provide meta-instances of typeclass instance called [`Unapply`]($scalazBaseUrl$/core/src/main/scala/scalaz/Unapply.scala).
 
 ```scala
 trait Unapply[TC[_[_]], MA] {
@@ -71,4 +71,3 @@ res3: scalaz.Validation[String,scalaz.Tree[Int]] = Failure(boom)
 ```
 
 Boom.
-
