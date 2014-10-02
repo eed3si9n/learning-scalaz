@@ -39,7 +39,7 @@ scala> 2 * Tag.unwrap(mass)
 res2: Double = 40.0
 ```
 
-Note: As of scalaz 7.1 we need to explicitly unwrap tags. Previously we could just do ```2 * mass```.
+Note: As of scalaz 7.1 we need to explicitly unwrap tags. Previously we could just do `2 * mass`.
 Just to be clear, `A @@ KiloGram` is an infix notation of `scalaz.@@[A, KiloGram]`. We can now define a function that calculates relativistic energy.
 
 ```scala
