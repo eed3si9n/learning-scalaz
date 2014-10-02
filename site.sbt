@@ -5,7 +5,7 @@ lazy val packageSitePath = settingKey[File]("path for the package")
 
 siteDirectory := target.value / "www"
 
-packageSitePath := target.value / "learningscalaz70.tar.gz"
+packageSitePath := target.value / "learningscalaz71.tar.gz"
 
 packageSite := {
   val out = packageSitePath.value
