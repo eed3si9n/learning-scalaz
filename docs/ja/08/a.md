@@ -54,7 +54,7 @@ LYAHFGG:
 > ...
 > 述語は `Bool` を結果とするモナド値を返しています。
 
-Scalaz では `filterM` はいくつかの箇所で実装されている。`List` に関しては `import Scalaz._` で入ってくるみたいだ。
+Scalaz では `filterM` はいくつかの箇所で実装されている。
 
 ```scala
 trait ListOps[A] extends Ops[List[A]] {
@@ -64,14 +64,9 @@ trait ListOps[A] extends Ops[List[A]] {
 }
 ```
 
-`Vector` のサポートは少し手伝ってやる必要がある:
-
 ```scala
 scala> List(1, 2, 3) filterM { x => List(true, false) }
 res19: List[List[Int]] = List(List(1, 2, 3), List(1, 2), List(1, 3), List(1), List(2, 3), List(2), List(3), List())
-
-scala> import syntax.std.vector._
-import syntax.std.vector._
 
 scala> Vector(1, 2, 3) filterM { x => Vector(true, false) }
 res20: scala.collection.immutable.Vector[Vector[Int]] = Vector(Vector(1, 2, 3), Vector(1, 2), Vector(1, 3), Vector(1), Vector(2, 3), Vector(2), Vector(3), Vector())
