@@ -2,7 +2,7 @@
 out: Natural-Transformation.html
 ---
 
-  [nt]: https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/NaturalTransformation.scala
+  [nt]: $scalazBaseUrl$/core/src/main/scala/scalaz/NaturalTransformation.scala
   [@harrah]: https://github.com/harrah
   [@runarorama]: https://twitter.com/runarorama 
   [higherrank]: http://apocalisp.wordpress.com/2010/07/02/higher-rank-polymorphism-in-scala/

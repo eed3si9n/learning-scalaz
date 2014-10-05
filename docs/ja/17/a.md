@@ -13,7 +13,7 @@ out: IO-Monad.html
 
 > While ST gives us guarantees that mutable memory is never shared, it says nothing about reading/writing files, throwing exceptions, opening network sockets, database connections, etc.
 
-以下に [`ST`](https://github.com/scalaz/scalaz/blob/scalaz-seven/effect/src/main/scala/scalaz/effect/ST.scala) の型クラスコントラクトをもう一度:
+以下に [`ST`]($scalazBaseUrl$/effect/src/main/scala/scalaz/effect/ST.scala) の型クラスコントラクトをもう一度:
 
 ```scala
 sealed trait ST[S, A] {

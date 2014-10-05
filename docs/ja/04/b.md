@@ -8,7 +8,7 @@ LYAHFGG:
 
 > `Maybe a` をモノイドにする1つ目の方法は、型引数 `a` がモノイドであるときに限り `Maybe a` もモノイドであるとし、`Maybe a` の `mappend` を、`Just` の中身の `mappend` を使って定義することです。
 
-Scalaz がこうなっているか確認しよう。[`std/Option.scala`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/std/Option.scala#L54-63) 参照:
+Scalaz がこうなっているか確認しよう。[`std/Option.scala`]($scalazBaseUrl$/core/src/main/scala/scalaz/std/Option.scala#L54-63) 参照:
 
 ```scala
   implicit def optionMonoid[A: Semigroup]: Monoid[Option[A]] = new Monoid[Option[A]] {

@@ -12,7 +12,7 @@ LYAHFGG:
 
 ### Kleisli
 
-Scalaz には [Kleisli](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Kleisli.scala) と呼ばれる `A => M[B]` という型の関数に対する特殊なラッパーがある:
+Scalaz には [Kleisli]($scalazBaseUrl$/core/src/main/scala/scalaz/Kleisli.scala) と呼ばれる `A => M[B]` という型の関数に対する特殊なラッパーがある:
 
 ```scala
 sealed trait Kleisli[M[+_], -A, +B] { self =>

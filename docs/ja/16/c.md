@@ -12,7 +12,7 @@ Scala には `var` があるので一見すると不必要にも思われるけ�
 
 ### ST
 
-この論文で説明される `ST` に対応するものとして Scalaz には `ST` モナドがある。Rúnar さんの [Towards an Effect System in Scala, Part 1: ST Monad](http://apocalisp.wordpress.com/2011/03/20/towards-an-effect-system-in-scala-part-1/) も参照。以下が [`ST`](https://github.com/scalaz/scalaz/blob/scalaz-seven/effect/src/main/scala/scalaz/effect/ST.scala) のコントラクトだ:
+この論文で説明される `ST` に対応するものとして Scalaz には `ST` モナドがある。Rúnar さんの [Towards an Effect System in Scala, Part 1: ST Monad](http://apocalisp.wordpress.com/2011/03/20/towards-an-effect-system-in-scala-part-1/) も参照。以下が [`ST`]($scalazBaseUrl$/effect/src/main/scala/scalaz/effect/ST.scala) のコントラクトだ:
 
 ```scala
 sealed trait ST[S, A] {

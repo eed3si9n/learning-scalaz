@@ -5,7 +5,7 @@ LYAHFGG:
 
 > ジッパーは、ほぼどんなデータ型に対しても作れるので、リストと部分リストに対して作れるといっても不思議ではないでしょう。
 
-リストの Zipper のかわりに、Scalaz は `Stream` 向けのものを提供する。Haskell の遅延評価のため、Scala の `Stream` を Haskell のリストを考えるのは理にかなっているのかもしれない。これが [`Zipper`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Zipper.scala) だ:
+リストの Zipper のかわりに、Scalaz は `Stream` 向けのものを提供する。Haskell の遅延評価のため、Scala の `Stream` を Haskell のリストを考えるのは理にかなっているのかもしれない。これが [`Zipper`]($scalazBaseUrl$/core/src/main/scala/scalaz/Zipper.scala) だ:
 
 ```scala
 sealed trait Zipper[+A] {

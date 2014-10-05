@@ -7,7 +7,7 @@
 
 関数が純粋だからといってその計算量が安いとは限らない。例えば、全ての 8文字の ASCII 文字列の順列に対する SHA-1 ハッシュのリストを求めるとする。タブ文字を抜くと ASCII には 95 の表示可能な文字があるので、繰り上げて 100 とする。`100 ^ 8` は `10 ^ 16` だ。たとえ秒間 1000 ハッシュ処理できたとしても `10 ^ 13` 秒、つまり 316888年かかる。
 
-RAM に少し余裕があれば、計算結果をキャッシュすることで高価な計算とスペースをトレードすることができる。これはメモ化と呼ばれる。以下が [`Memo`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Memo.scala) のコントラクトだ:
+RAM に少し余裕があれば、計算結果をキャッシュすることで高価な計算とスペースをトレードすることができる。これはメモ化と呼ばれる。以下が [`Memo`]($scalazBaseUrl$/core/src/main/scala/scalaz/Memo.scala) のコントラクトだ:
 
 ```scala
 sealed trait Memo[@specialized(Int) K, @specialized(Int, Long, Double) V] {

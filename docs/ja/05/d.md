@@ -17,7 +17,7 @@ LYAHFGG:
 
 > `MonadPlus` は、モノイドの性質をあわせ持つモナドを表す型クラスです。
 
-以下が [`MonadPlus` の型クラスのコントラクト](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/MonadPlus.scala)だ:
+以下が [`MonadPlus` の型クラスのコントラクト]($scalazBaseUrl$/core/src/main/scala/scalaz/MonadPlus.scala)だ:
 
 ```scala
 trait MonadPlus[F[_]] extends Monad[F] with ApplicativePlus[F] { self =>
@@ -27,7 +27,7 @@ trait MonadPlus[F[_]] extends Monad[F] with ApplicativePlus[F] { self =>
 
 ### Plus、PlusEmpty、と ApplicativePlus
 
-これは [`ApplicativePlus`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/ApplicativePlus.scala) を継承している:
+これは [`ApplicativePlus`]($scalazBaseUrl$/core/src/main/scala/scalaz/ApplicativePlus.scala) を継承している:
 
 ```scala
 trait ApplicativePlus[F[_]] extends Applicative[F] with PlusEmpty[F] { self =>
@@ -35,7 +35,7 @@ trait ApplicativePlus[F[_]] extends Applicative[F] with PlusEmpty[F] { self =>
 }
 ```
 
-そして、それは [`PlusEmpty`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/PlusEmpty.scala) を継承している:
+そして、それは [`PlusEmpty`]($scalazBaseUrl$/core/src/main/scala/scalaz/PlusEmpty.scala) を継承している:
 
 ```scala
 trait PlusEmpty[F[_]] extends Plus[F] { self =>
@@ -44,7 +44,7 @@ trait PlusEmpty[F[_]] extends Plus[F] { self =>
 }
 ```
 
-そして、それは [`Plus`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/PlusEmpty.scala) を継承している:
+そして、それは [`Plus`]($scalazBaseUrl$/core/src/main/scala/scalaz/PlusEmpty.scala) を継承している:
 
 ```scala
 trait Plus[F[_]]  { self =>

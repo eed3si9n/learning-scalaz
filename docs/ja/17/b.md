@@ -16,7 +16,7 @@ IO を処理するもう 1つの方法に Iteratee と呼ばれるものがあ�
 def foldLeft[B](b: B)(f: (B, A) => B): B
 ```
 
-Scalaz 7 のインターフェイスをみてみよう。以下が [`Input`](https://github.com/scalaz/scalaz/blob/scalaz-seven/iteratee/src/main/scala/scalaz/iteratee/Input.scala) だ:
+Scalaz 7 のインターフェイスをみてみよう。以下が [`Input`]($scalazBaseUrl$/iteratee/src/main/scala/scalaz/iteratee/Input.scala) だ:
 
 ```scala
 sealed trait Input[E] {
@@ -26,7 +26,7 @@ sealed trait Input[E] {
 }
 ```
 
-そしてこれが [`IterateeT`](https://github.com/scalaz/scalaz/blob/scalaz-seven/iteratee/src/main/scala/scalaz/iteratee/IterateeT.scala):
+そしてこれが [`IterateeT`]($scalazBaseUrl$/iteratee/src/main/scala/scalaz/iteratee/IterateeT.scala):
 
 ```scala
 sealed trait IterateeT[E, F[_], A] {
@@ -63,7 +63,7 @@ EBIOI:
   ...
 ```
 
-これは以下のように定義された <a href="https://github.com/scalaz/scalaz/blob/scalaz-seven/iteratee/src/main/scala/scalaz/iteratee/EnumeratorT.scala"><code>Enumerator[E]</code></a> を返す:
+これは以下のように定義された <a href="$scalazBaseUrl$/iteratee/src/main/scala/scalaz/iteratee/EnumeratorT.scala"><code>Enumerator[E]</code></a> を返す:
 
 ```scala
 trait EnumeratorT[E, F[_]] { self =>
@@ -108,7 +108,7 @@ scala> (length[Int, Id] &= enumerate(Stream(1, 2, 3))).run
 res1: scalaz.Scalaz.Id[Int] = 3
 ```
 
-`drop` と `head` は [`IterateeTFunctions`](https://github.com/scalaz/scalaz/blob/scalaz-seven/iteratee/src/main/scala/scalaz/iteratee/IterateeT.scala) の実装をみてみる:
+`drop` と `head` は [`IterateeTFunctions`]($scalazBaseUrl$/iteratee/src/main/scala/scalaz/iteratee/IterateeT.scala) の実装をみてみる:
 
 ```scala
   /**An iteratee that skips the first n elements of the input **/
@@ -206,7 +206,7 @@ scala> lengthOfTwoFiles(new File("./README.md"), new File("./TODO.txt")).unsafeP
 res65: Int = 12731
 ```
 
-[`IterateeUsage.scala`](https://github.com/scalaz/scalaz/blob/scalaz-seven/example/src/main/scala/scalaz/example/IterateeUsage.scala) には他にも面白そうな例がある:
+[`IterateeUsage.scala`]($scalazBaseUrl$/example/src/main/scala/scalaz/example/IterateeUsage.scala) には他にも面白そうな例がある:
 
 ```scala
 scala> val readLn = takeWhile[Char, List](_ != '\n') flatMap (ln => drop[Char, Id](1).map(_ => ln))

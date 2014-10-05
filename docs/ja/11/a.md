@@ -81,7 +81,7 @@ Scalaz 7 の `Lens` をみてみる:
 
 ### LensT
 
-[`LensT`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Lens.scala) はこうなっている:
+[`LensT`]($scalazBaseUrl$/core/src/main/scala/scalaz/Lens.scala) はこうなっている:
 
 ```scala
 import StoreT._

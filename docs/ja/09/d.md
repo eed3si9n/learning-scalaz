@@ -12,7 +12,7 @@ Scalaz 7.0 は、今の Scalaz プロジェクトの考えでは無法 (lawless)
 
 ### Length
 
-長さを表現した型クラス。以下が [`Length` 型クラスのコントラクト](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Length.scala)だ:
+長さを表現した型クラス。以下が [`Length` 型クラスのコントラクト]($scalazBaseUrl$/core/src/main/scala/scalaz/Length.scala)だ:
 
 ```scala
 trait Length[F[_]]  { self =>
@@ -24,7 +24,7 @@ trait Length[F[_]]  { self =>
 
 ### Index
 
-コンテナへのランダムアクセスを表すのが [`Index`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Index.scala) だ:
+コンテナへのランダムアクセスを表すのが [`Index`]($scalazBaseUrl$/core/src/main/scala/scalaz/Index.scala) だ:
 
 ```scala
 trait Index[F[_]]  { self =>
@@ -54,7 +54,7 @@ res62: Option[Int] = None
 
 ### Each
 
-データ構造を走査して副作用のある関数を実行するために [`Each`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Each.scala) がある:
+データ構造を走査して副作用のある関数を実行するために [`Each`]($scalazBaseUrl$/core/src/main/scala/scalaz/Each.scala) がある:
 
 ```scala
 trait Each[F[_]]  { self =>

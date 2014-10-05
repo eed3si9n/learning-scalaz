@@ -8,7 +8,7 @@ out: Monad.html
 
 > モナドはある願いを叶えるための、アプリカティブ値の自然な拡張です。その願いとは、「普通の値 `a` を取って文脈付きの値を返す関数に、文脈付きの値 `m a` を渡したい」というものです。
 
-Scalaz でもモナドは `Monad` と呼ばれている。[型クラスのコントラクト](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Monad.scala)はこれだ:
+Scalaz でもモナドは `Monad` と呼ばれている。[型クラスのコントラクト]($scalazBaseUrl$/core/src/main/scala/scalaz/Monad.scala)はこれだ:
 
 ```scala
 trait Monad[F[_]] extends Applicative[F] with Bind[F] { self =>
@@ -20,7 +20,7 @@ trait Monad[F[_]] extends Applicative[F] with Bind[F] { self =>
 
 ### Bind
 
-以下が [`Bind` のコントラクト](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Bind.scala)だ:
+以下が [`Bind` のコントラクト]($scalazBaseUrl$/core/src/main/scala/scalaz/Bind.scala)だ:
 
 ```scala
 trait Bind[F[_]] extends Apply[F] { self =>
@@ -29,7 +29,7 @@ trait Bind[F[_]] extends Apply[F] { self =>
 }
 ```
 
-そして、以下が[演算子](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/syntax/BindSyntax.scala):
+そして、以下が[演算子]($scalazBaseUrl$/core/src/main/scala/scalaz/syntax/BindSyntax.scala):
 
 ```scala
 /** Wraps a value `self` and provides methods related to `Bind` */

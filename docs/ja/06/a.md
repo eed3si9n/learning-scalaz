@@ -50,7 +50,7 @@ LYAHFGG:
 
 > 値にモノイドのおまけを付けるには、タプルに入れるだけです。`Writer w a` 型の実体は、そんなタプルの `newtype` ラッパーにすぎず、定義はとてもシンプルです。
 
-Scalaz でこれに対応するのは [`Writer`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/package.scala) だ:
+Scalaz でこれに対応するのは [`Writer`]($scalazBaseUrl$/core/src/main/scala/scalaz/package.scala) だ:
 
 ```scala
 type Writer[+W, +A] = WriterT[Id, W, A]
@@ -60,7 +60,7 @@ type Writer[+W, +A] = WriterT[Id, W, A]
 
 ### WriterT
 
-以下が [`WriterT`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/WriterT.scala) を単純化したものだ:
+以下が [`WriterT`]($scalazBaseUrl$/core/src/main/scala/scalaz/WriterT.scala) を単純化したものだ:
 
 ```scala
 sealed trait WriterT[F[+_], +W, +A] { self =>
@@ -86,7 +86,7 @@ res46: scalaz.Writer[String,Int] = scalaz.WriterTFunctions\$\$anon\$26@477a0c05
 trait ToDataOps extends ToIdOps with ToTreeOps with ToWriterOps with ToValidationOps with ToReducerOps with ToKleisliOps
 ```
 
-件の演算子は [`WriterV`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/syntax/ToWriterOps.scala) の一部だ:
+件の演算子は [`WriterV`]($scalazBaseUrl$/core/src/main/scala/scalaz/syntax/ToWriterOps.scala) の一部だ:
 
 ```scala
 trait WriterV[A] extends Ops[A] {

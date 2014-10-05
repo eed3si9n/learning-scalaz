@@ -22,7 +22,7 @@ trait Arrow[=>:[_, _]] extends Category[=>:] { self =>
 
 ### Category と Compose
 
-以下が <a href="https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Category.scala"><code>Category[=>:[_, _]]</code></a> だ:
+以下が <a href="$scalazBaseUrl$/core/src/main/scala/scalaz/Category.scala"><code>Category[=>:[_, _]]</code></a> だ:
 
 ```scala
 trait Category[=>:[_, _]] extends ArrId[=>:] with Compose[=>:] { self =>
@@ -30,7 +30,7 @@ trait Category[=>:[_, _]] extends ArrId[=>:] with Compose[=>:] { self =>
 } 
 ```
 
-これは <a href="https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Compose.scala"><code>Compose[=>:]</code></a> を継承する:
+これは <a href="$scalazBaseUrl$/core/src/main/scala/scalaz/Compose.scala"><code>Compose[=>:]</code></a> を継承する:
 
 ```scala
 trait Compose[=>:[_, _]]  { self =>
@@ -38,7 +38,7 @@ trait Compose[=>:[_, _]]  { self =>
 }
 ```
 
-`compose` 関数は 2つの射を合成する。`Compose` は以下の[演算子](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/syntax/ComposeSyntax.scala)を導入する:
+`compose` 関数は 2つの射を合成する。`Compose` は以下の[演算子]($scalazBaseUrl$/core/src/main/scala/scalaz/syntax/ComposeSyntax.scala)を導入する:
 
 ```scala
 trait ComposeOps[F[_, _],A, B] extends Ops[F[A, B]] {
@@ -69,7 +69,7 @@ res1: Int = 201
 
 `arr` 関数は普通の関数から射を作り、`id` は恒等射を返し、`first` は既存の射の出入力をペアに拡張した新しい射を返す。
 
-上記の関数を使って、`Arrow` は以下の[演算子](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/syntax/ArrowSyntax.scala)を導入する:
+上記の関数を使って、`Arrow` は以下の[演算子]($scalazBaseUrl$/core/src/main/scala/scalaz/syntax/ArrowSyntax.scala)を導入する:
 
 ```scala
 trait ArrowOps[F[_, _],A, B] extends Ops[F[A, B]] {

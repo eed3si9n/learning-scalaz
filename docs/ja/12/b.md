@@ -102,7 +102,7 @@ EIP:
 
 > *Traversal* involves iterating over the elements of a data structure, in the style of a `map`, but interpreting certain function applications idiomatically.
 
-これに対応する Scalaz 7 での型クラスは [`Traverse`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Traverse.scala) と呼ばれている:
+これに対応する Scalaz 7 での型クラスは [`Traverse`]($scalazBaseUrl$/core/src/main/scala/scalaz/Traverse.scala) と呼ばれている:
 
 ```scala
 trait Traverse[F[_]] extends Functor[F] with Foldable[F] { self =>

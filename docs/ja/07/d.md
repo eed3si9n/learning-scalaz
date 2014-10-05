@@ -1,7 +1,7 @@
 
 ### Validation
 
-Scalaz のデータ構造で `Either` と比較されるものにもう1つ [`Validation`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Validation.scala) がある:
+Scalaz のデータ構造で `Either` と比較されるものにもう1つ [`Validation`]($scalazBaseUrl$/core/src/main/scala/scalaz/Validation.scala) がある:
 
 ```scala
 sealed trait Validation[+E, +A] {
@@ -22,7 +22,7 @@ final case class Failure[E, A](e: E) extends Validation[E, A]
 
 一見すると `Validation` は `\/` に似ている。お互い `validation` メソッドと `disjunction` メソッドを使って変換することまでできる。
 
-[`ValidationV`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/syntax/ValidationV.scala) によって全てのデータ型に `success[X]`、 `successNel[X]`、`failure[X]`、`failureNel[X]` メソッドが導入されている (今のところ `Nel` に関しては心配しなくていい):
+[`ValidationOps`]($scalazBaseUrl$/core/src/main/scala/scalaz/syntax/ValidationOps.scala) によって全てのデータ型に `success[X]`、 `successNel[X]`、`failure[X]`、`failureNel[X]` メソッドが導入されている (今のところ `Nel` に関しては心配しなくていい):
 
 ```scala
 scala> "event 1 ok".success[String]
@@ -45,7 +45,7 @@ res44: scalaz.Unapply[scalaz.Apply,scalaz.Validation[String,String]]{type M[X] =
 
 ### NonEmptyList
 
-ここで [`NonEmptyList`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/NonEmptyList.scala) (略して `Nel`) が登場する:
+ここで [`NonEmptyList`]($scalazBaseUrl$/core/src/main/scala/scalaz/NonEmptyList.scala) (略して `Nel`) が登場する:
 
 ```scala
 /** A singly-linked list that is guaranteed to be non-empty. */

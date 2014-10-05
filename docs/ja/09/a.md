@@ -7,7 +7,7 @@
 
 Scala の case class の等価性はヒープ内の位置じゃなくて内容で決まる。そのため、木構造内の複数のノードを識別するだけでももし偶然同じ型と内容があれば Scala は同じもの扱いしてしまう。
 
-独自の木を実装するかわりに、Scalaz の [`Tree`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Tree.scala) を使おう:
+独自の木を実装するかわりに、Scalaz の [`Tree`]($scalazBaseUrl$/core/src/main/scala/scalaz/Tree.scala) を使おう:
 
 ```scala
 sealed trait Tree[A] {
@@ -88,7 +88,7 @@ LYAHFGG:
 > `Tree a` と `Breadcrumbs a` のペアは、元の木全体を復元するのに必要な情報に加えて、ある部分木に注目した状態というのを表現しています。このスキームなら、木の中を上、左、右へと自由自在に移動できます。
 > あるデータ構造の注目点、および周辺の情報を含んでいるデータ構造は **Zipper** と呼ばれます。注目点をデータ構造に沿って上下させる操作は、ズボンのジッパーを上下させる操作に似ているからです。
 
-`Tree` のための Zipper は Scalaz では [`TreeLoc`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/TreeLoc.scala) と呼ばれている:
+`Tree` のための Zipper は Scalaz では [`TreeLoc`]($scalazBaseUrl$/core/src/main/scala/scalaz/TreeLoc.scala) と呼ばれている:
 
 ```scala
 sealed trait TreeLoc[A] {

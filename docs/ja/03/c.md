@@ -54,7 +54,7 @@ LYAHFGG:
 
 > **モノイド**は、結合的な二項演算子（2引数関数）と、その演算に関する単位元からなる構造です。
 
-[Scalaz の `Monoid` の型クラスのコントラクト](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Monoid.scala)を見てみよう:
+[Scalaz の `Monoid` の型クラスのコントラクト]($scalazBaseUrl$/core/src/main/scala/scalaz/Monoid.scala)を見てみよう:
 
 ```scala
 trait Monoid[A] extends Semigroup[A] { self =>
@@ -68,7 +68,7 @@ trait Monoid[A] extends Semigroup[A] { self =>
 
 ### Semigroup
 
-`Monoid` は `Semigroup` を継承するみたいなので[その型クラスも見てみる](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Semigroup.scala)。
+`Monoid` は `Semigroup` を継承するみたいなので[その型クラスも見てみる]($scalazBaseUrl$/core/src/main/scala/scalaz/Semigroup.scala)。
 
 ```scala
 trait Semigroup[A]  { self =>
@@ -77,7 +77,7 @@ trait Semigroup[A]  { self =>
 }
 ```
 
-これが[演算子](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/syntax/SemigroupSyntax.scala)だ:
+これが[演算子]($scalazBaseUrl$/core/src/main/scala/scalaz/syntax/SemigroupSyntax.scala)だ:
 
 ```scala
 trait SemigroupOps[A] extends Ops[A] {

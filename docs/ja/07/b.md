@@ -56,7 +56,7 @@ s -> (a, s)
   }
 ```
 
-`Writer` 同様に、`State[S, +A]` は `StateT[Id, S, A]` の型エイリアスだ。以下が [`StateT`](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/StateT.scala) の簡易版だ:
+`Writer` 同様に、`State[S, +A]` は `StateT[Id, S, A]` の型エイリアスだ。以下が [`StateT`]($scalazBaseUrl$/core/src/main/scala/scalaz/StateT.scala) の簡易版だ:
 
 ```scala
 trait StateT[F[+_], S, +A] { self =>

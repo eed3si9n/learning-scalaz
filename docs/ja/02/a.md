@@ -5,7 +5,7 @@ LYAHFGG:
 
 > 今度は、`Functor` （ファンクター）という型クラスを見ていきたいと思います。`Functor` は、**全体を写せる** (map over) ものの型クラスです。
 
-本のとおり、[実装がどうなってるか](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Functor.scala)をみてみよう:
+本のとおり、[実装がどうなってるか]($scalazBaseUrl$/core/src/main/scala/scalaz/Functor.scala)をみてみよう:
 
 ```scala
 trait Functor[F[_]]  { self =>
@@ -16,7 +16,7 @@ trait Functor[F[_]]  { self =>
 }
 ```
 
-これが可能とする[演算子](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/syntax/FunctorSyntax.scala)はこうなっている:
+これが可能とする[演算子]($scalazBaseUrl$/core/src/main/scala/scalaz/syntax/FunctorSyntax.scala)はこうなっている:
 
 ```scala
 trait FunctorOps[F[_],A] extends Ops[F[A]] {

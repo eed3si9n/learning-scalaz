@@ -5,7 +5,7 @@ LYAHFGG:
 
 > 畳み込み相性の良いデータ構造は実にたくさんあるので、`Foldable` 型クラスが導入されました。`Functor` が関数で写せるものを表すように、`Foldable` は畳み込みできるものを表しています。
 
-Scalaz でこれに対応するものも `Foldable` と呼ばれている。[型クラスのコントラクト](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Foldable.scala#L10-14)も見てみよう:
+Scalaz でこれに対応するものも `Foldable` と呼ばれている。[型クラスのコントラクト]($scalazBaseUrl$/core/src/main/scala/scalaz/Foldable.scala#L10-14)も見てみよう:
 
 ```scala
 trait Foldable[F[_]] { self =>
@@ -19,7 +19,7 @@ trait Foldable[F[_]] { self =>
 }
 ```
 
-[演算子](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/syntax/FoldableSyntax.scala)はこれだ:
+[演算子]($scalazBaseUrl$/core/src/main/scala/scalaz/syntax/FoldableSyntax.scala)はこれだ:
 
 ```scala
 /** Wraps a value `self` and provides methods related to `Foldable` */

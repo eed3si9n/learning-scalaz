@@ -32,7 +32,7 @@ scala> List(1, 2, 3) map {identity} assert_=== List(1, 2, 3)
 scala> (List(1, 2, 3) map {{(_: Int) * 3} map {(_: Int) + 1}}) assert_=== (List(1, 2, 3) map {(_: Int) * 3} map {(_: Int) + 1})
 ```
 
-これらの法則は Functor の実装者が従うべき法則で、コンパイラはチェックしてくれない。Scalaz 7 には[コード](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Functor.scala#L68-77)でこれを記述した `FunctorLaw` trait が入っている:
+これらの法則は Functor の実装者が従うべき法則で、コンパイラはチェックしてくれない。Scalaz 7 には[コード]($scalazBaseUrl$/core/src/main/scala/scalaz/Functor.scala#L68-77)でこれを記述した `FunctorLaw` trait が入っている:
 
 ```scala
 trait FunctorLaw {
@@ -165,7 +165,7 @@ scala> functor.laws[COption].check
 
 ### Applicative則
 
-これが [Applicative則](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Applicative.scala#L60-72)だ:
+これが [Applicative則]($scalazBaseUrl$/core/src/main/scala/scalaz/Applicative.scala#L60-72)だ:
 
 ```scala
   trait ApplicativeLaw extends FunctorLaw {
@@ -187,7 +187,7 @@ LYAHFGG も詳細は飛ばしているので、僕も見逃してもらう。
 
 ### Semigroup則
 
-これが、[Semigroup則](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Semigroup.scala#L38-47)だ:
+これが、[Semigroup則]($scalazBaseUrl$/core/src/main/scala/scalaz/Semigroup.scala#L38-47)だ:
 
 ```scala
   /**
@@ -211,7 +211,7 @@ scala> semigroup.laws[Int @@ Tags.Multiplication].check
 
 ### Monoid則
 
-これが [Monoid則](https://github.com/scalaz/scalaz/blob/scalaz-seven/core/src/main/scala/scalaz/Monoid.scala#L50-59) だ:
+これが [Monoid則]($scalazBaseUrl$/core/src/main/scala/scalaz/Monoid.scala#L50-59) だ:
 
 ```scala
   /**

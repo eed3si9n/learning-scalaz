@@ -1,12 +1,12 @@
 
   [tt]: http://learnyouahaskell.com/types-and-typeclasses
   [moott]: http://learnyouahaskell.com/making-our-own-types-and-typeclasses
-  [z7]: https://github.com/scalaz/scalaz/tree/scalaz-seven
+  [z7]: $scalazTree$
   [z7docs]: $docBaseUrl$
 
 ### sbt
 
-以下が Scalaz 7.1 を試すための build.sbt だ:
+以下が Scalaz $scalazVersion$ を試すための build.sbt だ:
 
 ```scala
 scalaVersion := "$scalaVersion$"
@@ -40,4 +40,4 @@ Type :help for more information.
 scala>
 ```
 
-Scalaz 7.1 から生成された [API ドキュメント][z7docs]もある。
+Scalaz $scalazVersion$ から生成された [API ドキュメント][z7docs]もある。
