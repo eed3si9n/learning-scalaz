@@ -47,7 +47,9 @@ scala> 2 * scalaz.Tag.unsubst[Double, Id, KiloGram](mass)
 res2: Double = 40.0
 ```
 
-以前は `2 * mass` と書けたけども Scalaz 7.1 以降は明示的にタグを unwrap しなければいけなくなった。さらに恐らく REPL のバグのせいで、`Tag.unwrap` が動作しないため、`Tag.unsubst` を使う必要があった。
+以前は `2 * mass` と書けたけども Scalaz 7.1 以降は明示的にタグを unwrap しなければいけなくなった。さらに REPL のバグ
+[SI-8871](https://issues.scala-lang.org/browse/SI-8871)
+のせいで、`Tag.unwrap` が動作しないため、`Tag.unsubst` を使う必要があった。
 補足しておくと、`A @@ KiloGram` は `scalaz.@@[A, KiloGram]` の中置記法だ。これで相対論的エネルギーを計算する関数を定義できる。
 
 ```scala
