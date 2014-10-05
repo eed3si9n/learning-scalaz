@@ -14,72 +14,64 @@ One section I should've covered yesterday from [Making Our Own Types and Typecla
 > ...
 > What are kinds and what are they good for? Well, let's examine the kind of a type by using the :k command in GHCI.
 
-I did not find `:k` command for Scala REPL so I wrote one for Scala 2.10. For type constructors, pass in the companion type. (Thanks paulp for the suggestion)
-
-
-```scala
-// requires Scala 2.10.0
-def kind[A: scala.reflect.runtime.universe.TypeTag]: String = {
-  import scala.reflect.runtime.universe._
-  def typeKind(sig: Type): String = sig match {
-    case PolyType(params, resultType) =>
-      (params map { p =>
-        typeKind(p.typeSignature) match {
-          case "*" => "*"
-          case s   => "(" + s + ")"
-        }
-      }).mkString(" -> ") + " -> *"
-    case _ => "*"
-  }
-  def typeSig(tpe: Type): Type = tpe match {
-    case SingleType(pre, sym) => sym.companionSymbol.typeSignature
-    case ExistentialType(q, TypeRef(pre, sym, args)) => sym.typeSignature
-    case TypeRef(pre, sym, args) => sym.typeSignature
-  }
-  val sig = typeSig(typeOf[A])
-  val s = typeKind(sig)
-  sig.typeSymbol.name + "'s kind is " + s + ". " + (s match {
-    case "*" =>
-      "This is a proper type."
-    case x if !(x contains "(") =>
-      "This is a type constructor: a 1st-order-kinded type."
-    case x =>
-      "This is a type constructor that takes type constructor(s): a higher-kinded type."
-  })
-}
-```
-
-Run `sbt console` using `build.sbt` that I posted on day 1, and copy paste the above function. Let's try using it:
+I did not find `:k` command for Scala REPL in Scala 2.10, so I wrote one: [kind.scala](https://gist.github.com/eed3si9n/3610635). With George Leontiev ([@folone](https://twitter.com/folone)), who sent in [scala/scala#2340](https://github.com/scala/scala/pull/2340), and others' help `:kind` command is now part of Scala 2.11. Let's try using it:
 
 ```
-scala> kind[Int]
-res0: String = Int's kind is *.
+scala> :k Int
+scala.Int's kind is A
+
+scala> :k -v Int
+scala.Int's kind is A
+*
 This is a proper type.
 
-scala> kind[Option.type]
-res1: String = Option's kind is * -> *. 
+scala> :k -v Option
+scala.Option's kind is F[+A]
+* -(+)-> *
 This is a type constructor: a 1st-order-kinded type.
 
-scala> kind[Either.type]
-res2: String = Either's kind is * -> * -> *.
+scala> :k -v Either
+scala.util.Either's kind is F[+A1,+A2]
+* -(+)-> * -(+)-> *
 This is a type constructor: a 1st-order-kinded type.
 
-scala> kind[Equal.type]
-res3: String = Equal's kind is * -> *.
+scala> :k -v Equal
+scalaz.Equal's kind is F[A]
+* -> *
 This is a type constructor: a 1st-order-kinded type.
 
-scala> kind[Functor.type]
-res4: String = Functor's kind is (* -> *) -> *.
+scala> :k -v Functor
+scalaz.Functor's kind is X[F[A]]
+(* -> *) -> *
 This is a type constructor that takes type constructor(s): a higher-kinded type.
 ```
 
-From the top. `Int` and every other types that you can make a value out of is called a proper type and denoted with a symbol `*` (read "type"). This is analogous to value `1` at value-level.
+From the top. `Int` and every other types that you can make a value out of is called a proper type and denoted with a symbol `*` (read "type"). This is analogous to value `1` at value-level. Using Scala's type variable notation this could be written as `A`.
 
-A first-order value, or a value constructor like `(_: Int) + 3`, is normally called a function. Similarly, a first-order-kinded type is a type that accepts other types to create a proper type. This is normally called a type constructor. `Option`, `Either`, and `Equal` are all first-order-kinded. To denote that these accept other types, we use curried notation like `* -> *` and `* -> * -> *`. Note, `Option[Int]` is `*`; `Option` is `* -> *`.
+A first-order value, or a value constructor like `(_: Int) + 3`, is normally called a function. Similarly, a first-order-kinded type is a type that accepts other types to create a proper type. This is normally called a type constructor. `Option`, `Either`, and `Equal` are all first-order-kinded. To denote that these accept other types, we use curried notation like `* -> *` and `* -> * -> *`. Note, `Option[Int]` is `*`; `Option` is `* -> *`. Using Scala's type variable notation they could be written as `F[+A]` and `F[+A1,+A2]`.
 
-A higher-order value like `(f: Int => Int, list: List[Int]) => list map {f}`, a function that accepts other functions is normally called higher-order function. Similarly, a higher-kinded type is a type constructor that accepts other type constructors. It probably should be called a higher-kinded type constructor but the name is not used. These are denoted as `(* -> *) -> *`. 
+A higher-order value like `(f: Int => Int, list: List[Int]) => list map {f}`, a function that accepts other functions is normally called higher-order function. Similarly, a higher-kinded type is a type constructor that accepts other type constructors. It probably should be called a higher-kinded type constructor but the name is not used. These are denoted as `(* -> *) -> *`. Using Scala's type variable notation this could be written as `X[F[A]]`.
 
-In case of Scalaz 7, `Equal` and others have the kind `* -> *` while `Functor` and all its derivatives have the kind `(* -> *) -> *`. You wouldn't worry about this if you are using injected operators like:
+In case of Scalaz 7.1, `Equal` and others have the kind `F[A]` while `Functor` and all its derivatives have the kind `X[F[A]]`.
+Scala encodes (or complects) the notion of type class using type constructor, and the terminology tend get jumbled up. For example, the data structure `List` forms a functor, in the sense that an instance `Functor[List]` can be derived for `List`. Since there should be only one instance for `List`, we can safely say that `List` is a functor (See https://twitter.com/jessitron/status/438432946383360000 for more discussion on "is-a"). Since `List` is `F[+A]`, it's easy to remember that `F` relates to a functor. Except, the typeclass definition `Functor` needs to wrap `F[A]` around, so its kind is `X[F[A]]`.
+
+To add to the confusion, the fact that Scala can treat type constructor as a first class variable was novel enough, that the compiler calls first-order kinded type as "higher-kinded type":
+
+```scala
+scala> trait Test {
+         type F[_]
+       }
+<console>:14: warning: higher-kinded type should be enabled
+by making the implicit value scala.language.higherKinds visible.
+This can be achieved by adding the import clause 'import scala.language.higherKinds'
+or by setting the compiler option -language:higherKinds.
+See the Scala docs for value scala.language.higherKinds for a discussion
+why the feature should be explicitly enabled.
+         type F[_]
+              ^
+```
+
+You normally don't have to worry about this if you are using injected operators like:
 
 ```scala
 scala> List(1, 2, 3).shows
@@ -104,5 +96,3 @@ In [the cheat sheet](http://eed3si9n.com/scalaz-cheat-sheet) I started I origina
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Now it makes sense why!
-
-By the way, `:kind` command that I implemented will be part of Scala REPL from Scala 2.11 ([scala/scala#2340](https://github.com/scala/scala/pull/2340)).
