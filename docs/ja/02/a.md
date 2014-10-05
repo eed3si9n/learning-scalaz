@@ -44,6 +44,8 @@ scala> (1, 2, 3) map {_ + 1}
 res28: (Int, Int, Int) = (1,2,4)
 ```
 
+この演算は Tuple の最後の値のみに適用されていることに注意。詳細は [scalaz group](https://groups.google.com/forum/#!topic/scalaz/lkrDLUV6HN4) での議論を参照。
+
 ### Functor としての関数
 
 Scalaz は `Function1` に対する `Functor` のインスタンスも定義する。

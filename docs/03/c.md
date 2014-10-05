@@ -2,7 +2,7 @@
 out: Monoid.html
 ---
 
-  [tags]: $scalazBaseUrl$/core/src/main/scala/scalaz/Tags.scala
+  [tags]: $docBaseUrl$#scalaz.Tags\$
 
 ### About those Monoids
 

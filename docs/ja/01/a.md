@@ -2,11 +2,11 @@
   [tt]: http://learnyouahaskell.com/types-and-typeclasses
   [moott]: http://learnyouahaskell.com/making-our-own-types-and-typeclasses
   [z7]: https://github.com/scalaz/scalaz/tree/scalaz-seven
-  [z7docs]: http://docs.typelevel.org/api/scalaz/stable/7.0.4/doc
+  [z7docs]: $docBaseUrl$
 
 ### sbt
 
-以下が Scalaz 7 を試すための build.sbt だ:
+以下が Scalaz 7.1 を試すための build.sbt だ:
 
 ```scala
 scalaVersion := "$scalaVersion$"
@@ -37,7 +37,7 @@ Welcome to Scala version 2.10.3 (Java HotSpot(TM) 64-Bit Server VM, Java 1.6.0_5
 Type in expressions to have them evaluated.
 Type :help for more information.
 
-scala> 
+scala>
 ```
 
-Scalaz 7 から生成された [API ドキュメント][z7docs]もある。
+Scalaz 7.1 から生成された [API ドキュメント][z7docs]もある。

@@ -35,10 +35,19 @@ KiloGram: [A](a: A)scalaz.@@[A,KiloGram]
 scala> val mass = KiloGram(20.0)
 mass: scalaz.@@[Double,KiloGram] = 20.0
 
-scala> 2 * mass
+scala> 2 * Tag.unwrap(mass) // this doesn't work on REPL
+res2: Double = 40.0
+
+scala> 2 * Tag.unwrap(mass)
+<console>:17: error: wrong number of type parameters for method unwrap\$mDc\$sp: [T](a: Object{type Tag = T; type Self = Double})Double
+              2 * Tag.unwrap(mass)
+                      ^
+
+scala> 2 * scalaz.Tag.unsubst[Double, Id, KiloGram](mass)
 res2: Double = 40.0
 ```
 
+以前は `2 * mass` と書けたけども Scalaz 7.1 以降は明示的にタグを unwrap しなければいけなくなった。さらに恐らく REPL のバグのせいで、`Tag.unwrap` が動作しないため、`Tag.unsubst` を使う必要があった。
 補足しておくと、`A @@ KiloGram` は `scalaz.@@[A, KiloGram]` の中置記法だ。これで相対論的エネルギーを計算する関数を定義できる。
 
 ```scala
@@ -49,7 +58,7 @@ scala> def JoulePerKiloGram[A](a: A): A @@ JoulePerKiloGram = Tag[A, JoulePerKil
 JoulePerKiloGram: [A](a: A)scalaz.@@[A,JoulePerKiloGram]
 
 scala> def energyR(m: Double @@ KiloGram): Double @@ JoulePerKiloGram =
-     |   JoulePerKiloGram(299792458.0 * 299792458.0 * m)
+         JoulePerKiloGram(299792458.0 * 299792458.0 * Tag.unsubst[Double, Id, KiloGram](m))
 energyR: (m: scalaz.@@[Double,KiloGram])scalaz.@@[Double,JoulePerKiloGram]
 
 scala> energyR(mass)
@@ -59,7 +68,7 @@ scala> energyR(10.0)
 <console>:18: error: type mismatch;
  found   : Double(10.0)
  required: scalaz.@@[Double,KiloGram]
-    (which expands to)  Double with AnyRef{type Tag = KiloGram}
+    (which expands to)  AnyRef{type Tag = KiloGram; type Self = Double}
               energyR(10.0)
                       ^
 ```

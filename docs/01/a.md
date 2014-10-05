@@ -1,7 +1,7 @@
   [tt]: http://learnyouahaskell.com/types-and-typeclasses
   [moott]: http://learnyouahaskell.com/making-our-own-types-and-typeclasses
   [z7]: $scalazTree$
-  [z7docs]: http://docs.typelevel.org/api/scalaz/
+  [z7docs]: $docBaseUrl$
 
 ### sbt
 

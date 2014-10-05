@@ -42,7 +42,7 @@ scala> :paste
 // Entering paste mode (ctrl-D to finish)
 
 type ReaderTOption[A, B] = ReaderT[Option, A, B]
-object ReaderTOption extends KleisliFunctions with KleisliInstances {
+object ReaderTOption extends KleisliInstances with KleisliFunctions {
   def apply[A, B](f: A => Option[B]): ReaderTOption[A, B] = kleisli(f)
 }
 
@@ -102,9 +102,9 @@ scala> :paste
 
 type StateTReaderTOption[C, S, A] = StateT[({type l[+X] = ReaderTOption[C, X]})#l, S, A]
 
-object StateTReaderTOption extends StateTFunctions with StateTInstances {
-  def apply[C, S, A](f: S => (S, A)) = new StateT[({type l[+X] = ReaderTOption[C, X]})#l, S, A] {
-    def apply(s: S) = f(s).point[({type l[+X] = ReaderTOption[C, X]})#l]
+object StateTReaderTOption extends StateTInstances with StateTFunctions {
+  def apply[C, S, A](f: S => (S, A)) = new StateT[({type l[X] = ReaderTOption[C, X]})#l, S, A] {
+    def apply(s: S) = f(s).point[({type l[X] = ReaderTOption[C, X]})#l]
   }
   def get[C, S]: StateTReaderTOption[C, S, S] =
     StateTReaderTOption { s => (s, s) }

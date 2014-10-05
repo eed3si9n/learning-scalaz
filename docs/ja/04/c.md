@@ -81,7 +81,7 @@ res50: Int = 11
 scala> List(1, 2, 3) foldMap {identity}
 res53: Int = 6
 
-scala> List(true, false, true, true) foldMap {Tags.Disjunction}
+scala> List(true, false, true, true) foldMap {Tags.Disjunction.apply}
 res56: scalaz.@@[Boolean,scalaz.Tags.Disjunction] = true
 ```
 

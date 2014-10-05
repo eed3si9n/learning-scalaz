@@ -106,13 +106,13 @@ scala> "something".tell
 res58: scalaz.Writer[String,Unit] = scalaz.WriterTFunctions\$\$anon\$26@374de9cf
 ```
 
-`return 3 :: Writer String Int` のように単位元が欲しい場合はどうすればいいだろう? `Monad[F[_]]` は型パラメータが 1つの型コンストラクタを期待するけど、`Writer[+W, +A]` は 2つある。Scalaz にある `MonadWriter` というヘルパー型を使うと簡単にモナドが得られる:
+`return 3 :: Writer String Int` のように単位元が欲しい場合はどうすればいいだろう? `Monad[F[_]]` は型パラメータが 1つの型コンストラクタを期待するけど、`Writer[+W, +A]` は 2つある。Scalaz にある `MonadTell` というヘルパー型を使うと簡単にモナドが得られる (以前は `MonadWriter` という名前だった):
 
 ```scala
-scala> MonadWriter[Writer, String]
-res62: scalaz.MonadWriter[scalaz.Writer,String] = scalaz.WriterTInstances\$\$anon\$1@6b8501fa
+scala> MonadTell[Writer, String]
+res62: scalaz.MonadTell[scalaz.Writer,String] = scalaz.WriterTInstances\$\$anon\$1@6b8501fa
 
-scala> MonadWriter[Writer, String].point(3).run
+scala> MonadTell[Writer, String].point(3).run
 res64: (String, Int) = ("",3)
 ```
 
@@ -172,12 +172,7 @@ LYAHFGG:
 
 [主なコレクションの性能特性をまとめた表](http://scalajp.github.com/scala-collections-doc-ja/collections_40.html)があるので見てみよう。不変コレクションで目立っているのが全ての演算を実質定数でこなす `Vector` だ。`Vector` は分岐度が 32 の木構造で、構造共有を行うことで高速な更新を実現している。
 
-何故か Scalaz 7 は `Vector` の型クラスを `import Scalaz._` に含めていない。手動で import する:
-
 ```scala
-scala> import std.vector._
-import std.vector._
-
 scala> Monoid[Vector[String]]
 res73: scalaz.Monoid[Vector[String]] = scalaz.std.IndexedSeqSubInstances\$\$anon\$4@6f82f06f
 ```
@@ -210,8 +205,6 @@ res74: (Vector[String], Int) = (Vector(Finished with 1, 2 mod 1 = 0, 3 mod 2 = 1
 本のように性能を比較するマイクロベンチマークを書いてみよう:
 
 ```scala
-import std.vector._
-
 def vectorFinalCountDown(x: Int): Writer[Vector[String], Unit] = {
   import annotation.tailrec
   @tailrec def doFinalCountDown(x: Int, w: Writer[Vector[String], Unit]): Writer[Vector[String], Unit] = x match {

@@ -1,6 +1,6 @@
 name := "learning-scalaz"
 
-scalaVersion := "2.11.1"
+scalaVersion := "2.11.2"
 
 val scalazVersion = "7.1.0"
 

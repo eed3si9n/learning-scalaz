@@ -35,11 +35,19 @@ KiloGram: [A](a: A)scalaz.@@[A,KiloGram]
 scala> val mass = KiloGram(20.0)
 mass: scalaz.@@[Double,KiloGram] = 20.0
 
+scala> 2 * Tag.unwrap(mass) // this doesn't work on REPL
+res2: Double = 40.0
+
 scala> 2 * Tag.unwrap(mass)
+<console>:17: error: wrong number of type parameters for method unwrap\$mDc\$sp: [T](a: Object{type Tag = T; type Self = Double})Double
+              2 * Tag.unwrap(mass)
+                      ^
+
+scala> 2 * scalaz.Tag.unsubst[Double, Id, KiloGram](mass)
 res2: Double = 40.0
 ```
 
-Note: As of scalaz 7.1 we need to explicitly unwrap tags. Previously we could just do `2 * mass`.
+Note: As of scalaz 7.1 we need to explicitly unwrap tags. Previously we could just do `2 * mass`. Likely due to problem on REPL, `Tag.unwrap` doesn't work, so I had to use `Tag.unsubst`.
 Just to be clear, `A @@ KiloGram` is an infix notation of `scalaz.@@[A, KiloGram]`. We can now define a function that calculates relativistic energy.
 
 ```scala
@@ -50,7 +58,7 @@ scala> def JoulePerKiloGram[A](a: A): A @@ JoulePerKiloGram = Tag[A, JoulePerKil
 JoulePerKiloGram: [A](a: A)scalaz.@@[A,JoulePerKiloGram]
 
 scala> def energyR(m: Double @@ KiloGram): Double @@ JoulePerKiloGram =
-     |   JoulePerKiloGram(299792458.0 * 299792458.0 * Tag.unwrap(m))
+         JoulePerKiloGram(299792458.0 * 299792458.0 * Tag.unsubst[Double, Id, KiloGram](m))
 energyR: (m: scalaz.@@[Double,KiloGram])scalaz.@@[Double,JoulePerKiloGram]
 
 scala> energyR(mass)
@@ -60,7 +68,7 @@ scala> energyR(10.0)
 <console>:18: error: type mismatch;
  found   : Double(10.0)
  required: scalaz.@@[Double,KiloGram]
-    (which expands to)  Double with AnyRef{type Tag = KiloGram}
+    (which expands to)  AnyRef{type Tag = KiloGram; type Self = Double}
               energyR(10.0)
                       ^
 ```
