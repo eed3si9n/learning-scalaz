@@ -3,6 +3,7 @@ out: Kinds.html
 ---
 
   [moott]: http://learnyouahaskell.com/making-our-own-types-and-typeclasses
+  [cheatsheet]: scalaz-cheatsheet.html
 
 ### Kinds and some type-foo
 
@@ -92,7 +93,7 @@ scala> Functor[List].lift((_: Int) + 2)
 res13: List[Int] => List[Int] = <function1>
 ```
 
-In [the cheat sheet](http://eed3si9n.com/scalaz-cheat-sheet) I started I originally had type parameters for `Equal` written as `Equal[F]`, which is the same as Scalaz 7's source code. Adam Rosien pointed out to me that it should be `Equal[A]`. 
+In [the cheat sheet][cheatsheet] I started I originally had type parameters for `Equal` written as `Equal[F]`, which is the same as Scalaz 7's source code. Adam Rosien pointed out to me that it should be `Equal[A]`. 
 
 <blockquote class="twitter-tweet"><p>@<a href="https://twitter.com/eed3si9n">eed3si9n</a> love the scalaz cheat sheet start, but using the type param F usually means Functor, what about A instead?</p>&mdash; Adam Rosien (@arosien) <a href="https://twitter.com/arosien/status/241990437269815296">September 1, 2012</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
