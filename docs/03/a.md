@@ -53,9 +53,11 @@ A first-order value, or a value constructor like `(_: Int) + 3`, is normally cal
 A higher-order value like `(f: Int => Int, list: List[Int]) => list map {f}`, a function that accepts other functions is normally called higher-order function. Similarly, a higher-kinded type is a type constructor that accepts other type constructors. It probably should be called a higher-kinded type constructor but the name is not used. These are denoted as `(* -> *) -> *`. Using Scala's type variable notation this could be written as `X[F[A]]`.
 
 In case of Scalaz 7.1, `Equal` and others have the kind `F[A]` while `Functor` and all its derivatives have the kind `X[F[A]]`.
-Scala encodes (or complects) the notion of type class using type constructor, and the terminology tend get jumbled up. For example, the data structure `List` forms a functor, in the sense that an instance `Functor[List]` can be derived for `List`. Since there should be only one instance for `List`, we can safely say that `List` is a functor (See https://twitter.com/jessitron/status/438432946383360000 for more discussion on "is-a"). Since `List` is `F[+A]`, it's easy to remember that `F` relates to a functor. Except, the typeclass definition `Functor` needs to wrap `F[A]` around, so its kind is `X[F[A]]`.
+Scala encodes (or complects) the notion of type class using type constructor, and the terminology tend get jumbled up. For example, the data structure `List` forms a functor, in the sense that an instance `Functor[List]` can be derived for `List`. Since there should be only one instance for `List`, we can say that `List` is a functor. See the following discussion for more on "is-a":
 
-To add to the confusion, the fact that Scala can treat type constructor as a first class variable was novel enough, that the compiler calls first-order kinded type as "higher-kinded type":
+<blockquote class="twitter-tweet" lang="en"><p>In FP, &quot;is-a&quot; means &quot;an instance can be derived from.&quot; <a href="https://twitter.com/jimduey">@jimduey</a> <a href="https://twitter.com/hashtag/CPL14?src=hash">#CPL14</a> It&#39;s a provable relationship, not reliant on LSP.</p>&mdash; Jessica Kerr (@jessitron) <a href="https://twitter.com/jessitron/status/438432946383360000">February 25, 2014</a></blockquote>
+
+Since `List` is `F[+A]`, it's easy to remember that `F` relates to a functor. Except, the typeclass definition `Functor` needs to wrap `F[A]` around, so its kind is `X[F[A]]`. To add to the confusion, the fact that Scala can treat type constructor as a first class variable was novel enough, that the compiler calls first-order kinded type as "higher-kinded type":
 
 ```scala
 scala> trait Test {

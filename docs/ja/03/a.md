@@ -54,9 +54,11 @@ scalaz.Functor's kind is X[F[A]]
 `(f: Int => Int, list: List[Int]) => list map {f}` のような高階値、つまり関数を受け取る関数、は普通高階関数と呼ばれる。同様に、高カインド型は型コンストラクタを受け取る型コンストラクタだ。これは多分高カインド型コンストラクタと呼ばれるべきだが、その名前は使われていない。これらは `(* -> *) -> *` と表記される。Scala の型変数構文を用いるとこれは `X[F[A]]` と書ける。
 
 Scalaz 7.1 の場合、`Equal` その他は `F[A]` のカインドを持ち、`Functor` とその派生型は `X[F[A]]`カインドを持つ。
-Scala は型クラスという概念を型コンストラクタを用いてエンコード (悪く言うとコンプレクト) するため、この辺の用語が混乱しやすいことがある。例えば、データ構造である `List` は函手 (functor) となるという言い方をして、これは `List` に対して `Functor[List]` のインスタンスを導き出せるという意味だ。`List` に対するインスタンスなんて一つしか無いのが分かってるので、「`List` は函手 (`List` is a functor)」と言ってしまっても問題無い (is-a に関する議論は https://twitter.com/jessitron/status/438432946383360000 を参照)。`List` そのものは `F[+A]` なので、`F` が函手に関連すると覚えるのは簡単だ。しかし、型クラス定義の `Functor` は `F[A]` を囲む必要があるので、カインドは `X[F[A]]` となっている。
+Scala は型クラスという概念を型コンストラクタを用いてエンコード (悪く言うとコンプレクト) するため、この辺の用語が混乱しやすいことがある。例えば、データ構造である `List` は函手 (functor) となるという言い方をして、これは `List` に対して `Functor[List]` のインスタンスを導き出せるという意味だ。`List` に対するインスタンスなんて一つしか無いのが分かってるので、「`List` は函手である (`List` is a functor)」と言うことができる。 is-a に関する議論は以下も参照:
 
-さらにこれを混乱させるのが、Scala から型コンストラクタを第一級変数として扱えることが目新しかったため、コンパイラは 1階カインド型でも「高カインド型」と呼んでいることだ:
+<blockquote class="twitter-tweet" lang="en"><p>In FP, &quot;is-a&quot; means &quot;an instance can be derived from.&quot; <a href="https://twitter.com/jimduey">@jimduey</a> <a href="https://twitter.com/hashtag/CPL14?src=hash">#CPL14</a> It&#39;s a provable relationship, not reliant on LSP.</p>&mdash; Jessica Kerr (@jessitron) <a href="https://twitter.com/jessitron/status/438432946383360000">February 25, 2014</a></blockquote>
+
+`List` そのものは `F[+A]` なので、`F` が函手に関連すると覚えるのは簡単だ。しかし、型クラス定義の `Functor` は `F[A]` を囲む必要があるので、カインドは `X[F[A]]` となっている。さらにこれを混乱させるのが、Scala から型コンストラクタを第一級変数として扱えることが目新しかったため、コンパイラは 1階カインド型でも「高カインド型」と呼んでいることだ:
 
 ```scala
 scala> trait Test {
