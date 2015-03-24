@@ -9,7 +9,7 @@ What is polymorphism?
 
 Nick says:
 
-> In this function `head`, it takes a list of `A`'s, and returns an `A`. And it doesn't matter what the `A` is: It could be `Int`s, `String`s, `Oranage`s, `Car`s, whatever. Any `A` would work, and the function is defined for every `A` that there can be.
+> In this function `head`, it takes a list of `A`'s, and returns an `A`. And it doesn't matter what the `A` is: It could be `Int`s, `String`s, `Orange`s, `Car`s, whatever. Any `A` would work, and the function is defined for every `A` that there can be.
 
 ```scala
 scala> def head[A](xs: List[A]): A = xs(0)
