@@ -86,10 +86,10 @@ The following operators are supported by all data types enabled by `import Scala
 trait ToDataOps extends ToIdOps with ToTreeOps with ToWriterOps with ToValidationOps with ToReducerOps with ToKleisliOps
 ```
 
-The operator in question is part of [`WriterV`]($scalazBaseUrl$/core/src/main/scala/scalaz/syntax/WriterOps.scala):
+The operator in question is part of [`WriterOps`]($scalazBaseUrl$/core/src/main/scala/scalaz/syntax/WriterOps.scala):
 
 ```scala
-trait WriterV[A] extends Ops[A] {
+final class WriterOps[A](self: A) {
   def set[W](w: W): Writer[W, A] = WriterT.writer(w -> self)
 
   def tell: Writer[A, Unit] = WriterT.tell(self)
