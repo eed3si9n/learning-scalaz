@@ -86,10 +86,10 @@ res46: scalaz.Writer[String,Int] = scalaz.WriterTFunctions\$\$anon\$26@477a0c05
 trait ToDataOps extends ToIdOps with ToTreeOps with ToWriterOps with ToValidationOps with ToReducerOps with ToKleisliOps
 ```
 
-件の演算子は [`WriterV`]($scalazBaseUrl$/core/src/main/scala/scalaz/syntax/ToWriterOps.scala) の一部だ:
+件の演算子は [`WriterOps`]($scalazBaseUrl$/core/src/main/scala/scalaz/syntax/WriterOps.scala) の一部だ:
 
 ```scala
-trait WriterV[A] extends Ops[A] {
+final class WriterOps[A](self: A) {
   def set[W](w: W): Writer[W, A] = WriterT.writer(w -> self)
 
   def tell: Writer[A, Unit] = WriterT.tell(self)
