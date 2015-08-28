@@ -97,7 +97,7 @@ We can stack `StateT` to represent state transfer on top of `ReaderTOption`.
 scala> :paste
 // Entering paste mode (ctrl-D to finish)
 
-type StateTReaderTOption[C, S, A] = StateT[({type l[+X] = ReaderTOption[C, X]})#l, S, A]
+type StateTReaderTOption[C, S, A] = StateT[({type l[X] = ReaderTOption[C, X]})#l, S, A]
 
 object StateTReaderTOption extends StateTInstances with StateTFunctions {
   def apply[C, S, A](f: S => (S, A)) = new StateT[({type l[X] = ReaderTOption[C, X]})#l, S, A] {
