@@ -4,7 +4,7 @@ out: Iteratees.html
 
 ### Enumeration-Based I/O with Iteratees
 
-There's another way of handling IOs called Iteratee that is talk of the town. There's [Scalaz Tutorial: Enumeration-Based I/O with Iteratees](http://apocalisp.wordpress.com/2010/10/17/scalaz-tutorial-enumeration-based-io-with-iteratees/) (EBIOI) by Rúnar on Scalaz 5 implementation, but a whole new Iteratee has been added to Scalaz 7.
+There's another way of handling IOs called Iteratee that is talk of the town. There's [Scalaz Tutorial: Enumeration-Based I/O with Iteratees](http://blog.higher-order.com/blog/2010/10/14/scalaz-tutorial-enumeration-based-io-with-iteratees/) (EBIOI) by Rúnar on Scalaz 5 implementation, but a whole new Iteratee has been added to Scalaz 7.
 
 I am going to read EBIOI first:
 
