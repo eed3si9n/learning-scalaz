@@ -12,7 +12,7 @@ CM:
 ![determination](files/day19-h-determination.png)
 
 > <nsbr>2. The 'choice' (or 'lifting') problem<br>
-> Given *g* and *h* as shown, what are all *g*, if any, for which *h = g ∘ f*?
+> Given *g* and *h* as shown, what are all *f*, if any, for which *h = g ∘ f*?
 
 ![choice](files/day19-i-choice.png)
 

@@ -130,7 +130,7 @@ These data must satisfy the following rules:
 The identity laws:
 
 - If *1<sub>A</sub>: A => A, g: A => B*, then *g ∘ 1<sub>A</sub> = g*
-- If *f: A => B, 1<sub>B</sub>: B => B*, then *1<sub>A</sub> ∘ f = f*
+- If *f: A => B, 1<sub>B</sub>: B => B*, then *1<sub>B</sub> ∘ f = f*
 
 The associative law:
 
